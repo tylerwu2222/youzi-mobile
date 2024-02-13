@@ -3,8 +3,8 @@ This app aims to make the process of (re)learning Mandarin more engaging for Ame
 It does not intend to help a new speaker pick up the language, but rather provide an environment for already somewhat fluent, second-language speakers to find daily practice -- learning novel and contemporary content.
 
 ## Social Media
-Tiktok:
-Instagram:
+Tiktok [https://www.tiktok.com/@youzichinese]
+Instagram [https://www.instagram.com/tinykelv/]
 
 ## Members
 This is a capstone project created for Berkeley MIMS, and here are the members:
