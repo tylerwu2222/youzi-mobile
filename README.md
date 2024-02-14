@@ -3,8 +3,8 @@ This app aims to make the process of (re)learning Mandarin more engaging for Ame
 It does not intend to help a new speaker pick up the language, but rather provide an environment for already somewhat fluent, second-language speakers to find daily practice -- learning novel and contemporary content.
 
 ## Social Media
-[](https://cdn2.iconfinder.com/data/icons/social-media-2285/512/1_Instagram_colored_svg_1-1024.png)[Tiktok](https://www.tiktok.com/@youzichinese)  
-[Instagram](https://www.instagram.com/tinykelv/)  
+[![tiktok](https://github.com/tylerwu2222/youzi-mobile/assets/46389320/7ee29059-8bfc-494c-b916-668c47bdb7a8)][1]  
+[![instagram](https://github.com/tylerwu2222/youzi-mobile/assets/46389320/3586df4d-81f7-4106-9fff-9410aef0a117)][2]
 
 ## Members
 This is a capstone project created for Berkeley MIMS, and here are the members:
@@ -13,3 +13,6 @@ This is a capstone project created for Berkeley MIMS, and here are the members:
 - Jo Lu
 - Harris Wang
 - Tyler Wu
+
+[1]: https://www.tiktok.com/@youzichinese
+[2]: https://www.instagram.com/tinykelv/
