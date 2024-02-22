@@ -8,6 +8,7 @@ import { getImage, getHanZiText, getPinYinText, getEnglishText } from '../../scr
 import { StyleSheet } from "react-native";
 import { youziColors } from '../../styles/youziStyles';
 import { youziDimensions } from '../../styles/youziStyles';
+import HanziPinyinBlock from '../Modules/HanziPinyinBlock/HanziPinyinBlock';
 
 const styles = StyleSheet.create({
   promptCard: {
@@ -21,9 +22,23 @@ const styles = StyleSheet.create({
     height: '30%'
   },
   promptTextView: {
+    width: '90%',
     height: '70%'
+  },
+  HanziPinyinBlocksView: {
+    maxWidth: '100%',
+    display: 'flex',
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    justifyContent: 'left',
+    alignItems: 'center'
+  },
+  EnglishText: {
+    fontSize: 20
   }
 })
+
+const dummyChinesePrompt = "我们练习一点中文吧。先讲一讲你学中文的背景！";
 
 export default function PromptCarouselCard() {
   const {
@@ -35,6 +50,8 @@ export default function PromptCarouselCard() {
   const [hanzi, setHanzi] = useState('');
   const [pinyin, setPinyin] = useState('');
   const [english, setEnglish] = useState('');
+
+  const [pinyinVisible, setPinyinVisbile] = useState(true);
 
   useEffect(() => {
     getPinYinText(hanzi);
@@ -48,13 +65,14 @@ export default function PromptCarouselCard() {
           alt="AI Generated Image"
         ></Image>
       </View>
-      <View style={styles.promptText}>
-        <View>
-          <Text>{getPinYinText(promptID)}</Text>
-          <Text>{getHanZiText(promptID)}</Text>
+      <View style={styles.promptTextView}>
+        <View style={styles.HanziPinyinBlocksView}>
+          {Array.from(dummyChinesePrompt).map((hanzi, index) => {
+            return <HanziPinyinBlock key={index} hanziCharacter={hanzi}/>
+          })}
         </View>
-        <View>
-          <Text>{getEnglishText(promptID)}</Text>
+        <View style={styles.EnglishTextView}>
+          <Text style={styles.EnglishText}>{getEnglishText(promptID)}</Text>
         </View>
       </View>
     </View>
