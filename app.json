@@ -25,6 +25,18 @@
     },
     "web": {
       "favicon": "./assets/favicon.png"
-    }
+    },
+    "plugins": [
+      [
+        "expo-font",
+        {
+          "fonts": [
+            "./assets/fonts/ZillaSlab-Regular.ttf",
+            "./assets/fonts/ZillaSlab-SemiBold.ttf",
+            "./assets/fonts/ZillaSlab-Bold.ttf"
+          ]
+        }
+      ]
+    ]
   }
 }

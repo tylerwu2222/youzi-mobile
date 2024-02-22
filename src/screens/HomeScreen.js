@@ -1,7 +1,7 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react';
 
 // components
-import { View, Text, Image } from 'react-native';
+import { ActivityIndicator, FlatList, Text, View, Image } from 'react-native';
 import HomeModeButton from '../components/HomeScreen/HomeModeButton';
 
 // styles
@@ -17,7 +17,11 @@ const styles = StyleSheet.create({
   }
 });
 
+
+
 export default function HomeScreen() {
+
+
   return (
     <View style={youziStyles.centeredView}>
       <Text>

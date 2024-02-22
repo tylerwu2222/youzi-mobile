@@ -1,4 +1,5 @@
-import React, { useState } from 'react'
+import React, { useState, useContext } from 'react'
+import { AppContext } from '../../../App';
 
 import { View, Text, Image, TouchableOpacity, Pressable } from 'react-native'
 
@@ -9,9 +10,12 @@ import { useNavigation } from '@react-navigation/native';
 import { StyleSheet } from "react-native";
 import { youziColors } from '../../styles/youziStyles';
 
-export default function VibeSelectButton({ vibe = "vibe", backgroundImage = "image" }) {
+export default function VibeSelectButton({ id = 0, code = "code", label = "label", backgroundImage = "image" }) {
   const [selected, setSelected] = useState(false);
-
+  const {
+    // vibeID,
+    setVibeID
+  } = useContext(AppContext);
 
   const styles = StyleSheet.create({
     vibeButton: {
@@ -33,9 +37,10 @@ export default function VibeSelectButton({ vibe = "vibe", backgroundImage = "ima
   });
 
   const navigation = useNavigation();
-  const navigateToVibe = (vibe) => {
-    console.log('navigating to', vibe);
-    navigation.navigate('Prompt Select', { vibe: vibe });
+  const navigateToVibe = (label) => {
+    console.log('navigating to', label);
+    // setVibeID()
+    navigation.navigate('Prompt Select', { vibe: label });
   }
 
   return (
@@ -43,25 +48,19 @@ export default function VibeSelectButton({ vibe = "vibe", backgroundImage = "ima
       style={styles.vibeButton}
       onPress={() => {
         setSelected(!selected);
-        navigateToVibe(vibe);
+        setVibeID(id);
+        navigateToVibe(label);
       }}
     >
-      {/* <TouchableOpacity
-      style={styles.vibeButton}
-      onPress={() => {
-        navigateToVibe(vibe)
-      }}
-    > */}
       <Text
         style={styles.vibeButtonText}
-      >{vibe}</Text>
+      >{label}</Text>
       <Image
         // style={styles.tinyImage}
         src={backgroundImage}
         alt={'vibe image'}
       >
       </Image>
-      {/* </TouchableOpacity > */}
     </Pressable >
   )
 }

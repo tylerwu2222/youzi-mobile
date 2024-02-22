@@ -8,38 +8,46 @@ import { StyleSheet } from "react-native";
 import { youziColors } from '../../styles/youziStyles';
 
 const styles = StyleSheet.create({
-    StartPromptButton: {
+    startPromptButtonView: {
         alignItems: 'center',
-        width: '80%',
-        borderRadius: 5,
+    },
+    startPromptButton: {
+        alignItems: 'center',
+        width: '90%',
+        // borderRadius: 5,
         margin: 10,
         padding: 10,
-        backgroundColor: youziColors.buttonBackground,
-        color: youziColors.blackText
+        borderRadius: 10,
+        
+        backgroundColor: youziColors.buttonBackgroundPink,
+
     },
-    homeButtonText: {
-        fontFamily: 'Zilla Slab',
-        fontSize: 20,
+    startPromptButtonText: {
+        color: youziColors.whiteText,
+        // fontFamily: 'Zilla Slab',
+        // fontSize: 20,
     }
 })
 
-export default function StartPromptButton({vibe}) {
+export default function StartPromptButton({ vibe }) {
     const navigation = useNavigation();
     const navigateToResponse = (vibe) => {
         console.log('navigating to response', vibe);
-        navigation.navigate('Prompt Response', {vibe: vibe});
+        navigation.navigate('Prompt Response', { vibe: vibe });
     }
 
     return (
-        <Pressable
-            style={styles.StartPromptButton}
-            onPress={() => {
-                navigateToResponse(vibe);
-            }}
-        >
-            <Text>
-                Start Response
-            </Text>
-        </Pressable>
+        <View style={styles.startPromptButtonView}>
+            <Pressable
+                style={styles.startPromptButton}
+                onPress={() => {
+                    navigateToResponse(vibe);
+                }}
+            >
+                <Text style={styles.startPromptButtonText}>
+                    Start Response
+                </Text>
+            </Pressable>
+        </View>
     )
 }

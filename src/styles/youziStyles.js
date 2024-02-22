@@ -14,7 +14,9 @@ export const youziColors = {
     "buttonBackground": "#FCCB91",
     "buttonBackgroundPress": "#FF6644",
     "buttonBackgroundAccent": "#F74141",
-
+    "buttonBackgroundPink": "#FD7DA1",
+    "cardBackgroundOrange": "#FCCB91",
+    "cardBackgroundYellow": "#F1DC87",
     "blackText": "#000",
     "whiteText": "#fff",
 };
@@ -26,5 +28,14 @@ export const youziStyles = StyleSheet.create({
         justifyContent: 'center',
         paddingTop: 100,
         height: '100%'
+    },
+    headerText: {
+        fontSize: 40,
+        fontFamily: 'Zilla Slab Bold'
+    },
+    subHeaderText: {
+        fontSize: 30,
+        fontWeight: '500',
+        fontFamily: 'Zilla Slab'
     },
 });

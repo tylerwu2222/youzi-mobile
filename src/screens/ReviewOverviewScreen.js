@@ -7,6 +7,13 @@ import { youziStyles } from '../styles/youziStyles';
 import { youziColors } from '../styles/youziStyles';
 import { youziDimensions } from '../styles/youziStyles';
 
+const styles = StyleSheet.create({
+  homeLogo: {
+    width: youziDimensions.vw / 2,
+    height: youziDimensions.vw / 2
+  }
+});
+
 export default function ReviewOverviewScreen() {
   return (
     <View style={youziStyles.centeredView}>
