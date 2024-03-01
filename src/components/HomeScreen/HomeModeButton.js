@@ -34,8 +34,9 @@ export default function HomeModeButton({ text = 'button', mode = 'mode', ...prop
             navigation.navigate('Vibe Select');
         }
         else if (mode == 'review') {
+            navigation.navigate('Review Mode');
             // disable review button for now
-            console.log('review mode not yet implemented')
+            // console.log('review mode not yet implemented')
         }
     }
     return (

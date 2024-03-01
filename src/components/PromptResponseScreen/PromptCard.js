@@ -3,21 +3,18 @@ import React, { useContext } from 'react';
 
 import { AppContext } from '../../../App';
 import { getHanZiText, getPinYinText, getEnglishText } from '../../scripts/promptGetter';
+import HanziPinyinBlock from '../Modules/HanziPinyinBlock/HanziPinyinBlock';
 
 // styles
 import { StyleSheet } from "react-native";
-import { youziColors } from '../../styles/youziStyles';
+import { youziColors, youziStyles } from '../../styles/youziStyles';
+
+// test data
+import { dummyChinesePrompt } from '../../../assets/data/dummy_data';
 
 const styles = StyleSheet.create({
-  promptCard: {
-    alignItems: 'center',
-    width: '100%',
-    height: '70%',
-    borderRadius: 7,
-    backgroundColor: youziColors.cardBackgroundOrange,
-  },
-  promptImageView: {
-    height: '30%'
+  responsePromptCard: {
+    height: '50%'
   },
   promptTextView: {
     height: '70%'
@@ -31,12 +28,15 @@ export default function PromptCard() {
   } = useContext(AppContext);
 
   return (
-    <View>
-      <Text>Prompt</Text>
-      <View style={styles.promptCard}>
-        <Text>{getHanZiText(promptID)}</Text>
-        <Text>{getEnglishText(promptID)}</Text>
-      </View>
+    <View style={[youziStyles.promptCard, styles.responsePromptCard]}>
+      <View style={youziStyles.hanziPinyinBlocksView}>
+          {Array.from(dummyChinesePrompt).map((hanzi, index) => {
+            return <HanziPinyinBlock key={index} hanziCharacter={hanzi}/>
+          })}
+        </View>
+        <View style={youziStyles.englishTextView}>
+          <Text style={youziStyles.englishPromptText}>{getEnglishText(promptID)}</Text>
+        </View>
     </View>
   )
 }

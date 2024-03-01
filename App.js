@@ -3,19 +3,26 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
 // screens
-import HomeScreen from './src/screens/HomeScreen.js';
 import LoadingScreen from './src/screens/LoadingScreen.js';
-import OnboardingScreen from './src/screens/OnboardingScreen.js';
+
+import HomeScreen from './src/screens/HomeScreen.js';
+
+import OnboardingInterestsScreen from './src/screens/OnboardingInterestsScreen.js';
+import OnboardingProfileScreen from './src/screens/OnboardingProfileScreen.js';
+
+import VibeSelectScreen from './src/screens/VibeSelectScreen.js';
 import PromptResponseScreen from './src/screens/PromptResponseScreen.js';
 import PromptSelectScreen from './src/screens/PromptSelectScreen.js';
-import ReviewOverviewScreen from './src/screens/ReviewOverviewScreen.js';
-import VibeSelectScreen from './src/screens/VibeSelectScreen.js';
+
+import ReviewScreen from './src/screens/ReviewScreen.js';
+import ReviewPromptScreen from './src/screens/ReviewPromptScreen.js';
+
 
 // context
 import { createContext, useState } from 'react';
 
 // style
-import { StyleSheet, Text, View } from 'react-native';
+// import { StyleSheet, Text, View } from 'react-native';
 // import { StatusBar } from 'expo-status-bar';
 import { useFonts } from 'expo-font';
 
@@ -33,6 +40,7 @@ export default function App() {
   });
 
   // session variables
+  const [firstLogin, setFirstLogin] = useState(false); // CHANGE THIS TO TOGGLE ONBOARDING OR NOT
   const [vibeID, setVibeID] = useState(1);
   const [promptID, setPromptID] = useState(0);
   const [promptObject, setPromptObject] = useState({});
@@ -55,20 +63,28 @@ export default function App() {
           screenOptions={{
             headerShown: false
           }}>
-          <Stack.Screen
-            name='Home Page'
-            component={HomeScreen}
-            options={{ title: 'Home Page' }}
-          />
+          {firstLogin ?
+            // show onboarding page if first login
+            <Stack.Screen
+              name='Onboarding Interests Page'
+              component={OnboardingInterestsScreen}
+              options={{ title: 'Onboarding Interests' }}
+            /> :
+            // else show home page
+            <Stack.Screen
+              name='Home Page'
+              component={HomeScreen}
+              options={{ title: 'Home' }}
+            />}
           {/* <Stack.Screen
-          name='Loading'
-          component={LoadingScreen}
-          options={{ title: 'Loading' }}
-        /> */}
+            name='Loading'
+            component={LoadingScreen}
+            options={{ title: 'Loading' }}
+          /> */}
           <Stack.Screen
-            name='Onboarding'
-            component={OnboardingScreen}
-            options={{ title: 'Onboarding' }}
+            name='Onboarding Profile'
+            component={OnboardingProfileScreen}
+            options={{ title: 'Onboarding Profile' }}
           />
           <Stack.Screen
             name='Vibe Select'
@@ -87,8 +103,13 @@ export default function App() {
           />
           <Stack.Screen
             name='Review Mode'
-            component={ReviewOverviewScreen}
+            component={ReviewScreen}
             options={{ title: 'Review Mode' }}
+          />
+          <Stack.Screen
+            name='Review Prompt'
+            component={ReviewPromptScreen}
+            options={{ title: 'Review Prompt' }}
           />
         </Stack.Navigator>
       </NavigationContainer>

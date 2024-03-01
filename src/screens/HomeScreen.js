@@ -20,8 +20,6 @@ const styles = StyleSheet.create({
 
 
 export default function HomeScreen() {
-
-
   return (
     <View style={youziStyles.centeredView}>
       <Text>
@@ -33,7 +31,8 @@ export default function HomeScreen() {
 
       </Image>
       <HomeModeButton text={'Prompt mode'} mode={'prompt'} />
-      <HomeModeButton text={'Review mode (Premium)'} mode={'review'} disabled={true} />
+      <HomeModeButton text={'Review mode (Premium)'} mode={'review'} />
+      {/* <HomeModeButton text={'Review mode (Premium)'} mode={'review'} disabled={true} /> */}
       {/* create seperate icon button later */}
       <HomeModeButton text={'Settings'} />
     </View>

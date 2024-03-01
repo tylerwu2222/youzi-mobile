@@ -1,8 +1,5 @@
 import pinyin from "pinyin";
-
-const dummyChinesePrompt = "我们练习一点中文吧。先讲一讲你学中文的背景！";
-const dummyEnglishPrompt = "Let's practice some Chinese. First, talk about your background in learning Chinese!"
-
+import { dummyChinesePrompt, dummyEnglishPrompt } from "../../assets/data/dummy_data";
 export const getImage = (promptID) => {
   // get image based on prompt
   // promptID

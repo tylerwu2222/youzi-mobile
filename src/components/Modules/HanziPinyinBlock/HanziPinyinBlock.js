@@ -6,7 +6,13 @@ import { getPinYinText } from '../../../scripts/promptGetter';
 // styles
 import { StyleSheet } from "react-native";
 
-const styles = StyleSheet.create({
+
+
+export default function HanziPinyinBlock({ hanziCharacter, customPinyinSize = null, customHanziSize = null }) {
+  const pinyinSize = customPinyinSize ? customPinyinSize : 14;
+  const hanziSize = customHanziSize ? customHanziSize : 20;
+
+  const styles = StyleSheet.create({
     HZPYBlock: {
       display: "flex",
       flexDirection: "column",
@@ -14,19 +20,17 @@ const styles = StyleSheet.create({
       margin: 3
       // textAlign: "center"
     },
-    PinyinText: {
-      fontSize: 14
+    pinyinText: {
+      fontSize: pinyinSize
     },
-    HanziText: {
-      fontSize: 20
+    hanziText: {
+      fontSize: hanziSize
     }
   });
-
-export default function HanziPinyinBlock({hanziCharacter}) {
   return (
     <View style={styles.HZPYBlock}>
-      <Text style={styles.PinyinText}>{getPinYinText(hanziCharacter)}</Text>
-      <Text style={styles.HanziText}>{hanziCharacter}</Text>
+      <Text style={styles.pinyinText}>{getPinYinText(hanziCharacter)}</Text>
+      <Text style={styles.hanziText}>{hanziCharacter}</Text>
     </View>
   )
 }

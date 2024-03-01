@@ -12,7 +12,7 @@ import { youziDimensions } from '../../styles/youziStyles';
 
 const styles = StyleSheet.create({
   carouselView: {
-    width: youziDimensions.vw * 4 / 5
+    // width: youziDimensions.vw * 4 / 5
   }
 })
 

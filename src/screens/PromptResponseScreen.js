@@ -10,6 +10,7 @@ import { StyleSheet } from "react-native";
 import { youziStyles } from '../styles/youziStyles';
 import { youziColors } from '../styles/youziStyles';
 import { youziDimensions } from '../styles/youziStyles';
+import PromptVocabCard from '../components/PromptResponseScreen/PromptVocabCard';
 
 const styles = StyleSheet.create({
   homeLogo: {
@@ -21,8 +22,9 @@ export default function PromptResponseScreen() {
   return (
     <View style={youziStyles.centeredView}>
       <Text>Youzi.PromptResponseScreen</Text>
-      <PromptCard/>
-      <ControlsBar/>
+      <PromptCard />
+      <PromptVocabCard />
+      <ControlsBar />
     </View>
   )
 }

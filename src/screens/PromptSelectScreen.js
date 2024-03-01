@@ -1,6 +1,6 @@
 import { View, Text } from 'react-native';
 import React, { useContext } from 'react';
-import {AppContext} from '../../App';
+import { AppContext } from '../../App';
 
 import PromptCarousel from '../components/PromptSelectScreen/PromptCarousel';
 
@@ -28,12 +28,14 @@ export default function PromptSelectScreen() {
   } = useContext(AppContext);
 
   const vibeLabel = vibes.find(obj => obj['id'] === vibeID)['label']
-  
+
   return (
     <View style={youziStyles.centeredView}>
       <Text>Youzi.PromptSelectScreen</Text>
       {/* <Text>Selected vibe ID: {vibeID}</Text> */}
-      <Text style={youziStyles.headerText}>Today's vibe: {vibeLabel}</Text>
+      <View style={youziStyles.headerTextView}>
+        <Text style={youziStyles.headerText}>Today's vibe: {vibeLabel}</Text>
+      </View>
       <PromptCarousel />
     </View>
   )
