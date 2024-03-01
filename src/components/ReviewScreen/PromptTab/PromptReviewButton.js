@@ -21,7 +21,7 @@ export default function PromptReviewButton({ prompt }) {
 
     const navigateToPromptReview = (prompt) => {
         console.log('navigating to prompt review for', prompt);
-        navigation.navigate('Review Prompt', { reviewPrompt: prompt });
+        navigation.navigate('review-prompt-page', { reviewPrompt: prompt });
     };
 
     return (

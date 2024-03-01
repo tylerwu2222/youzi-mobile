@@ -1,6 +1,11 @@
+import { useEffect } from 'react';
+
 // navigation
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
+
+// storage
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 // screens
 import LoadingScreen from './src/screens/LoadingScreen.js';
@@ -40,12 +45,22 @@ export default function App() {
   });
 
   // session variables
-  const [firstLogin, setFirstLogin] = useState(false); // CHANGE THIS TO TOGGLE ONBOARDING OR NOT
+  // const [onboarded, setOnboarded] = useState(true);
+  const [onboarded, setOnboarded] = useState(false);
+
   const [vibeID, setVibeID] = useState(1);
   const [promptID, setPromptID] = useState(0);
   const [promptObject, setPromptObject] = useState({});
   // const [audioResponse, setAudioResponse] = useState('');
   const [textResponse, setTextResponse] = useState('');
+
+  useEffect(() => {
+    getStorage();
+  }, []);
+  const getStorage = async () => {
+    const onboarded = await AsyncStorage.getItem('ONBOARDED');
+    setOnboarded(JSON.parse(onboarded));
+  };
 
   return (
     <AppContext.Provider value={{
@@ -58,56 +73,51 @@ export default function App() {
       textResponse,
       setTextResponse
     }}>
+      {/* RENAME name to dash-notation, keep title the same */}
       <NavigationContainer>
         <Stack.Navigator
           screenOptions={{
             headerShown: false
-          }}>
-          {firstLogin ?
-            // show onboarding page if first login
-            <Stack.Screen
-              name='Onboarding Interests Page'
-              component={OnboardingInterestsScreen}
-              options={{ title: 'Onboarding Interests' }}
-            /> :
-            // else show home page
-            <Stack.Screen
-              name='Home Page'
-              component={HomeScreen}
-              options={{ title: 'Home' }}
-            />}
-          {/* <Stack.Screen
-            name='Loading'
-            component={LoadingScreen}
-            options={{ title: 'Loading' }}
-          /> */}
+          }}
+          initialRouteName={onboarded ? 'home-page' : 'onboarding-interests-page'}
+        >
           <Stack.Screen
-            name='Onboarding Profile'
+            name='onboarding-interests-page'
+            component={OnboardingInterestsScreen}
+            options={{ title: 'Onboarding Interests' }}
+          />
+          <Stack.Screen
+            name='home-page'
+            component={HomeScreen}
+            options={{ title: 'Home' }}
+          />
+          <Stack.Screen
+            name='onboarding-profile-page'
             component={OnboardingProfileScreen}
             options={{ title: 'Onboarding Profile' }}
           />
           <Stack.Screen
-            name='Vibe Select'
+            name='vibe-select-page'
             component={VibeSelectScreen}
             options={{ title: 'Vibe Select' }}
           />
           <Stack.Screen
-            name='Prompt Select'
+            name='prompt-select-page'
             component={PromptSelectScreen}
             options={{ title: 'Prompt Select' }}
           />
           <Stack.Screen
-            name='Prompt Response'
+            name='prompt-response-page'
             component={PromptResponseScreen}
             options={{ title: 'Prompt Response' }}
           />
           <Stack.Screen
-            name='Review Mode'
+            name='review-mode-page'
             component={ReviewScreen}
             options={{ title: 'Review Mode' }}
           />
           <Stack.Screen
-            name='Review Prompt'
+            name='review-prompt-page'
             component={ReviewPromptScreen}
             options={{ title: 'Review Prompt' }}
           />

@@ -31,10 +31,10 @@ export default function HomeModeButton({ text = 'button', mode = 'mode', ...prop
     const navigateToMode = (mode) => {
         console.log('navigating to', mode);
         if (mode == 'prompt') {
-            navigation.navigate('Vibe Select');
+            navigation.navigate('vibe-select-page');
         }
         else if (mode == 'review') {
-            navigation.navigate('Review Mode');
+            navigation.navigate('review-mode-page');
             // disable review button for now
             // console.log('review mode not yet implemented')
         }

@@ -40,7 +40,7 @@ export default function VibeSelectButton({ id = 0, code = "code", label = "label
   const navigateToVibe = (label) => {
     console.log('navigating to', label);
     // setVibeID()
-    navigation.navigate('Prompt Select', { vibe: label });
+    navigation.navigate('prompt-select-page', { vibe: label });
   }
 
   return (

@@ -33,7 +33,7 @@ export default function StartPromptButton({ vibe }) {
     const navigation = useNavigation();
     const navigateToResponse = (vibe) => {
         console.log('navigating to response', vibe);
-        navigation.navigate('Prompt Response', { vibe: vibe });
+        navigation.navigate('prompt-response-page', { vibe: vibe });
     }
 
     return (

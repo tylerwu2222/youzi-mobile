@@ -11,7 +11,7 @@ export default function OnboardingInterestsScreen() {
   const [remainingInterests, setRemainingInterests] = useState(3);
   const navigation = useNavigation();
   const navigateToProfile = () => {
-    navigation.navigate('Onboarding Profile')
+    navigation.navigate('onboarding-profile-page')
   }
 
   return (
