@@ -12,6 +12,7 @@ import { StyleSheet } from "react-native";
 import { youziStyles } from '../styles/youziStyles';
 import { youziColors } from '../styles/youziStyles';
 import { youziDimensions } from '../styles/youziStyles';
+import SettingsButton from '../components/SettingsButton/SettingsButton';
 
 const styles = StyleSheet.create({
   homeLogo: {
@@ -37,6 +38,7 @@ export default function PromptSelectScreen() {
         <Text style={youziStyles.headerText}>Today's vibe: {vibeLabel}</Text>
       </View>
       <PromptCarousel />
+      <SettingsButton/>
     </View>
   )
 }

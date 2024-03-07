@@ -11,7 +11,7 @@ const styles = StyleSheet.create({
     }
 })
 
-export default function PausePlayButton() {
+export default function RecordButton() {
   return (
     <View>
       <Text>PausePlayButton</Text>

@@ -12,12 +12,18 @@ export const youziDimensions = {
 
 export const youziColors = {
     "backgroundPastelOrange": "#F9E7D3",
+
     "buttonBackground": "#FCCB91",
     "buttonBackgroundPress": "#FF6644",
     "buttonBackgroundAccent": "#F74141",
     "buttonBackgroundPink": "#FD7DA1",
+
+    "toggleBackgroundOff": "#FCCB91",
+    "toggleBackgroundOn": "#F74141",
+
     "cardBackgroundOrange": "#FCCB91",
     "cardBackgroundYellow": "#F1DC87",
+    
     "blackText": "#000",
     "whiteText": "#fff",
 };

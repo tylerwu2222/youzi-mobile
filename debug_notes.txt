@@ -1,0 +1,15 @@
+current Async Storage issues:
+
+
+- prompt recordings are persisting across sessions, because json...
+- but NSFW and is_Trad are not... potentially have to do with either:
+1) weird interaction of useState and AS item (this one makes more sense)
+2) boolean value being stored weirdly
+
+existingRecordings works (in AS and state)
+--> model others like this
+
+status:
+-- toggles are now persisting...
+-- setting initial value for onboarded, but this is problematic with initial null value:
+    initialRouteName={onboarded ? 'onboarding-interests-page' : 'home-page'}

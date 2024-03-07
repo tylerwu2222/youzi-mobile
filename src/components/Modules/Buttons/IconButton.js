@@ -1,10 +1,33 @@
-import { View, Text } from 'react-native'
-import React from 'react'
+import { View, Image, Text, Pressable } from 'react-native'
+import React, { cloneElement } from 'react'
 
-export default function IconButton({icon,color}) {
+import SettingsIcon from '@mui/icons-material/Settings';
+
+import { youziColors } from '../../../styles/youziStyles'
+
+import { StyleSheet } from 'react-native';
+
+
+
+export default function IconButton({
+  iconComponent,
+  onPress = () => { },
+  ...props
+}) {
+  const styles = StyleSheet.create({
+    iconButton: {
+      // backgroundColor: iconColor
+    }
+  });
+
   return (
-    <View>
-      <Text>IconButton</Text>
-    </View>
+    <Pressable
+      style={styles.iconButton}
+      onPress={() => { onPress() }}
+      {...props}
+    >
+      {/* <Text>asd</Text> */}
+      {cloneElement(iconComponent)}
+    </Pressable>
   )
 }

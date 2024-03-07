@@ -1,7 +1,7 @@
 import { View, Text } from 'react-native'
 import React from 'react'
 
-import PausePlayButton from './PausePlayButton'
+import RecordButton from './RecordButton'
 import HighlightButton from './HighlightButton'
 
 // styles
@@ -17,7 +17,7 @@ const styles = StyleSheet.create({
 export default function ControlsBar() {
   return (
     <View>
-      <PausePlayButton/>
+      <RecordButton/>
       <HighlightButton/>
     </View>
   )

@@ -9,15 +9,25 @@
     "web": "expo start --web"
   },
   "dependencies": {
+    "@emotion/react": "^11.11.4",
+    "@emotion/styled": "^11.11.0",
+    "@mui/icons-material": "^5.15.11",
+    "@mui/material": "^5.15.11",
     "@react-native-async-storage/async-storage": "^1.22.3",
     "@react-navigation/native": "^6.1.10",
     "@react-navigation/native-stack": "^6.9.18",
+    "bootstrap-icons": "^1.11.3",
+    "chinese-conv": "^1.1.0",
     "expo": "~50.0.6",
+    "expo-av": "~13.10.5",
+    "expo-file-system": "~16.0.7",
     "expo-font": "~11.10.2",
     "expo-status-bar": "~1.11.1",
     "pinyin": "^3.0.0-alpha.4",
     "react": "18.2.0",
-    "react-native": "0.73.4"
+    "react-bootstrap-icons": "^1.11.3",
+    "react-native": "0.73.4",
+    "react-native-vector-icons": "^10.0.3"
   },
   "devDependencies": {
     "@babel/core": "^7.20.0"

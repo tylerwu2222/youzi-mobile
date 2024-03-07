@@ -12,6 +12,7 @@ import { StyleSheet } from "react-native";
 import { youziStyles } from '../styles/youziStyles';
 import { youziColors } from '../styles/youziStyles';
 import { youziDimensions } from '../styles/youziStyles';
+import SettingsButton from '../components/SettingsButton/SettingsButton';
 
 const styles = StyleSheet.create({
   reviewView: {
@@ -50,6 +51,7 @@ export default function ReviewScreen() {
           {activeTab == review_tabs[1] && <PromptTab />}
           {activeTab == review_tabs[2] && <JourneyTab />}
         </View>
+        <SettingsButton/>
       </View >
     </ReviewContext.Provider>
   )

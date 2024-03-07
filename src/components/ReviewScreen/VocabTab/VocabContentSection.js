@@ -5,6 +5,7 @@ import { VocabTabContext } from './VocabTab';
 import ToggleableTouchable from '../../Modules/ToggleableTouchable/ToggleableTouchable'
 
 import { dummyChineseVocab } from '../../../../assets/data/dummy_data'
+import ChineseText from '../../Modules/ChineseText/ChineseText';
 
 const styles = StyleSheet.create({
     vocabContentView: {
@@ -41,7 +42,7 @@ export default function VocabContentSection({ sectionTitle }) {
 
     // get vocab data from user (backend) based on sectionTitle
     const shortListVocab = dummyChineseVocab;
-    const fullListVocab = dummyChineseVocab.concat(shuffleArray(dummyChineseVocab), shuffleArray(dummyChineseVocab),shuffleArray(dummyChineseVocab))
+    const fullListVocab = dummyChineseVocab.concat(shuffleArray(dummyChineseVocab), shuffleArray(dummyChineseVocab), shuffleArray(dummyChineseVocab))
     const [displayedVocab, setDisplayedVocab] = useState(shortListVocab);
     const [vocabExpanded, setVocabExpanded] = useState(false);
 
@@ -62,9 +63,18 @@ export default function VocabContentSection({ sectionTitle }) {
     return (
         <View style={styles.vocabContentView}>
             {displayedVocab.map((v, i) => {
-                return <ToggleableTouchable key={i} handlePress={() => { displayModal(v) }} text={v} />
+                return <ToggleableTouchable
+                    key={i}
+                    handlePress={() => { displayModal(v) }}
+                    text={<ChineseText chineseText={v} />}
+                // text={v} 
+                />
             })}
-            {!vocabExpanded && <ToggleableTouchable text={'...'} handlePress={() => { expandVocab() }} />}
+            {!vocabExpanded &&
+                <ToggleableTouchable
+                    text={'...'}
+                    handlePress={() => { expandVocab() }}
+                />}
         </View>
     )
 }
