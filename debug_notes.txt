@@ -1,3 +1,5 @@
+
+3/7/24
 current Async Storage issues:
 
 
@@ -13,3 +15,15 @@ status:
 -- toggles are now persisting...
 -- setting initial value for onboarded, but this is problematic with initial null value:
     initialRouteName={onboarded ? 'onboarding-interests-page' : 'home-page'}
+
+
+ChineseText component:
+- I can nest text components w/in e/o, so I can nest dynamic S/T component w/in chinglish components
+
+
+3/15/24
+
+added react-native-voice to handle audio to transcription; will replace Expo AV for recording audio
+
+- first test with en-US --> see if I can get transcript
+- then test with mandarin

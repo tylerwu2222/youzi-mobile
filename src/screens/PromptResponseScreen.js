@@ -1,9 +1,12 @@
 import { View, Text, Button } from 'react-native'
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 
 // audio
 import { Audio } from 'expo-av';
+import Voice from '@react-native-voice/voice';
+// import Voice from '@react-native-voice/voice/dist/voice';
 import * as FileSystem from 'expo-file-system';
+
 
 // components
 import PromptCard from '../components/PromptResponseScreen/PromptCard';
@@ -32,8 +35,115 @@ const styles = StyleSheet.create({
 // 3) else, save on device
 
 export default function PromptResponseScreen() {
+  // expo-audio
   const [recording, setRecording] = useState();
   const [permissionResponse, requestPermission] = Audio.usePermissions();
+
+  // RN voice
+  // const [recognized, setRecognized] = useState('');
+  // const [pitch, setPitch] = useState('');
+  // const [error, setError] = useState('');
+  // const [end, setEnd] = useState('');
+  // const [started, setStarted] = useState('');
+  // const [results, setResults] = useState([]);
+  // const [partialResults, setPartialResults] = useState([]);
+
+  // useEffect(() => {
+  //   Voice.onSpeechStart = onSpeechStart;
+  //   Voice.onSpeechRecognized = onSpeechRecognized;
+  //   Voice.onSpeechEnd = onSpeechEnd;
+  //   Voice.onSpeechError = onSpeechError;
+  //   Voice.onSpeechResults = onSpeechResults;
+  //   Voice.onSpeechPartialResults = onSpeechPartialResults;
+  //   Voice.onSpeechVolumeChanged = onSpeechVolumeChanged;
+
+  //   return () => {
+  //     Voice.destroy().then(Voice.removeAllListeners);
+  //   };
+  // }, []);
+
+  // const onSpeechStart = (e) => {
+  //   console.log('onSpeechStart: ', e);
+  //   setStarted('√');
+  // };
+
+  // const onSpeechRecognized = (e) => {
+  //   console.log('onSpeechRecognized: ', e);
+  //   setRecognized('√');
+  // };
+
+  // const onSpeechEnd = (e) => {
+  //   console.log('onSpeechEnd: ', e);
+  //   setEnd('√');
+  // };
+
+  // const onSpeechError = (e) => {
+  //   console.log('onSpeechError: ', e);
+  //   setError(JSON.stringify(e.error));
+  // };
+
+  // const onSpeechResults = (e) => {
+  //   console.log('onSpeechResults: ', e);
+  //   setResults(e.value);
+  // };
+
+  // const onSpeechPartialResults = (e) => {
+  //   console.log('onSpeechPartialResults: ', e);
+  //   setPartialResults(e.value);
+  // };
+
+  // const onSpeechVolumeChanged = (e) => {
+  //   console.log('onSpeechVolumeChanged: ', e);
+  //   setPitch(e.value);
+  // };
+
+  // const startRecognizing = async () => {
+  //   setRecognized('');
+  //   setPitch('');
+  //   setError('');
+  //   setStarted('');
+  //   setResults([]);
+  //   setPartialResults([]);
+  //   setEnd('');
+
+  //   try {
+  //     console.log('starting Voice');
+  //     await Voice.start('en-US');
+  //   } catch (e) {
+  //     console.error('voice start error', e);
+  //   }
+  // };
+
+  // const stopRecognizing = async () => {
+  //   try {
+  //     await Voice.stop();
+  //   } catch (e) {
+  //     console.error(e);
+  //   }
+  // };
+
+  // const cancelRecognizing = async () => {
+  //   try {
+  //     await Voice.cancel();
+  //   } catch (e) {
+  //     console.error(e);
+  //   }
+  // };
+
+  // const destroyRecognizer = async () => {
+  //   try {
+  //     await Voice.destroy();
+  //   } catch (e) {
+  //     console.error(e);
+  //   }
+  //   setRecognized('');
+  //   setPitch('');
+  //   setError('');
+  //   setStarted('');
+  //   setResults([]);
+  //   setPartialResults([]);
+  //   setEnd('');
+  // };
 
   async function startRecording() {
     try {
@@ -55,6 +165,10 @@ export default function PromptResponseScreen() {
       console.error('Failed to start recording', err);
     }
   }
+
+  // async function startRecording() {
+  //   Voice.start('en-US');
+  // };
 
 
   async function stopRecording() {
@@ -105,7 +219,32 @@ export default function PromptResponseScreen() {
         title={recording ? 'Stop Recording' : 'Start Recording'}
         onPress={recording ? stopRecording : startRecording}
       />
-      <SettingsButton/>
+      {/* <Button
+        title={'Start Recording'}
+        onPress={startRecognizing}
+      />
+      <Button
+        title={'Stop Recording'}
+        onPress={stopRecognizing}
+      />
+      <Text style={styles.stat}>{`Started: ${started}`}</Text>
+      <Text style={styles.stat}>{`Recognized: ${recognized}`}</Text>
+      <Text style={styles.stat}>{`Pitch: ${pitch}`}</Text>
+      <Text style={styles.stat}>{`Error: ${error}`}</Text>
+      <Text style={styles.stat}>Results</Text>
+      {results.map((result, index) => (
+        <Text key={`result-${index}`} style={styles.stat}>
+          {result}
+        </Text>
+      ))}
+      <Text style={styles.stat}>Partial Results</Text>
+      {partialResults.map((result, index) => (
+        <Text key={`partial-result-${index}`} style={styles.stat}>
+          {result}
+        </Text>
+      ))}
+      <Text style={styles.stat}>{`End: ${end}`}</Text> */}
+      <SettingsButton />
     </View>
   )
 }
