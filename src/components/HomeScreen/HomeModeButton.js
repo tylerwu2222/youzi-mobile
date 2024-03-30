@@ -29,7 +29,7 @@ const styles = StyleSheet.create({
 export default function HomeModeButton({ text = 'button', mode = 'mode', ...props }) {
     const navigation = useNavigation();
     const navigateToMode = (mode) => {
-        console.log('navigating to', mode);
+        // console.log('navigating to', mode);
         if (mode == 'prompt') {
             navigation.navigate('vibe-select-page');
         }

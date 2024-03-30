@@ -29,7 +29,8 @@ export default function PromptReviewButton({ prompt, promptNumber }) {
     const styles = StyleSheet.create({
         promptView: {
             width: '100%',
-            margin: 10
+            marginTop: 10,
+            marginBottom: 10
         },
         promptPressable: {
             flexDirection: 'row',
@@ -44,7 +45,8 @@ export default function PromptReviewButton({ prompt, promptNumber }) {
             display: promptOptionVisibility ? 'block' : 'none'
         },
         promptToggleChevron: {
-
+            padding: 5,
+            paddingRight: 6
         }
     });
 
@@ -90,10 +92,14 @@ export default function PromptReviewButton({ prompt, promptNumber }) {
 
                 {/* toggle icon */}
                 <IconButton
+                    onPress={() => {
+                        // navigateToPromptReview(prompt, promptNumber);
+                        togglePromptAccordion();
+                    }}
                     iconComponent={
                         accordionVisible ?
-                            <Entypo name="chevron-down" size={24} color="black" /> :
-                            <Entypo name="chevron-right" size={24} color="black" />
+                            <Entypo name="chevron-down" size={24} color="black" style={styles.promptToggleChevron} /> :
+                            <Entypo name="chevron-right" size={24} color="black" style={styles.promptToggleChevron} />
                     }
                     style={styles.promptToggleChevron}
                 />

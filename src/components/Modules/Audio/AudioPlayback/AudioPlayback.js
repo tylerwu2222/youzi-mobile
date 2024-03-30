@@ -12,13 +12,13 @@ const styles = StyleSheet.create({
 });
 
 
-export default function AudioPlayback() {
+export default function AudioPlayback({ promptNumber }) {
   return (
     <View style={styles.audioPlaybackContainer}>
       <Text>AudioPlayback</Text>
       <View></View>
       <Slider />
-      <PlayRecordingButton />
+      <PlayRecordingButton promptNumber={promptNumber} />
     </View>
   )
 }

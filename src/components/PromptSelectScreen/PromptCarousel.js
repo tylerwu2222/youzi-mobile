@@ -1,7 +1,7 @@
 import { View, Text } from 'react-native'
 import React from 'react'
 
-import PromptCarouselCard from './PromptCarouselCard'
+import PromptCard from '../Modules/PromptCard/PromptCard'
 import CarouselNavigationButton from './CarouselNavigationButton'
 import StartPromptButton from './StartPromptButton'
 
@@ -20,7 +20,7 @@ const styles = StyleSheet.create({
 export default function PromptCarousel() {
   return (
     <View style={styles.carouselView}>
-      <PromptCarouselCard />
+      <PromptCard />
       <StartPromptButton />
     </View>
   )

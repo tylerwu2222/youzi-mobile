@@ -1,13 +1,12 @@
 import React, { useState, useContext } from 'react'
 import { AppContext } from '../../../App';
 
-import { View, Text, Image, TouchableOpacity, Pressable } from 'react-native'
+import { View, Text, Image, TouchableOpacity, Pressable, StyleSheet } from 'react-native'
 
 // navigation
 import { useNavigation } from '@react-navigation/native';
 
 // styles
-import { StyleSheet } from "react-native";
 import { youziColors } from '../../styles/youziStyles';
 
 export default function VibeSelectButton({ id = 0, code = "code", label = "label", backgroundImage = "image" }) {
@@ -25,6 +24,8 @@ export default function VibeSelectButton({ id = 0, code = "code", label = "label
       height: 100,
       borderRadius: 5,
       margin: 10,
+      marginTop: 30,
+      marginBottom: 30,
       padding: 10,
       // backgroundColor: youziColors.buttonBackground,
       backgroundColor: selected ? youziColors.buttonBackgroundPress : youziColors.buttonBackground,

@@ -21,7 +21,8 @@ export default function PlayRecordingButton({ promptNumber }) {
 
     // plays prompt response for ID
     async function playPromptResponse(responseID = 1) {
-        // console.log('response id', responseID);
+        // responseID = responseID - 1;
+        console.log('response id', responseID, typeof responseID);
         // get matching recording
         const recordings_string = await AsyncStorage.getItem('PROMPT_RECORDINGS');
         const recordings = JSON.parse(recordings_string);
@@ -42,7 +43,7 @@ export default function PlayRecordingButton({ promptNumber }) {
         }
         // else, pause response, then set icon to play
         else if (buttonIcon == 'pausecircle') {
-
+            // pausePromptResponse
             setButtonIcon('play');
         }
 

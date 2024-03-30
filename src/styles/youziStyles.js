@@ -4,6 +4,7 @@ import { StyleSheet, Dimensions } from "react-native";
 
 export const youziDimensions = {
     "vw": Dimensions.get('window').width,
+    "paddedWidth": Dimensions.get('window').width * 4 / 5,
     "vh": Dimensions.get('window').height
 };
 
@@ -23,9 +24,10 @@ export const youziColors = {
 
     "cardBackgroundOrange": "#FCCB91",
     "cardBackgroundYellow": "#F1DC87",
-    
+
     "blackText": "#000",
     "whiteText": "#fff",
+    "hyperlinkText": "#2163de"
 };
 
 export const youziStyles = StyleSheet.create({
@@ -41,7 +43,7 @@ export const youziStyles = StyleSheet.create({
         fontFamily: 'Zilla Slab Bold'
     },
     headerTextView: {
-        width: youziDimensions.vw * 4 / 5
+        width: youziDimensions.paddedWidth
     },
     subHeaderText: {
         fontSize: 30,
@@ -60,8 +62,9 @@ export const youziStyles = StyleSheet.create({
     },
     promptCard: {
         alignItems: 'center',
-        width: youziDimensions.vw * 4 / 5,
+        width: youziDimensions.paddedWidth,
         height: '70%',
+        padding: youziDimensions.vw * 1 / 13,
         borderRadius: 7,
         backgroundColor: youziColors.cardBackgroundOrange,
     },
@@ -74,7 +77,8 @@ export const youziStyles = StyleSheet.create({
         alignItems: 'center'
     },
     englishPromptText: {
-        fontSize: 20
+        fontSize: 20,
+        textAlign: 'justify'
     },
     shortInput: {
 

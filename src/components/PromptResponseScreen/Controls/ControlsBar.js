@@ -9,16 +9,16 @@ import { StyleSheet } from "react-native";
 import { youziColors } from '../../../styles/youziStyles';
 
 const styles = StyleSheet.create({
-    className: {
-        alignItems: 'center'
-    }
+  controlsBarView: {
+    position: 'absolute',
+    bottom: 5
+  }
 })
 
 export default function ControlsBar() {
   return (
-    <View>
-      <RecordButton/>
-      <HighlightButton/>
+    <View style={styles.controlsBarView}>
+      <RecordButton />
     </View>
   )
 }

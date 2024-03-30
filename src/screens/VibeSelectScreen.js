@@ -3,14 +3,16 @@ import React, { useContext } from 'react'
 
 
 // components
-import { View, Text, ScrollView } from 'react-native'
+import { View, Text, ScrollView, StyleSheet } from 'react-native'
 import VibeSelectButton from '../components/VibeSelectScreen/VibeSelectButton';
+
+import HomeButton from '../components/NavigationButtons/HomeButton/HomeButton';
+import SettingsButton from '../components/NavigationButtons/SettingsButton/SettingsButton';
 
 // data
 import { vibes } from '../../assets/data/vibes';
 
 // styles
-import { StyleSheet } from "react-native";
 import { youziStyles } from '../styles/youziStyles';
 import { youziColors } from '../styles/youziStyles';
 import { youziDimensions } from '../styles/youziStyles';
@@ -26,13 +28,18 @@ const styles = StyleSheet.create({
 export default function VibeSelectScreen() {
   return (
     <View style={youziStyles.centeredView}>
-      <Text>Youzi.VibeSelectScreen</Text>
-      <Text style={youziStyles.headerText}>
+      {/* <Text>Youzi.VibeSelectScreen</Text> */}
+      <SettingsButton />
+      <HomeButton />
+      {/* <Text style={youziStyles.headerText}>
         What are the vibes today?
+      </Text> */}
+      <Text style={youziStyles.headerText}>
+        Choose today's vibe
       </Text>
-      <Text style={youziStyles.subHeaderText}>
+      {/* <Text style={youziStyles.subHeaderText}>
         Choose the vibe of your prompts
-      </Text>
+      </Text> */}
       <ScrollView
         style={styles.vibeView}
       >

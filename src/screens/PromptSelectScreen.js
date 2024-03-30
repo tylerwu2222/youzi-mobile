@@ -1,4 +1,4 @@
-import { View, Text } from 'react-native';
+import { View, Text, StyleSheet } from 'react-native';
 import React, { useContext } from 'react';
 import { AppContext } from '../../App';
 
@@ -8,11 +8,11 @@ import PromptCarousel from '../components/PromptSelectScreen/PromptCarousel';
 import { vibes } from '../../assets/data/vibes';
 
 // styles
-import { StyleSheet } from "react-native";
 import { youziStyles } from '../styles/youziStyles';
 import { youziColors } from '../styles/youziStyles';
 import { youziDimensions } from '../styles/youziStyles';
-import SettingsButton from '../components/SettingsButton/SettingsButton';
+import HomeButton from '../components/NavigationButtons/HomeButton/HomeButton';
+import SettingsButton from '../components/NavigationButtons/SettingsButton/SettingsButton';
 
 const styles = StyleSheet.create({
   homeLogo: {
@@ -35,10 +35,14 @@ export default function PromptSelectScreen() {
       <Text>Youzi.PromptSelectScreen</Text>
       {/* <Text>Selected vibe ID: {vibeID}</Text> */}
       <View style={youziStyles.headerTextView}>
-        <Text style={youziStyles.headerText}>Today's vibe: {vibeLabel}</Text>
+        <Text style={youziStyles.headerText}>Today's prompts</Text>
+      </View>
+      <View style={youziStyles.headerTextView}>
+        <Text style={youziStyles.subHeaderText}>{vibeLabel}</Text>
       </View>
       <PromptCarousel />
-      <SettingsButton/>
+      <HomeButton />
+      <SettingsButton />
     </View>
   )
 }

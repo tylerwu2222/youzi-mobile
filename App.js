@@ -52,17 +52,17 @@ export default function App() {
       await AsyncStorage.setItem(key, JSON.stringify(initial_value));
     }
     if (initial_value !== null) {
-      console.log('initial value provided', initial_value);
+      // console.log('initial value provided', initial_value);
       updateData();
     }
     else {
-      console.log('initial value not provided')
+      // console.log('initial value not provided')
     }
 
     // else, just get ASYNC
     const string_value = await AsyncStorage.getItem(key);
     const value = JSON.parse(string_value);
-    console.log('initial', key, 'value:', value);
+    // console.log('initial', key, 'value:', value);
     // if (typeof value == 'boolean') {
     // console.log(key, value, 'is boolean', value);
     return value;
@@ -72,6 +72,7 @@ export default function App() {
   // session variables
   const [onboarded, setOnboarded] = useState(null); // modify manually for now
   const [isTraditional, setIsTraditional] = useState(null);
+  const [showPinyin, setShowPinyin] = useState(null);
   const [allowNSFWPrompts, setAllowNSFWPrompts] = useState(null);
 
   const [vibeID, setVibeID] = useState(1);
@@ -123,6 +124,8 @@ export default function App() {
       setTextResponse,
       isTraditional,
       setIsTraditional,
+      showPinyin,
+      setShowPinyin,
       allowNSFWPrompts,
       setAllowNSFWPrompts
     }}>
@@ -130,7 +133,8 @@ export default function App() {
         <NavigationContainer>
           <Stack.Navigator
             screenOptions={{
-              headerShown: false
+              headerShown: false,
+              animation: 'slide_from_right'
             }}
             initialRouteName={onboarded ? 'home-page' : 'onboarding-interests-page'}
           >
@@ -142,7 +146,11 @@ export default function App() {
             <Stack.Screen
               name='home-page'
               component={HomeScreen}
-              options={{ title: 'Home' }}
+              options={{
+                title: 'Home',
+                presentation: 'modal',
+                animation: 'slide_from_right'
+              }}
             />
             <Stack.Screen
               name='onboarding-profile-page'
@@ -177,7 +185,11 @@ export default function App() {
             <Stack.Screen
               name='settings-page'
               component={SettingsScreen}
-              options={{ title: 'Settings' }}
+              options={{
+                title: 'Settings',
+                presentation: 'modal',
+                animation: 'slide_from_left'
+              }}
             />
           </Stack.Navigator>
         </NavigationContainer>

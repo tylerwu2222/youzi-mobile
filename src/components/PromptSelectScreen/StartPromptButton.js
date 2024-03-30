@@ -13,12 +13,13 @@ const styles = StyleSheet.create({
     },
     startPromptButton: {
         alignItems: 'center',
-        width: '90%',
+        width: '100%',
         // borderRadius: 5,
         margin: 10,
         padding: 10,
+        paddingTop: 20,
+        paddingBottom: 20,
         borderRadius: 10,
-        
         backgroundColor: youziColors.buttonBackgroundPink,
 
     },

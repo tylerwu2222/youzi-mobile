@@ -12,3 +12,7 @@ export const dummyChineseVocab = [
 export const dummyChinesePrompts = Array(5).fill(dummyChinesePrompt);
 
 export const dummyOnboardingInterests = Array(5).fill(['memes', 'more memes', 'even more memes']).flat();
+
+export const dummyBadges = ['5-day-streak', '10-day-streak', '20-day-streak', 'rare-word-user', 'small-talker', 'gossiper', 'traumatized'];
+
+export const dummyMedia = '我们的少年时代';

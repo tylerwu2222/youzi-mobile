@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 
 // components
+import { StyleSheet } from 'react-native';
 import { ActivityIndicator, FlatList, Text, View, Image } from 'react-native';
 import HomeModeButton from '../components/HomeScreen/HomeModeButton';
 
@@ -8,12 +9,12 @@ import HomeModeButton from '../components/HomeScreen/HomeModeButton';
 
 
 // styles
-import { StyleSheet } from "react-native";
+import { } from "react-native";
 import { youziColors, youziStyles } from '../styles/youziStyles';
 // import { youziColors } from '../styles/youziStyles';
 import { youziDimensions } from '../styles/youziStyles';
 import IconButton from '../components/Modules/Buttons/IconButton';
-import SettingsButton from '../components/SettingsButton/SettingsButton';
+import SettingsButton from '../components/NavigationButtons/SettingsButton/SettingsButton';
 
 const styles = StyleSheet.create({
   homeLogo: {
@@ -40,7 +41,7 @@ export default function HomeScreen() {
         mode={'review'} />
       {/* <HomeModeButton text={'Review mode (Premium)'} mode={'review'} disabled={true} /> */}
       {/* create seperate icon button later */}
-      <SettingsButton/>
+      <SettingsButton />
       {/* <IconButton
         iconComponent={<AntDesign name="setting" size={40} color={youziColors.buttonBackgroundAccent} />}
         onPress={() => { navigateToSettings() }}

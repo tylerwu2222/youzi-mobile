@@ -27,3 +27,14 @@ added react-native-voice to handle audio to transcription; will replace Expo AV 
 
 - first test with en-US --> see if I can get transcript
 - then test with mandarin
+
+
+3/19/24
+
+- audio async storage issue: deleting: first item will stick around? so all items pushed back by 1
+- also need to stop recording on screen exit/app close
+- don't need components > prompt review screen anymore
+
+3/25/24
+- 
+

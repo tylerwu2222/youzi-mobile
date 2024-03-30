@@ -8,15 +8,15 @@ import { AntDesign } from '@expo/vector-icons';
 
 // styles
 import { StyleSheet } from "react-native";
-import { youziColors, youziStyles, youziDimensions } from '../../styles/youziStyles';
-import IconButton from '../Modules/Buttons/IconButton';
+import { youziColors, youziStyles, youziDimensions } from '../../../styles/youziStyles';
+import IconButton from '../../Modules/Buttons/IconButton';
 
 const styles = StyleSheet.create({
     settingsButton: {
         // backgroundColor: 'black',
         position: 'absolute',
         top: youziDimensions.vh / 18,
-        right: 20
+        left: 20
     }
 });
 
