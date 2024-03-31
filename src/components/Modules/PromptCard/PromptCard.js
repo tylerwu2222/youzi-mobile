@@ -47,6 +47,7 @@ export default function PromptCard({
   const heightAnim = useRef(new Animated.Value(0)).current;
 
   const toggleEnglish = () => {
+    console.log('toggling english')
     setExpanded(!expanded);
     Animated.timing(heightAnim, {
       toValue: expanded ? 0 : 125, // Adjust the height value as needed

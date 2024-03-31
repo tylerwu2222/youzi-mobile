@@ -6,7 +6,7 @@ import React, { useEffect, useState, createContext } from 'react'
 import { dummyChinesePrompt } from '../../../../assets/data/dummy_data';
 
 // components
-import PromptReviewButton from './PromptReviewButton';
+import PromptReviewItem from './PromptReviewItem.js';
 import SearchBar from '../../Modules/TextInput/SearchBar.js';
 
 // storage
@@ -19,15 +19,17 @@ const styles = StyleSheet.create({
   promptView: {
     width: '100%',
     padding: youziDimensions.vw / 15,
-    paddingBottom: youziDimensions.vh / 10
+    paddingTop: 0
     // width: youziDimensions.vw / 2
   },
   searchBarView: {
     width: '100%',
-    // padding: youziDimensions.vw / 15
+    padding: youziDimensions.vw / 15,
+    paddingBottom: 0
   },
   recordingsView: {
-    width: '100%'
+    width: '100%',
+    paddingBottom: youziDimensions.vh / 10
   }
 });
 
@@ -84,14 +86,14 @@ export default function PromptTab() {
         setPromptOptionVisibility
       }}
     >
+      <View style={styles.searchBarView}>
+        <SearchBar onChange={searchPrompts()} />
+      </View>
       <ScrollView style={styles.promptView}>
-        <View style={styles.searchBarView}>
-          <SearchBar onChange={searchPrompts()} />
-        </View>
         <View style={styles.recordingsView}>
           {existingRecordings && existingRecordings.map((recording, index) => {
             // ideally show audio transcript (start of recording) with prompt
-            return <PromptReviewButton key={index} prompt={dummyChinesePrompt} promptNumber={index} />
+            return <PromptReviewItem recording={recording} />
           })}
         </View>
       </ScrollView>

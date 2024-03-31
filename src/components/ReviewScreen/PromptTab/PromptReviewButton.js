@@ -20,7 +20,7 @@ import { youziColors, youziStyles } from '../../../styles/youziStyles';
 import IconButton from '../../Modules/Buttons/IconButton';
 
 
-export default function PromptReviewButton({ prompt, promptNumber }) {
+export default function PromptReviewButton({ recording, onPressFn = () => { }, expanded = false }) {
     const {
         promptOptionVisibility,
         setPromptOptionVisibility
@@ -38,6 +38,7 @@ export default function PromptReviewButton({ prompt, promptNumber }) {
             justifyContent: 'space-between', // push caret to right
             backgroundColor: youziColors.buttonBackground,
             padding: 10,
+            marginBottom: 0,
             borderRadius: 5,
         },
         promptPressableDelete: {
@@ -50,7 +51,7 @@ export default function PromptReviewButton({ prompt, promptNumber }) {
         }
     });
 
-    const [accordionVisible, setAccordionVisible] = useState(false);
+    // const [accordionVisible, setAccordionVisible] = useState(false);
     // const navigation = useNavigation();
 
     // short press: navigate to prompt screen
@@ -62,9 +63,9 @@ export default function PromptReviewButton({ prompt, promptNumber }) {
     //     });
     // };
     // short press: toggle prompt accordion
-    const togglePromptAccordion = () => {
-        setAccordionVisible(!accordionVisible);
-    };
+    // const togglePromptAccordion = () => {
+    //     setAccordionVisible(!accordionVisible);
+    // };
 
     // long press: toggle prompt options ()
 
@@ -76,16 +77,17 @@ export default function PromptReviewButton({ prompt, promptNumber }) {
             <Pressable
                 style={styles.promptPressable}
                 onPress={() => {
+                    console.log(recording.id, 'short pressed')
                     // navigateToPromptReview(prompt, promptNumber);
-                    togglePromptAccordion();
+                    onPressFn();
                 }}
                 onLongPress={() => {
-                    console.log(promptNumber, 'long pressed');
-                    setPromptOptionVisibility(true);
+                    console.log(recording.id, 'long pressed');
+                    setPromptOptionVisibility(!promptOptionVisibility);
                 }}
             >
                 {/* prompt title */}
-                <Text>{promptNumber}: Prompt Title</Text>
+                <Text>{recording.id}: Prompt Title</Text>
                 {/* <ChineseText chineseText={promptNumber + ':' + prompt} /> */}
 
                 {/* response level + date */}
@@ -94,10 +96,10 @@ export default function PromptReviewButton({ prompt, promptNumber }) {
                 <IconButton
                     onPress={() => {
                         // navigateToPromptReview(prompt, promptNumber);
-                        togglePromptAccordion();
+                        onPressFn();
                     }}
                     iconComponent={
-                        accordionVisible ?
+                        expanded ?
                             <Entypo name="chevron-down" size={24} color="black" style={styles.promptToggleChevron} /> :
                             <Entypo name="chevron-right" size={24} color="black" style={styles.promptToggleChevron} />
                     }
@@ -105,9 +107,7 @@ export default function PromptReviewButton({ prompt, promptNumber }) {
                 />
             </Pressable>
             {/* delete icon */}
-            <PromptDeleteButton promptNumber={promptNumber} />
-            {/* expandable accordion */}
-            <PromptAccordion visible={accordionVisible} prompt={prompt} promptNumber={promptNumber} response={"To add once transcript works"} />
+            <PromptDeleteButton promptNumber={recording.id} />
         </View >
     )
 }

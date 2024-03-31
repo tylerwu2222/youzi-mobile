@@ -25,12 +25,14 @@ const styles = StyleSheet.create({
     }
 });
 
-export default function ExpandButton({ onPressFn = () => { }, expanded = false }) {
+export default function ExpandButton({
+    onPressFn = () => { },
+    expanded = false }) {
     return (
         <View style={styles.ExpandButtonView}>
             <IconButton
                 iconComponent={
-                <MaterialIcons name={expanded ? "keyboard-arrow-up" : "keyboard-arrow-down"} size={24} color={youziColors.whiteText} />}
+                    <MaterialIcons name={expanded ? "keyboard-arrow-up" : "keyboard-arrow-down"} size={24} color={youziColors.whiteText} />}
                 onPress={() => { onPressFn() }}
             />
         </View>

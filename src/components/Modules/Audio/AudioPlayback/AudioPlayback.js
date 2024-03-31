@@ -7,7 +7,8 @@ import PlayRecordingButton from '../../../ReviewPromptScreen/PlayRecordingButton
 const styles = StyleSheet.create({
   audioPlaybackContainer: {
     flexDirection: 'column',
-    alignItems: 'center'
+    alignItems: 'center',
+    marginBottom: 20
   }
 });
 

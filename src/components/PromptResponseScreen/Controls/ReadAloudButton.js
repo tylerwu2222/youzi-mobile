@@ -31,6 +31,7 @@ export default function ReadAloudButton({ text = 'read this aloud' }) {
     };
 
     const pauseReadingText = () => {
+        console.log('audio stopped');
         Speech.stop();
         // Speech.pause();
         setIsReading(false);
