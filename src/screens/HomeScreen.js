@@ -26,19 +26,17 @@ const styles = StyleSheet.create({
 export default function HomeScreen() {
   return (
     <View style={youziStyles.centeredView}>
-      <Text>
-        Youzi.HomeScreen
-      </Text>
-      <Image
-        style={styles.homeLogo}
-        source={require('../../assets/icons/youzi_logo.png')}>
-      </Image>
+      {/* <Text>Youzi.HomeScreen</Text> */}
       <HomeModeButton
-        text={'Prompt mode'}
-        mode={'prompt'} />
+        text={'Conversation'}
+        mode={'prompt'}
+        backgroundImage={'mascot'}
+      />
       <HomeModeButton
-        text={'Review mode (Premium)'}
-        mode={'review'} />
+        text={'Review '}
+        mode={'review'}
+        backgroundImage={'mascotGlasses'}
+      />
       {/* <HomeModeButton text={'Review mode (Premium)'} mode={'review'} disabled={true} /> */}
       {/* create seperate icon button later */}
       <SettingsButton />
