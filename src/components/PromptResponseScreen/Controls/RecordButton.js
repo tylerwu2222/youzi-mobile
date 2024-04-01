@@ -123,6 +123,7 @@ export default function RecordButton() {
 
     const newRecording = {
       id: existingRecordings == null ? 0 : existingRecordings.length, // Incremented id (length = current largest index + 1)
+      title: (existingRecordings == null ? 0 : existingRecordings.length).toString() + ': Prompt title', // replace from backend later
       uri: recording.getURI(), // store URI of the recording
       transcription: transcription
     };

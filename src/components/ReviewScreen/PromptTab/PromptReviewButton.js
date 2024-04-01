@@ -87,7 +87,7 @@ export default function PromptReviewButton({ recording, onPressFn = () => { }, e
                 }}
             >
                 {/* prompt title */}
-                <Text>{recording.id}: Prompt Title</Text>
+                <Text>{recording.title}</Text>
                 {/* <ChineseText chineseText={promptNumber + ':' + prompt} /> */}
 
                 {/* response level + date */}

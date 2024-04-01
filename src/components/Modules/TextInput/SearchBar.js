@@ -15,14 +15,14 @@ const styles = StyleSheet.create({
 });
 
 export default function SearchBar({ onChange = () => { }, placeholder = "Search prompts" }) {
+    const [text, setText] = useState('');
 
     // when text changes, call search function
     useEffect(() => {
-        console.log('text changing')
+        // console.log('text changing', text)
         onChange(text);
     }, [text]);
 
-    const [text, setText] = useState('');
 
     return (
         <View>
