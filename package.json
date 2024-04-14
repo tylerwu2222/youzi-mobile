@@ -19,6 +19,7 @@
     "@react-navigation/native": "^6.1.10",
     "@react-navigation/native-stack": "^6.9.18",
     "axios": "^1.6.8",
+    "body-parser": "^1.20.2",
     "bootstrap-icons": "^1.11.3",
     "chinese-conv": "^1.1.0",
     "expo": "~50.0.6",
@@ -28,6 +29,7 @@
     "expo-speech": "~11.7.0",
     "expo-status-bar": "~1.11.1",
     "expo-stt": "^0.0.3",
+    "express": "^4.19.2",
     "pinyin": "^3.0.0-alpha.4",
     "react": "18.2.0",
     "react-bootstrap-icons": "^1.11.3",
@@ -38,5 +40,9 @@
   "devDependencies": {
     "@babel/core": "^7.20.0"
   },
-  "private": true
+  "private": true,
+  "description": "This app aims to make the process of (re)learning Mandarin more engaging for American-born Chinese (ABC's) and other Mandarin heritage speakers.\r It does not intend to help a new speaker pick up the language, but rather provide an environment for already somewhat fluent, second-language speakers to find daily practice -- learning novel and contemporary content.",
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
 }

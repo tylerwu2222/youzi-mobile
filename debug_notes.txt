@@ -35,6 +35,6 @@ added react-native-voice to handle audio to transcription; will replace Expo AV 
 - also need to stop recording on screen exit/app close
 - don't need components > prompt review screen anymore
 
-3/25/24
-- 
+4/10/24
+- should move OpenAI node function to firebase, then use Firebase JS SDK to connect: https://docs.expo.dev/guides/using-firebase/
 

@@ -119,7 +119,7 @@ export default function RecordButton() {
     const existingRecordingsString = await AsyncStorage.getItem('PROMPT_RECORDINGS');
     let existingRecordings = JSON.parse(existingRecordingsString);
     existingRecordings = existingRecordings == null ? [] : existingRecordings; // initialize key as empty array if empty
-    console.log('BEFORE existing recordings', existingRecordings);
+    console.log('BEFORE existing recordings', existingRecordings.map(r => r.id));
 
     const newRecording = {
       id: existingRecordings == null ? 0 : existingRecordings.length, // Incremented id (length = current largest index + 1)
@@ -135,7 +135,7 @@ export default function RecordButton() {
 
     // test getting async
     const postRecordingsJSON = await AsyncStorage.getItem('PROMPT_RECORDINGS');
-    console.log('AFTER existing recordings', JSON.parse(postRecordingsJSON));
+    console.log('AFTER existing recordings', JSON.parse(postRecordingsJSON.map(r => r.id)));
     // if user confirms recording save --> send to firebase
 
   }
