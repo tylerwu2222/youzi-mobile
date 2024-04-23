@@ -9,10 +9,11 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 // components
 import ToggleableSwitch from '../components/Modules/ToggleableSwitch/ToggleableSwitch';
 import ExitButton from '../components/NavigationButtons/ExitButton/ExitButton';
-// import ProfileImage from '../components/Modules/ProfileImage/ProfileImage';
+import ProfileImage from '../components/Modules/Visuals/ProfileImage/ProfileImage';
 
 // styles
 import { youziStyles } from '../styles/youziStyles'
+import SafeTextInput from '../components/Modules/TextInput/SafeTextInput/SafeTextInput';
 
 
 export default function SettingsScreen() {
@@ -58,8 +59,8 @@ export default function SettingsScreen() {
             <Text>SettingsScreen</Text>
 
             <ExitButton />
-            {/* <ProfileImage editable={true} /> */}
-
+            <ProfileImage editable={true} />
+            <SafeTextInput/>
             <ToggleableSwitch
                 label={'Simplified/Traditional'}
                 toggledValue={isTraditional}
