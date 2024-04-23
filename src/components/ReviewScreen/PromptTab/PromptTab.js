@@ -114,7 +114,7 @@ export default function PromptTab() {
         <View style={styles.recordingsView}>
           {filteredRecordings ? filteredRecordings.map((recording, index) => {
             // ideally show audio transcript (start of recording) with prompt
-            return <PromptReviewItem recording={recording} />
+            return <PromptReviewItem key={index} recording={recording} />
           }) :
             <ActivityIndicator size="large" color="#0000ff" />
           }

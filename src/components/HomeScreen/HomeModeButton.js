@@ -61,7 +61,7 @@ export default function HomeModeButton({ text = 'button', mode = 'mode', backgro
     }
     let imgSource = IMAGE_URIS[backgroundImage].uri;
 
-    console.log('backgroudn image', imgSource);
+    // console.log('backgroudn image', imgSource);
     
     return (
         <TouchableOpacity

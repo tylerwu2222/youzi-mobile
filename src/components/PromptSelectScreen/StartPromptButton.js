@@ -9,6 +9,9 @@ import { youziColors } from '../../styles/youziStyles';
 
 const styles = StyleSheet.create({
     startPromptButtonView: {
+        position: 'absolute',
+        bottom: 200,
+        width: '80%',
         alignItems: 'center',
     },
     startPromptButton: {

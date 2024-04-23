@@ -27,6 +27,7 @@ export const youziColors = {
 
     "blackText": "#000",
     "whiteText": "#fff",
+    "greyBrownText": "#6C5B4F",
     "hyperlinkText": "#2163de"
 };
 
@@ -38,9 +39,15 @@ export const youziStyles = StyleSheet.create({
         paddingTop: 100,
         height: '100%'
     },
+    horizontallyCenteredView: {
+        alignItems: 'center',
+        justifyContent: 'flex-start',
+        paddingTop: 110
+    },
     headerText: {
         fontSize: 40,
-        fontFamily: 'Zilla Slab Bold'
+        fontFamily: 'Itim'
+        // fontFamily: 'Zilla Slab Bold'
     },
     headerTextView: {
         width: youziDimensions.paddedWidth
@@ -48,7 +55,14 @@ export const youziStyles = StyleSheet.create({
     subHeaderText: {
         fontSize: 30,
         fontWeight: '500',
-        fontFamily: 'Zilla Slab'
+        // fontFamily: 'Zilla Slab'
+        fontFamily: 'Itim'
+    },
+    cardHeaderText: {
+        fontSize: 18,
+        // fontFamily: 'Zilla Slab'
+        fontFamily: 'Itim',
+        fontWeight: '400'
     },
     largeButtonText: {
         fontSize: 25
@@ -69,6 +83,9 @@ export const youziStyles = StyleSheet.create({
         backgroundColor: youziColors.cardBackgroundOrange,
     },
     hanziPinyinBlocksView: {
+        paddingLeft: youziDimensions.vw * 1 / 13,
+        paddingRight: youziDimensions.vw * 1 / 13,
+        paddingTop: 15,
         maxWidth: '100%',
         display: 'flex',
         flexDirection: 'row',
@@ -77,8 +94,10 @@ export const youziStyles = StyleSheet.create({
         alignItems: 'center'
     },
     englishPromptText: {
+        paddingLeft: youziDimensions.vw * 1 / 13,
+        paddingRight: youziDimensions.vw * 1 / 13,
         fontSize: 20,
-        textAlign: 'justify'
+        textAlign: 'justify',
     },
     shortInput: {
 

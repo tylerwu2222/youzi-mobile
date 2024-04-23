@@ -3,8 +3,8 @@ import React, { useState, useRef, useContext } from 'react';
 
 import { AppContext } from '../../../../App';
 import { getImage, getHanZiText, getPinYinText, getEnglishText } from '../../../scripts/promptGetter';
-import HanziPinyinBlock from '../HanziPinyinBlock/HanziPinyinBlock';
-import ReadAloudButton from '../../PromptResponseScreen/Controls/ReadAloudButton';
+import HanziPinyinBlock from '../Text/HanziPinyinBlock/HanziPinyinBlock';
+import ReadAloudButton from '../Audio/ReadAloudButton/ReadAloudButton';
 
 // styles
 import { StyleSheet } from "react-native";
@@ -13,13 +13,23 @@ import { youziDimensions, youziStyles } from '../../../styles/youziStyles';
 // test data
 import { dummyChinesePrompt } from '../../../../assets/data/dummy_data';
 import ExpandButton from '../Buttons/ExpandButton';
+import HanziPinyinArray from '../Text/HanziPinyinBlock/HanziPinyinArray';
+import AIGenImage from '../Visuals/AIGenImage/AIGenImage';
 
 const styles = StyleSheet.create({
   responsePromptCard: {
     height: 'fit-content',
-    paddingBottom: 0,
+    padding: 0,
+    // paddingBottom: 0,
     marginBottom: 30
     // height: '50%'
+  },
+  promptImageView: {
+    borderTopLeftRadius: 7,
+    borderTopRightRadius: 7,
+    width: '100%',
+    height: youziDimensions.vh / 7,
+    overflow: 'hidden'
   },
   promptTextView: {
     // height: '70%'
@@ -47,7 +57,7 @@ export default function PromptCard({
   const heightAnim = useRef(new Animated.Value(0)).current;
 
   const toggleEnglish = () => {
-    console.log('toggling english')
+    // console.log('toggling english')
     setExpanded(!expanded);
     Animated.timing(heightAnim, {
       toValue: expanded ? 0 : 125, // Adjust the height value as needed
@@ -62,20 +72,25 @@ export default function PromptCard({
 
 
   return (
-    <View style={[youziStyles.promptCard, styles.responsePromptCard]}>
+    <View style={[
+      youziStyles.promptCard,
+      styles.responsePromptCard
+    ]}>
       {hasImage ? <View style={styles.promptImageView}>
-        <Text>AI Image here</Text>
-        <Image
+        {/* <Text>AI Image here</Text> */}
+        <AIGenImage />
+        {/* <Image
           style={styles.promptImage}
           src={getImage(promptID)}
           alt="AI Generated Image"
-        ></Image>
+        ></Image> */}
       </View> : null}
       <View style={youziStyles.hanziPinyinBlocksView}>
         {hasAudio ? <ReadAloudButton text={dummyChinesePrompt} /> : null}
-        {Array.from(dummyChinesePrompt).map((hanzi, index) => {
+        {/* {Array.from(dummyChinesePrompt).map((hanzi, index) => {
           return <HanziPinyinBlock key={index} hanziCharacter={hanzi} />
-        })}
+        })} */}
+        <HanziPinyinArray hanziArray={dummyChinesePrompt} />
       </View>
       <Animated.View style={[styles.toggleableView, { height: heightAnim }]}>
         {expanded ?

@@ -14,7 +14,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     marginTop: 10,
-    height: '30%',
+    height: '20%',
     backgroundColor: youziColors.cardBackgroundYellow
   },
   column: {

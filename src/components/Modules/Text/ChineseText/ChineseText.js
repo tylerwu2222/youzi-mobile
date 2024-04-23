@@ -2,7 +2,7 @@ import { Text, StyleSheet } from 'react-native'
 import React, { useContext } from 'react'
 
 // 
-import { AppContext } from '../../../../App';
+import { AppContext } from '../../../../../App';
 import { tify, sify } from 'chinese-conv';
 
 

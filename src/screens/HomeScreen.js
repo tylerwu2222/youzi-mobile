@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from 'react';
 
 // components
-import { StyleSheet } from 'react-native';
+import { TouchableOpacity, StyleSheet } from 'react-native';
 import { ActivityIndicator, FlatList, Text, View, Image } from 'react-native';
 import HomeModeButton from '../components/HomeScreen/HomeModeButton';
 
 // import { SettingsIcon } from '@mui/icons-material';
-
+import { addUser } from '../scripts/users/addUser';
 
 // styles
 import { } from "react-native";
@@ -27,6 +27,13 @@ export default function HomeScreen() {
   return (
     <View style={youziStyles.centeredView}>
       {/* <Text>Youzi.HomeScreen</Text> */}
+      <TouchableOpacity
+        onPress={() => {
+          addUser();
+        }}
+      >
+        <Text>addUser</Text>
+      </TouchableOpacity >
       <HomeModeButton
         text={'Conversation'}
         mode={'prompt'}

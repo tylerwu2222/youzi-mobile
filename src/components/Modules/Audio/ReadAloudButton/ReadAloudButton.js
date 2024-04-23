@@ -4,8 +4,8 @@ import React, { useState, useEffect } from 'react';
 import * as Speech from 'expo-speech';
 
 import { MaterialIcons } from '@expo/vector-icons';
-import IconButton from '../../Modules/Buttons/IconButton';
-import { youziColors, youziDimensions } from '../../../styles/youziStyles';
+import IconButton from '../../Buttons/IconButton';
+import { youziColors, youziDimensions } from '../../../../styles/youziStyles';
 
 const styles = StyleSheet.create({
     audioButton: {
@@ -13,7 +13,7 @@ const styles = StyleSheet.create({
         backgroundColor: youziColors.buttonBackgroundPink,
         width: youziDimensions.vw / 14,
         padding: 5,
-        borderRadius: 5
+        borderRadius: 20
     }
 });
 

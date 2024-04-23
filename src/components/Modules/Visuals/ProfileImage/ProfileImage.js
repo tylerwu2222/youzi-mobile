@@ -22,7 +22,7 @@ export default function ProfileImage({ editable = false }) {
         <View>
             <Image
                 style={styles.profileImage}
-                source={require('../../../../assets/icons/youzi_logo.png')}
+                source={require('../../../../../assets/icons/youzi_logo.png')}
                 alt='profile-image'
             ></Image>
         </View>

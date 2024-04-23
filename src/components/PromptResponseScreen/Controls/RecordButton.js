@@ -27,10 +27,11 @@ const styles = StyleSheet.create({
 })
 
 const TIME_LIMIT = 30;
+const todayDate = new Date().toLocaleDateString();
 
 export default function RecordButton() {
   // expo-audio
-  const [transcription, setTranscription] = useState('transcription failed');
+  const [transcription, setTranscription] = useState('练习中文');
   const [recording, setRecording] = useState(null);
   const [permissionResponse, requestPermission] = Audio.usePermissions();
 
@@ -56,6 +57,27 @@ export default function RecordButton() {
   //     handleTranscribe();
   //   }
   // }, [recording]);
+
+  // testing setting and getting recording from firebase
+  // test fn works!
+  useEffect(() => {
+    // Replace with custom cloudFunctionURL
+    const cloudFunctionUrl = 'https://helloworld-ubksznr5oq-uc.a.run.app';
+    // const cloudFunctionUrl = 'https://your-project-id.cloudfunctions.net/myFunction';
+
+    const fetchData = async () => {
+      try {
+        const response = await fetch(cloudFunctionUrl);
+        const data = await response.json();
+        // console.log('Response:', response);
+        console.log('Response:', data);
+      } catch (error) {
+        console.error('Error:', error);
+      }
+    };
+
+    // fetchData();
+  }, []);
 
   async function startRecording() {
     try {
@@ -125,6 +147,8 @@ export default function RecordButton() {
       id: existingRecordings == null ? 0 : existingRecordings.length, // Incremented id (length = current largest index + 1)
       title: (existingRecordings == null ? 0 : existingRecordings.length).toString() + ': Prompt title', // replace from backend later
       uri: recording.getURI(), // store URI of the recording
+      difficulty: 'Beginner',
+      date: todayDate,
       transcription: transcription
     };
     existingRecordings.push(newRecording);

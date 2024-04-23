@@ -4,7 +4,8 @@ import React from 'react'
 import { useNavigation } from '@react-navigation/native';
 
 // icons
-import { AntDesign } from '@expo/vector-icons';
+// import { AntDesign } from '@expo/vector-icons';
+import { Ionicons } from '@expo/vector-icons';
 
 // styles
 import { StyleSheet } from "react-native";
@@ -28,7 +29,9 @@ export default function SettingsButton() {
 
     return (
         <IconButton
-            iconComponent={<AntDesign name="setting" size={40} color={youziColors.buttonBackgroundAccent} />}
+            // iconComponent={<AntDesign name="setting" size={40} color={youziColors.blackText} />}
+            iconComponent={<Ionicons name="settings-sharp" size={30} color={youziColors.blackText} />}
+            // iconComponent={<AntDesign name="setting" size={40} color={youziColors.buttonBackgroundAccent} />}
             onPress={() => { navigateToSettings() }}
             style={styles.settingsButton} // can pass styles b/c ...props
         />

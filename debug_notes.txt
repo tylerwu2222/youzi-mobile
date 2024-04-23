@@ -38,3 +38,39 @@ added react-native-voice to handle audio to transcription; will replace Expo AV 
 4/10/24
 - should move OpenAI node function to firebase, then use Firebase JS SDK to connect: https://docs.expo.dev/guides/using-firebase/
 
+4/17/24
+- trying to set up firebase with RN/expo: https://rnfirebase.io/#your-expo-project
+- getting error: You attempted to use a firebase module that's not installed on your Android project by calling firebase.app().
+- added all config files..
+- help online says: switch to dev build, trying that... still does not work... --> maybe b/c I need to use expo-dev-client
+- trying expo dev client with "npx expo run:android"
+                Build file 'C:\Users\tyler\youzi-mobile\node_modules\expo-stt\android\build.gradle' line: 40
+
+            * What went wrong:
+            A problem occurred evaluating project ':expo-stt'.
+            > Could not set unknown property 'classifier' for task ':expo-stt:androidSourcesJar' of type org.gradle.api.tasks.bundling.Jar.        
+
+            * Try:
+            > Run with --stacktrace option to get the stack trace.
+            > Run with --info or --debug option to get more log output.
+            > Run with --scan to get full insights.
+            > Get more help at https://help.gradle.org.
+
+            Deprecated Gradle features were used in this build, making it incompatible with Gradle 9.0.
+
+- tried downgrading to Gradle 7.6 ("https://stackoverflow.com/questions/75660848/could-not-set-unknown-property-classifier-for-task-idl-parsersourcejar-of")
+- idk... try again w Add Firebase SDK, nah
+- or YT vids: https://www.youtube.com/watch?v=MGBfr3WwIyw
+
+4/22/24
+testing moving font out of app json
+[
+        "expo-font",
+        {
+          "fonts": [
+            "./assets/fonts/ZillaSlab-Regular.ttf",
+            "./assets/fonts/ZillaSlab-SemiBold.ttf",
+            "./assets/fonts/ZillaSlab-Bold.ttf"
+          ]
+        }
+      ]

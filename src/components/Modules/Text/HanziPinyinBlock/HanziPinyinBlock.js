@@ -1,9 +1,10 @@
 import { View, Text, Pressable } from 'react-native'
 import React, { useState, useContext } from 'react';
-import { AppContext } from '../../../../App';
+import { AppContext } from '../../../../../App';
 
 
-import { getPinYinText } from '../../../scripts/promptGetter';
+import { getPinYinText } from '../../../../scripts/promptGetter';
+import * as Speech from 'expo-speech';
 
 // styles
 import { StyleSheet } from "react-native";
@@ -22,7 +23,9 @@ export default function HanziPinyinBlock({ hanziCharacter, customPinyinSize = nu
       display: "flex",
       flexDirection: "column",
       alignItems: "center",
-      margin: 3
+      // margin: 3,
+      // paddingLeft: 20,
+      // paddingRight: 20
       // textAlign: "center"
     },
     pinyinText: {
@@ -35,6 +38,7 @@ export default function HanziPinyinBlock({ hanziCharacter, customPinyinSize = nu
 
   const readSinglePinyin = () => {
     console.log('long pressed');
+    Speech.speak(hanziCharacter, { language: "zh" });
   };
 
   const toggleSinglePinyin = () => {
@@ -46,8 +50,8 @@ export default function HanziPinyinBlock({ hanziCharacter, customPinyinSize = nu
     <View style={styles.HZPYBlock}>
       <Text style={styles.pinyinText}>{getPinYinText(hanziCharacter)}</Text>
       <Pressable
-        onPress={() => { toggleSinglePinyin() }}
-        onLongPress={() => { readSinglePinyin() }}
+        onPress={() => { readSinglePinyin() }}
+        onLongPress={() => { toggleSinglePinyin() }}
       >
         <ChineseText chineseText={hanziCharacter} />
       </Pressable>

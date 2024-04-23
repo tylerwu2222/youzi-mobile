@@ -3,7 +3,7 @@ import { View, Text, Modal, StyleSheet, TouchableOpacity } from 'react-native'
 import React, { useContext } from 'react'
 import { VocabTabContext } from '../../ReviewScreen/VocabTab/VocabTab';
 
-import HanziPinyinBlock from '../HanziPinyinBlock/HanziPinyinBlock';
+import HanziPinyinBlock from '../Text/HanziPinyinBlock/HanziPinyinBlock';
 
 import { youziStyles, youziColors, youziDimensions } from '../../../styles/youziStyles';
 

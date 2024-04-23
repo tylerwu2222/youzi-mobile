@@ -5,7 +5,7 @@ import { VocabTabContext } from './VocabTab';
 import ToggleableTouchable from '../../Modules/ToggleableTouchable/ToggleableTouchable'
 
 import { dummyChineseVocab } from '../../../../assets/data/dummy_data'
-import ChineseText from '../../Modules/ChineseText/ChineseText';
+import ChineseText from '../../Modules/Text/ChineseText/ChineseText';
 
 const styles = StyleSheet.create({
     vocabContentView: {

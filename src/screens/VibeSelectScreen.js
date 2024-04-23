@@ -5,6 +5,7 @@ import React, { useContext } from 'react'
 // components
 import { View, Text, ScrollView, StyleSheet } from 'react-native'
 import VibeSelectButton from '../components/VibeSelectScreen/VibeSelectButton';
+import SubVibeSelectButton from '../components/VibeSelectScreen/SubVibeSelectButton';
 
 import HomeButton from '../components/NavigationButtons/HomeButton/HomeButton';
 import SettingsButton from '../components/NavigationButtons/SettingsButton/SettingsButton';
@@ -44,7 +45,10 @@ export default function VibeSelectScreen() {
         style={styles.vibeView}
       >
         {vibes.map(vibe => {
-          return <VibeSelectButton key={vibe.id} id={vibe.id} code={vibe.code} label={vibe.label} />
+          return (
+            <>
+              <VibeSelectButton key={vibe.id} id={vibe.id} code={vibe.code} label={vibe.label} subvibes = {vibe.subVibes} />
+            </>)
         })}
       </ScrollView>
     </View>

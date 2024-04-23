@@ -27,8 +27,8 @@ export default function HomeButton() {
 
     return (
         <IconButton
-            // iconComponent={<AntDesign name="setting" size={40} color={youziColors.buttonBackgroundAccent} />}
-            iconComponent={<Entypo name="home" size={40} color={youziColors.buttonBackgroundAccent} />}
+            // iconComponent={<Entypo name="home" size={40} color={youziColors.buttonBackgroundAccent} />}
+            iconComponent={<Entypo name="home" size={30} color={youziColors.blackText} />}
             onPress={() => { navigateToHome() }}
             style={styles.homeButton} // can pass styles b/c ...props
         />

@@ -2,7 +2,7 @@ import { View, Text, StyleSheet } from 'react-native'
 import React from 'react'
 
 import { dummyBadges } from '../../../../assets/data/dummy_data';
-import BadgeIcon from '../../Modules/Badges/BadgeIcon'
+import BadgeIcon from '../../Modules/Visuals/Badges/BadgeIcon';
 
 
 // styles

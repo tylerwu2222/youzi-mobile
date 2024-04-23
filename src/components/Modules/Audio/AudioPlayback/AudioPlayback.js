@@ -17,9 +17,9 @@ export default function AudioPlayback({ promptNumber }) {
   return (
     <View style={styles.audioPlaybackContainer}>
       <Text>AudioPlayback</Text>
-      <View></View>
+      {/* <View></View> */}
       <Slider />
-      <PlayRecordingButton promptNumber={promptNumber} />
+      {/* <PlayRecordingButton promptNumber={promptNumber} /> */}
     </View>
   )
 }

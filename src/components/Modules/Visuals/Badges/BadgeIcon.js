@@ -1,7 +1,7 @@
 import { View, Text, Image, StyleSheet } from 'react-native'
-import React from 'react'
+import React from 'react';
 
-import { youziColors, youziDimensions } from '../../../styles/youziStyles';
+import { youziColors, youziDimensions } from '../../../../styles/youziStyles';
 
 const styles = StyleSheet.create({
     badgeIconView: {
@@ -25,7 +25,7 @@ export default function BadgeIcon({ badgeName = 'badge', image = '../../assets/i
             {/* to replace source with dynamic images... */}
             <Image
                 style={styles.badgeImage}
-                source={require('../../../../assets/icons/youzi_logo.png')}
+                source={require('../../../../../assets/icons/youzi_logo.png')}
                 alt={image}
             />
             <Text>{badgeName}</Text>

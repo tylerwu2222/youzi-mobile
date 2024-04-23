@@ -1,7 +1,13 @@
 import { View, Text, Linking, StyleSheet } from 'react-native'
-import React from 'react'
+import React, { useState } from 'react'
+
+import YoutubeVideoPlayer from './YoutubeVideoPlayer';
+
 import { dummyMedia } from '../../../assets/data/dummy_data'
+
 import { youziDimensions, youziColors } from '../../styles/youziStyles';
+
+
 
 const styles = StyleSheet.create({
     suggestedMediaView: {
@@ -20,10 +26,21 @@ const styles = StyleSheet.create({
 });
 
 export default function SuggestedMediaCard() {
+    const [firstVideoID, setfirstVideoID] = useState('KE0NEFKhEG8');
+    const [firstPlaylistID, setfirstPlaylistID] = useState(null);
+
+    // get first video using YouTube API
+    const getFirstVideo = () => {
+        // search using keyword --> get first video 
+
+        // if playlist, get first video of playlist (then link playlist)
+    };
+
     return (
         <View style={styles.suggestedMediaView}>
+            <YoutubeVideoPlayer youtubeVideoID={firstVideoID} />
             <Text>
-                Media Recommendation: 
+                Media Recommendation:
                 <Text
                     style={styles.suggestedMediaViewText}
                     onPress={() => Linking.openURL('https://www.youtube.com/results?search_query=' + dummyMedia)}

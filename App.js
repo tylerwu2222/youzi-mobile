@@ -9,6 +9,7 @@ import { AudioPlayerProvider } from './src/scripts/AudioPlayerContext.js';
 
 // storage
 import AsyncStorage from '@react-native-async-storage/async-storage';
+// import database from '@react-native-firebase/database'; // For Realtime Database
 
 // screens
 import LoadingScreen from './src/screens/LoadingScreen.js';
@@ -68,6 +69,9 @@ export default function App() {
     return value;
   }
 
+  // reference to users section
+  // const reference = database().ref('/users');
+
 
   // session variables
   const [onboarded, setOnboarded] = useState(null); // modify manually for now
@@ -76,6 +80,7 @@ export default function App() {
   const [allowNSFWPrompts, setAllowNSFWPrompts] = useState(null);
 
   const [vibeID, setVibeID] = useState(1);
+  const [subVibeID, setSubVibeID] = useState(1);
   const [promptID, setPromptID] = useState(0);
   const [promptObject, setPromptObject] = useState({});
   // const [audioResponse, setAudioResponse] = useState('');
@@ -86,14 +91,18 @@ export default function App() {
   // load fonts
   useEffect(() => {
     // const [fontsLoaded] = useFonts({});
-    const loadFont = async () => {
-      await Font.loadAsync({
+    const loadFont = () => {
+      Font.loadAsync({
+        'Itim': require('./assets/fonts/Itim/Itim-Regular.ttf'),
         'Zilla Slab': require('./assets/fonts/ZillaSlab-Regular.ttf'),
+        'Zilla Slab Semibold': require('./assets/fonts/ZillaSlab-SemiBold.ttf'),
         'Zilla Slab Bold': require('./assets/fonts/ZillaSlab-Bold.ttf'),
-      });
+      }).then(() => {
+        setIsFontLoaded(true);
+      })
     };
     loadFont();
-    setIsFontLoaded(true);
+    if (!isFontLoaded) return undefined;
   }, []);
 
   // initialize user values
@@ -116,6 +125,8 @@ export default function App() {
     <AppContext.Provider value={{
       vibeID,
       setVibeID,
+      subVibeID,
+      setSubVibeID,
       promptID,
       setPromptID,
       promptObject,

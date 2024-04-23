@@ -24,23 +24,30 @@ const styles = StyleSheet.create({
 
 export default function PromptSelectScreen() {
   const {
-    vibeID
+    vibeID,
+    subVibeID
     // setVibeID
   } = useContext(AppContext);
 
-  const vibeLabel = vibes.find(obj => obj['id'] === vibeID)['label']
+  console.log('vibe at prompt select screen', vibeID);
+
+  const vibeLabel = vibes.find(vibe => vibe['id'] === vibeID)['label']
+  const subVibeLabel = vibes.find(vibe => vibe['id'] === vibeID)['subVibes'].find(subvibe => subvibe['id'] === subVibeID)['label']
+  console.log('SVL',subVibeLabel);
 
   return (
-    <View style={youziStyles.centeredView}>
+    <View style={[youziStyles.centeredView, youziStyles.horizontallyCenteredView]}>
       <Text>Youzi.PromptSelectScreen</Text>
       {/* <Text>Selected vibe ID: {vibeID}</Text> */}
       <View style={youziStyles.headerTextView}>
         <Text style={youziStyles.headerText}>Today's prompts</Text>
       </View>
       <View style={youziStyles.headerTextView}>
-        <Text style={youziStyles.subHeaderText}>{vibeLabel}</Text>
+        {/* <Text style={youziStyles.subHeaderText}>{vibeLabel}</Text> */}
+        <Text style={youziStyles.subHeaderText}>{vibeLabel}: {subVibeLabel}</Text>
       </View>
       <PromptCarousel />
+      {/* nav buttons */}
       <HomeButton />
       <SettingsButton />
     </View>

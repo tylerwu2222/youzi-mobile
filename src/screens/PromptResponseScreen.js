@@ -22,6 +22,7 @@ import PromptVocabCard from '../components/PromptResponseScreen/PromptVocabCard'
 import HomeButton from '../components/NavigationButtons/HomeButton/HomeButton';
 import SettingsButton from '../components/NavigationButtons/SettingsButton/SettingsButton';
 import SuggestedMediaCard from '../components/PromptResponseScreen/SuggestedMediaCard';
+import XiaoYouMascot from '../components/Modules/Visuals/XiaoYou/XiaoYouMascot';
 
 const styles = StyleSheet.create({
   homeLogo: {
@@ -39,13 +40,14 @@ const styles = StyleSheet.create({
 export default function PromptResponseScreen() {
   return (
     <View style={youziStyles.centeredView}>
-      <Text>Youzi.PromptResponseScreen</Text>
+      {/* <Text>Youzi.PromptResponseScreen</Text> */}
       <PromptCard hasImage={false} />
       <SuggestedMediaCard />
       <PromptVocabCard />
       <ControlsBar />
       <HomeButton />
       <SettingsButton />
+      <XiaoYouMascot />
     </View>
   )
 }

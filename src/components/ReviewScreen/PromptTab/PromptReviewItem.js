@@ -13,20 +13,28 @@ const styles = StyleSheet.create({
         margin: 0
     },
     toggleableView: {
+        height: 'fit-content',
+        // margin: 0,
+        // padding: 0,
         overflow: 'hidden'
     }
 });
 
 export default function PromptReviewItem({ recording }) {
     const [expanded, setExpanded] = useState(false);
-    const heightAnim = useRef(new Animated.Value(0)).current;
+
+    // initialize height for review item at 0
+    const initialHeight = 0;
+    const finalHeight = 400;
+    const animSpeed = 0.6
+    const heightAnim = useRef(new Animated.Value(initialHeight)).current;
 
     const togglePromptItem = () => {
         console.log('toggling prompt item');
         setExpanded(!expanded);
         Animated.timing(heightAnim, {
-            toValue: expanded ? 0 : 300, // Adjust the height value as needed
-            duration: 800, // Adjust the duration as needed
+            toValue: expanded ? initialHeight : finalHeight, // toggle between 0 and 300
+            duration: animSpeed * 1000, // 0.8 seconds
             useNativeDriver: false,
         }).start();
     };
@@ -42,13 +50,12 @@ export default function PromptReviewItem({ recording }) {
                 expanded={expanded}
             />
             <Animated.View style={[styles.toggleableView, { height: heightAnim }]}>
-                {expanded ?
-                    // <Text>animated prompt response</Text>
-                    <PromptAccordion
-                        prompt={dummyChinesePrompt}
-                        recording={recording}
-                    />
-                    : null}
+                {/* {expanded ? */}
+                <PromptAccordion
+                    prompt={dummyChinesePrompt}
+                    recording={recording}
+                />
+                {/* : null} */}
             </Animated.View>
         </View>
     )

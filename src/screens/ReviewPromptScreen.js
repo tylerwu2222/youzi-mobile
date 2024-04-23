@@ -3,7 +3,7 @@ import React from 'react'
 
 import { youziStyles } from '../styles/youziStyles'
 import PlayRecordingButton from '../components/ReviewPromptScreen/PlayRecordingButton'
-import ChineseText from '../components/Modules/ChineseText/ChineseText';
+import ChineseText from '../components/Modules/Text/ChineseText/ChineseText';
 
 // export default function ReviewPromptScreen({ reviewPrompt = 'default prompt', reviewPromptNumber = 1 }) {
 export default function ReviewPromptScreen({ route }) {
