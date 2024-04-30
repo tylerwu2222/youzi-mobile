@@ -3,7 +3,7 @@ import React from 'react'
 
 import HanziPinyinBlock from './HanziPinyinBlock';
 
-export default function HanziPinyinArray({ hanziArray, customPinyinSize = null, customHanziSize = null }) {
+export default function HanziPinyinArray({ hanziArray, customPinyinSize = null, customHanziSize = null, enableLongPress = true }) {
     const applyLetterSpacing = (string, count = 1) => {
         return string.split('').join('\u200A'.repeat(count));
     }
@@ -11,7 +11,7 @@ export default function HanziPinyinArray({ hanziArray, customPinyinSize = null, 
     return (
         <Text>
             {Array.from(applyLetterSpacing(hanziArray)).map((hanzi, index) => {
-                return <HanziPinyinBlock key={index} hanziCharacter={hanzi} customPinyinSize={customPinyinSize} customHanziSize={customHanziSize} />
+                return <HanziPinyinBlock key={index} hanziCharacter={hanzi} customPinyinSize={customPinyinSize} customHanziSize={customHanziSize} enableLongPress={enableLongPress} />
             })}
         </Text>
     )

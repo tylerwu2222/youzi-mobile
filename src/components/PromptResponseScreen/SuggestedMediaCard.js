@@ -26,7 +26,9 @@ const styles = StyleSheet.create({
 });
 
 export default function SuggestedMediaCard() {
-    const [firstVideoID, setfirstVideoID] = useState('KE0NEFKhEG8');
+    // maybe filtering for short vid would also work
+    const [firstVideoID, setfirstVideoID] = useState('TDqhmhfnOvI'); // testing vertical vid --> works
+    // const [firstVideoID, setfirstVideoID] = useState('KE0NEFKhEG8'); // horizontal vid
     const [firstPlaylistID, setfirstPlaylistID] = useState(null);
 
     // get first video using YouTube API

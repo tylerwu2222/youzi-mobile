@@ -10,9 +10,11 @@ import * as Speech from 'expo-speech';
 import { StyleSheet } from "react-native";
 import ChineseText from '../ChineseText/ChineseText';
 
-
-
-export default function HanziPinyinBlock({ hanziCharacter, customPinyinSize = null, customHanziSize = null }) {
+export default function HanziPinyinBlock({
+  hanziCharacter,
+  customPinyinSize = null,
+  customHanziSize = null,
+  enableLongPress = true }) {
   const { showPinyin } = useContext(AppContext);
   const [singlePinyin, setSinglePinyin] = useState(showPinyin);
   const pinyinSize = customPinyinSize ? customPinyinSize : 14;
@@ -50,8 +52,14 @@ export default function HanziPinyinBlock({ hanziCharacter, customPinyinSize = nu
     <View style={styles.HZPYBlock}>
       <Text style={styles.pinyinText}>{getPinYinText(hanziCharacter)}</Text>
       <Pressable
-        onPress={() => { readSinglePinyin() }}
-        onLongPress={() => { toggleSinglePinyin() }}
+        onPress={() => { toggleSinglePinyin() }}
+        // onPress={() => { readSinglePinyin() }}
+        onLongPress={enableLongPress ?
+          () => { readSinglePinyin() } :
+          () => { }
+        }
+        delayLongPress={250}
+      // onLongPress={() => { toggleSinglePinyin() }}
       >
         <ChineseText chineseText={hanziCharacter} />
       </Pressable>

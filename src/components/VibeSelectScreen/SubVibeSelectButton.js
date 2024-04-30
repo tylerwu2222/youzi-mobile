@@ -34,7 +34,7 @@ const styles = StyleSheet.create({
 
 
 export default function SubVibeSelectButton({ vibeId = 0, subVibeId = 0, label = "label", backgroundImage = "image" }) {
-  console.log('LABEL IN SVSB', label);
+  // console.log('LABEL IN SVSB', label);
 
   const {
     setSubVibeID,

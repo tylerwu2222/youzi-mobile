@@ -8,15 +8,18 @@ import SubVibeSelectButton from './SubVibeSelectButton';
 // import { useNavigation } from '@react-navigation/native';
 
 // styles
-import { youziColors } from '../../styles/youziStyles';
+import { youziDimensions, youziColors } from '../../styles/youziStyles';
 
-export default function VibeSelectButton({ id = 0, code = "code", label = "label", backgroundImage = "image", subvibes = [] }) {
+export default function VibeSelectButton({
+  id = 0,
+  code = "code",
+  label = "label",
+  backgroundIcon = "image",
+  subvibes = [] }) {
 
   // console.log('SUBVIBES', subvibes);
-  // const [selected, setSelected] = useState(false);
+  const [selected, setSelected] = useState(false);
   const [subVibesVisible, setSubVibesVisible] = useState(false);
-
-
 
   // const navigation = useNavigation();
   // const navigateToVibe = (label) => {
@@ -31,7 +34,7 @@ export default function VibeSelectButton({ id = 0, code = "code", label = "label
   const opacityAnim = useRef(new Animated.Value(0)).current;
   const heightAnim = useRef(new Animated.Value(0)).current;
   const toggleSubVibes = () => {
-    console.log('toggling sub vibes');
+    // console.log('toggling sub vibes');
     setSubVibesVisible(!subVibesVisible);
     Animated.timing(
       heightAnim,
@@ -68,28 +71,44 @@ export default function VibeSelectButton({ id = 0, code = "code", label = "label
     vibeButton: {
       alignItems: 'center',
       justifyContent: 'center',
-      width: '100%',
-      height: 100,
+      // height: 100,
+      height: youziDimensions.vh / 8,
+      width: youziDimensions.paddedWidth,
       borderRadius: 5,
       margin: 10,
       marginTop: 30,
       marginBottom: 30,
       padding: 10,
       backgroundColor: youziColors.buttonBackground,
-      // backgroundColor: selected ? youziColors.buttonBackgroundPress : youziColors.buttonBackground,
-      // color: selected ? youziColors.blackText : youziColors.whiteText
-      color: youziColors.blackText
+      color: youziColors.blackText,
+      overflow: 'hidden'
     },
     vibeButtonText: {
-      fontFamily: 'Zilla Slab',
+      fontFamily: 'Itim',
       fontSize: 20,
+      opacity: selected ? 0.6 : 1
+    },
+    vibeButtonBackgroundImage: {
+      position: 'relative',
+      right: youziDimensions.vw * -2 / 7,
+      bottom: youziDimensions.vw * 0,
+      // flex: 1,
+      opacity: 0.85,
+      width: selected ? youziDimensions.vw * 5 / 16 : youziDimensions.vw / 4, // Ensure the image covers the entire TouchableOpacity
+      height: youziDimensions.vw / 4,
+    },
+    overlay: {
+      ...StyleSheet.absoluteFillObject, // invokes position absolute and top, bottom, left,..: 0 (centering item)
+      alignItems: 'left',
+      paddingLeft: youziDimensions.vw / 7,
+      justifyContent: 'center',
     },
     toggleableView: {
       // position: 'absolute',
       // top: slideAnim,
       opacity: opacityAnim,
       width: '100%',
-      flexDirection:'column',
+      flexDirection: 'column',
       alignItems: 'flex-end'
       // overflow: 'hidden'
     }
@@ -98,23 +117,32 @@ export default function VibeSelectButton({ id = 0, code = "code", label = "label
   return (
     <>
       <Pressable
+        // <TouchableOpacity
         style={styles.vibeButton}
         onPress={() => {
           toggleSubVibes();
-          // setSelected(!selected);
           // setVibeID(id);
           // navigateToVibe(label);
         }}
+        onPressIn={() => {
+          setSelected(true);
+        }}
+        onPressOut={() => {
+          setSelected(false);
+        }}
       >
-        <Text
-          style={styles.vibeButtonText}
-        >{label}</Text>
         <Image
-          // style={styles.tinyImage}
-          src={backgroundImage}
-          alt={'vibe image'}
+          style={styles.vibeButtonBackgroundImage}
+          source={backgroundIcon}
+          alt={'vibe-image'}
         >
         </Image>
+        <View style={styles.overlay}>
+          <Text
+            style={styles.vibeButtonText}
+          >{label}</Text>
+        </View>
+        {/* </TouchableOpacity > */}
       </Pressable >
       {subVibesVisible ?
         <Animated.View style={styles.subVibeView}>

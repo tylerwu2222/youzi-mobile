@@ -7,12 +7,15 @@ import { youziColors, youziStyles } from '../../../styles/youziStyles'
 
 export default function TextButton({
   text = 'text',
-  onPress = () => {},
-  backgroundColor = youziColors.buttonBackground,
+  onPressFn = () => { console.log('degault fn') },
+  backgroundColor = youziColors.buttonBackgroundPink,
   fontSize = youziStyles.subHeaderText.fontSize,
+  marginV = 5,
+  marginH = 3,
   paddingV = 5,
   paddingH = 10,
   borderRadius = 7,
+  ...props
 }) {
   const styles = StyleSheet.create({
     textButton: {
@@ -21,7 +24,12 @@ export default function TextButton({
       paddingRight: paddingH,
       paddingTop: paddingV,
       paddingBottom: paddingV,
+      marginLeft: marginH,
+      marginRight: marginH,
+      marginTop: marginV,
+      marginBottom: marginV,
       borderRadius: borderRadius,
+      alignItems: 'center'
     },
     textButtonText: {
       fontSize: fontSize
@@ -29,7 +37,11 @@ export default function TextButton({
   });
 
   return (
-    <Pressable style={styles.textButton} onPress={() => {onPress()}}>
+    <Pressable
+      style={styles.textButton}
+      onPress={() => { onPressFn() }}
+      {...props}
+    >
       <Text style={styles.textButtonText}>{text}</Text>
     </Pressable>
   )

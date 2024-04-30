@@ -12,6 +12,7 @@ import { youziDimensions, youziStyles } from '../../../styles/youziStyles';
 
 // test data
 import { dummyChinesePrompt } from '../../../../assets/data/dummy_data';
+// import promptData from '../../../../assets/data/test_set_829.json';
 import ExpandButton from '../Buttons/ExpandButton';
 import HanziPinyinArray from '../Text/HanziPinyinBlock/HanziPinyinArray';
 import AIGenImage from '../Visuals/AIGenImage/AIGenImage';

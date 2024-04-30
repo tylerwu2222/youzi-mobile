@@ -49,20 +49,17 @@ const styles = StyleSheet.create({
 export default function HomeModeButton({ text = 'button', mode = 'mode', backgroundImage, ...props }) {
     const navigation = useNavigation();
     const navigateToMode = (mode) => {
-        // console.log('navigating to', mode);
         if (mode == 'prompt') {
             navigation.navigate('vibe-select-page');
         }
         else if (mode == 'review') {
             navigation.navigate('review-mode-page');
-            // disable review button for now
-            // console.log('review mode not yet implemented')
         }
     }
     let imgSource = IMAGE_URIS[backgroundImage].uri;
 
     // console.log('backgroudn image', imgSource);
-    
+
     return (
         <TouchableOpacity
             style={styles.homeButton}

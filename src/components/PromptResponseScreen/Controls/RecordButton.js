@@ -1,4 +1,5 @@
-import { View, Text } from 'react-native'
+import { View, Text, Animated, Easing } from 'react-native';
+import Svg, { Circle } from 'react-native-svg';
 import React, { useState, useEffect } from 'react'
 import { Audio } from 'expo-av';
 

@@ -1,5 +1,5 @@
 import { View, Text, Button, StyleSheet } from 'react-native'
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, createContext } from 'react'
 
 // audio
 // import { Audio } from 'expo-av';
@@ -22,7 +22,7 @@ import PromptVocabCard from '../components/PromptResponseScreen/PromptVocabCard'
 import HomeButton from '../components/NavigationButtons/HomeButton/HomeButton';
 import SettingsButton from '../components/NavigationButtons/SettingsButton/SettingsButton';
 import SuggestedMediaCard from '../components/PromptResponseScreen/SuggestedMediaCard';
-import XiaoYouMascot from '../components/Modules/Visuals/XiaoYou/XiaoYouMascot';
+import XiaoYouMascot, { XiaoYouSpeechBubble } from '../components/Modules/Visuals/XiaoYou/XiaoYouMascot';
 
 const styles = StyleSheet.create({
   homeLogo: {
@@ -37,17 +37,36 @@ const styles = StyleSheet.create({
 // 2) playable from cache, if user dislikes, discard
 // 3) else, save on device
 
+
+export const PromptResponseContext = createContext({});
+
 export default function PromptResponseScreen() {
+
+  const [longPressedVocab, setLongPressedVocab] = useState('我');
+  const [XYSpeechVisible, setXYSpeechVisible] = useState(false);
+
   return (
-    <View style={youziStyles.centeredView}>
-      {/* <Text>Youzi.PromptResponseScreen</Text> */}
-      <PromptCard hasImage={false} />
-      <SuggestedMediaCard />
-      <PromptVocabCard />
-      <ControlsBar />
-      <HomeButton />
-      <SettingsButton />
-      <XiaoYouMascot />
-    </View>
+    <PromptResponseContext.Provider value={{
+      longPressedVocab,
+      setLongPressedVocab,
+      XYSpeechVisible,
+      setXYSpeechVisible
+    }}>
+      <View style={youziStyles.centeredView}>
+        {/* <Text>Youzi.PromptResponseScreen</Text> */}
+        <PromptCard hasImage={false} />
+        <SuggestedMediaCard />
+        <PromptVocabCard />
+        <ControlsBar />
+        <HomeButton />
+        <SettingsButton />
+        {XYSpeechVisible ?
+          <XiaoYouSpeechBubble textContent={
+            'oh that means: ' + longPressedVocab
+          } /> :
+          <></>}
+        <XiaoYouMascot />
+      </View>
+    </PromptResponseContext.Provider>
   )
 }

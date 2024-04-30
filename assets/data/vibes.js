@@ -3,6 +3,7 @@ export const vibes = [
         id: 0,
         code: "chatting",
         label: "Simple Liao Tian",
+        icon: require('../icons/emoticon.png'),
         subVibes: [
             {
                 id: 0,
@@ -30,6 +31,7 @@ export const vibes = [
         id: 1,
         code: "trauma bonding",
         label: "Trauma Bondin'",
+        icon: require('../icons/heart.png'),
         subVibes: [
             {
                 id: 0,
@@ -57,6 +59,7 @@ export const vibes = [
         id: 2,
         code: "spicy",
         label: "Hai Xiu Talk",
+        icon: require('../icons/tea.png'),
         subVibes: [
             {
                 id: 0,
@@ -84,6 +87,7 @@ export const vibes = [
         id: 3,
         code: "media",
         label: "Popular Media'",
+        icon: require('../icons/television-classic.png'),
         subVibes: [
             {
                 id: 0,

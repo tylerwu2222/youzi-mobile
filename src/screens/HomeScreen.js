@@ -17,10 +17,6 @@ import IconButton from '../components/Modules/Buttons/IconButton';
 import SettingsButton from '../components/NavigationButtons/SettingsButton/SettingsButton';
 
 const styles = StyleSheet.create({
-  homeLogo: {
-    width: youziDimensions.vw / 2,
-    height: youziDimensions.vw / 2
-  }
 });
 
 export default function HomeScreen() {

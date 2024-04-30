@@ -1,5 +1,5 @@
 import { View, Image, Text, Pressable } from 'react-native'
-import React, { cloneElement } from 'react'
+import React, { useState, cloneElement } from 'react'
 
 import SettingsIcon from '@mui/icons-material/Settings';
 
@@ -12,18 +12,31 @@ import { StyleSheet } from 'react-native';
 export default function IconButton({
   iconComponent,
   onPress = () => { },
+  onPressIn = () => { },
+  onPressOut = () => { },
   ...props
 }) {
+  // const [pressed, setPressed] = useState(false);
+
   const styles = StyleSheet.create({
     iconButton: {
       // backgroundColor: iconColor
+      // opacity: pressed ? 0.6 : 1,
     }
   });
 
   return (
     <Pressable
       style={styles.iconButton}
-      onPress={() => { onPress() }}
+      onPress={() => {
+        onPress();
+      }}
+      onPressIn={() => {
+        onPressIn();
+      }}
+      onPressOut={() => {
+        onPressOut();
+      }}
       {...props}
     >
       {/* <Text>asd</Text> */}

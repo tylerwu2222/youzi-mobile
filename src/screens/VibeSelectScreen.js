@@ -21,7 +21,7 @@ import { youziDimensions } from '../styles/youziStyles';
 
 const styles = StyleSheet.create({
   vibeView: {
-    width: '80%',
+    // width: '80%',
     // width: youziDimensions.vw / 2
   }
 });
@@ -47,7 +47,13 @@ export default function VibeSelectScreen() {
         {vibes.map(vibe => {
           return (
             <>
-              <VibeSelectButton key={vibe.id} id={vibe.id} code={vibe.code} label={vibe.label} subvibes = {vibe.subVibes} />
+              <VibeSelectButton 
+              key={vibe.id} 
+              id={vibe.id} 
+              code={vibe.code} 
+              label={vibe.label} 
+              backgroundIcon={vibe.icon}
+              subvibes = {vibe.subVibes} />
             </>)
         })}
       </ScrollView>

@@ -8,8 +8,6 @@ export const youziDimensions = {
     "vh": Dimensions.get('window').height
 };
 
-// standard dimensions:
-// default padded width: youziDimensions.vw * 4 / 5
 
 export const youziColors = {
     "backgroundPastelOrange": "#F9E7D3",
@@ -24,6 +22,9 @@ export const youziColors = {
 
     "cardBackgroundOrange": "#FCCB91",
     "cardBackgroundYellow": "#F1DC87",
+
+    "lightGrey": "#D6BDA6",
+    "midGrey": "#a3907e",
 
     "blackText": "#000",
     "whiteText": "#fff",
@@ -59,7 +60,7 @@ export const youziStyles = StyleSheet.create({
         fontFamily: 'Itim'
     },
     cardHeaderText: {
-        fontSize: 18,
+        fontSize: 20,
         // fontFamily: 'Zilla Slab'
         fontFamily: 'Itim',
         fontWeight: '400'

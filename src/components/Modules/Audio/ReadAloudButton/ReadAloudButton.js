@@ -7,18 +7,21 @@ import { MaterialIcons } from '@expo/vector-icons';
 import IconButton from '../../Buttons/IconButton';
 import { youziColors, youziDimensions } from '../../../../styles/youziStyles';
 
-const styles = StyleSheet.create({
-    audioButton: {
-        color: youziColors.whiteText,
-        backgroundColor: youziColors.buttonBackgroundPink,
-        width: youziDimensions.vw / 14,
-        padding: 5,
-        borderRadius: 20
-    }
-});
-
 export default function ReadAloudButton({ text = 'read this aloud' }) {
     const [isReading, setIsReading] = useState(false);
+    const [pressed, setPressed] = useState(false);
+
+
+    const styles = StyleSheet.create({
+        audioButton: {
+            color: youziColors.whiteText,
+            backgroundColor: youziColors.buttonBackgroundPink,
+            width: youziDimensions.vw / 14,
+            padding: 5,
+            borderRadius: 20,
+            opacity: pressed ? 0.6 : 1
+        }
+    });
 
     // play audio text
     const readText = () => {
@@ -60,6 +63,8 @@ export default function ReadAloudButton({ text = 'read this aloud' }) {
                         readText();
                     }
                 }}
+                // onPressIn={setPressed(true)}
+                // onPressOut={setPressed(false)}
                 style={styles.audioButton} // can pass styles b/c ...props
             />
 
