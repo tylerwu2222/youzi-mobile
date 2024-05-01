@@ -7,23 +7,23 @@ export const vibes = [
         subVibes: [
             {
                 id: 0,
-                code: "childhood",
-                label: "Childhood"
+                code: "anecdotes",
+                label: "Anecdotes & Past Lives"
             },
             {
                 id: 1,
-                code: "school",
-                label: "School"
+                code: "chats",
+                label: "Daily Liao Tian"
             },
             {
                 id: 2,
-                code: "career",
-                label: "Career"
+                code: "hypotheticals",
+                label: "Fun Hypotheticals"
             },
             {
                 id: 3,
-                code: "romance",
-                label: "Romance"
+                code: "preferences",
+                label: "Preferences & Hot Takes"
             },
         ]
     },
@@ -36,22 +36,22 @@ export const vibes = [
             {
                 id: 0,
                 code: "childhood",
-                label: "Childhood"
+                label: "ABC Childhood"
             },
             {
                 id: 1,
-                code: "school",
-                label: "School"
+                code: "academics",
+                label: "Academic Trauma"
             },
             {
                 id: 2,
                 code: "career",
-                label: "Career"
+                label: "Career Trauma"
             },
             {
                 id: 3,
                 code: "romance",
-                label: "Romance"
+                label: "Romance Struggles"
             },
         ]
     },
@@ -63,18 +63,18 @@ export const vibes = [
         subVibes: [
             {
                 id: 0,
-                code: "childhood",
-                label: "Childhood"
+                code: "tea",
+                label: "Spill the Tea"
             },
             {
                 id: 1,
-                code: "school",
-                label: "School"
+                code: "rant",
+                label: "Rant Club"
             },
             {
                 id: 2,
-                code: "career",
-                label: "Career"
+                code: "secrets",
+                label: "Secrets"
             },
             {
                 id: 3,
@@ -101,8 +101,8 @@ export const vibes = [
             },
             {
                 id: 2,
-                code: "memes",
-                label: "Memes"
+                code: "news",
+                label: "News & Current Events"
             }
         ]
     },

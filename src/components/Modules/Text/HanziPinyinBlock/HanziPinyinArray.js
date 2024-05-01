@@ -5,6 +5,7 @@ import HanziPinyinBlock from './HanziPinyinBlock';
 
 export default function HanziPinyinArray({ hanziArray, customPinyinSize = null, customHanziSize = null, enableLongPress = true }) {
     const applyLetterSpacing = (string, count = 1) => {
+        // console.log('HZPY string', string);
         return string.split('').join('\u200A'.repeat(count));
     }
 

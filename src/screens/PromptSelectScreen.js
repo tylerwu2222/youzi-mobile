@@ -1,18 +1,21 @@
 import { View, Text, StyleSheet } from 'react-native';
-import React, { useContext } from 'react';
+import React, { useContext, useEffect } from 'react';
 import { AppContext } from '../../App';
 
+// components
 import PromptCarousel from '../components/PromptSelectScreen/PromptCarousel';
+import HomeButton from '../components/NavigationButtons/HomeButton/HomeButton';
+import SettingsButton from '../components/NavigationButtons/SettingsButton/SettingsButton';
 
-
+// data
 import { vibes } from '../../assets/data/vibes';
+import { getRandomPrompt } from '../scripts/promptGetter';
 
 // styles
 import { youziStyles } from '../styles/youziStyles';
 import { youziColors } from '../styles/youziStyles';
 import { youziDimensions } from '../styles/youziStyles';
-import HomeButton from '../components/NavigationButtons/HomeButton/HomeButton';
-import SettingsButton from '../components/NavigationButtons/SettingsButton/SettingsButton';
+
 
 const styles = StyleSheet.create({
   homeLogo: {
@@ -25,15 +28,51 @@ const styles = StyleSheet.create({
 export default function PromptSelectScreen() {
   const {
     vibeID,
-    subVibeID
+    subVibeID,
+    setPromptObject,
+    // vibeObject,
+    // setVibeObject,
+    // subVibeObject,
+    // setSubVibeObject
     // setVibeID
   } = useContext(AppContext);
 
-  console.log('vibe at prompt select screen', vibeID);
+  // console.log('vibe at prompt select screen', vibeID);
 
-  const vibeLabel = vibes.find(vibe => vibe['id'] === vibeID)['label']
-  const subVibeLabel = vibes.find(vibe => vibe['id'] === vibeID)['subVibes'].find(subvibe => subvibe['id'] === subVibeID)['label']
-  console.log('SVL',subVibeLabel);
+  // when vibe/subvibe id changes, update objects
+  // useEffect(() => {
+  //   if (vibeID) {
+  //     setSubVibeObject(vibeObject['subVibes'].find(subvibe => subvibe['id'] === subVibeID));
+  //   }
+  // }, [vibeID, subVibeID]);
+
+  // useEffect(() => {
+  //   if (vibeID) {
+  //     setVibeObject(vibes.find(vibe => vibe['id'] === vibeID));
+  //   }
+  // }, [vibeID]);
+
+  // get label and code for vibe and subvibe
+  const vibeObject = vibes.find(vibe => vibe['id'] === vibeID);
+  const vibeLabel = vibeObject['label'];
+  const vibeCode = vibeObject['code']
+
+  let subVibeObject = null, subVibeLabel = null, subVibeCode = null;
+  if (subVibeID) {
+    subVibeObject = vibeObject['subVibes'].find(subvibe => subvibe['id'] === subVibeID)
+    subVibeLabel = subVibeObject['label'];
+    subVibeCode = subVibeObject['code'];
+  }
+
+  useEffect(() => {
+    // get random prompt for carousel card and set in context
+
+    const randomPrompt = getRandomPrompt(vibeCode, subVibeCode);
+    setPromptObject(randomPrompt);
+    // console.log('PSS RANDOM PROMPT', randomPrompt);
+    // }, [vibeID, subVibeID]);
+  }, []);
+
 
   return (
     <View style={[youziStyles.centeredView, youziStyles.horizontallyCenteredView]}>

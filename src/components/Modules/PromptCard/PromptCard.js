@@ -3,7 +3,7 @@ import React, { useState, useRef, useContext } from 'react';
 
 import { AppContext } from '../../../../App';
 import { getImage, getHanZiText, getPinYinText, getEnglishText } from '../../../scripts/promptGetter';
-import HanziPinyinBlock from '../Text/HanziPinyinBlock/HanziPinyinBlock';
+// import HanziPinyinBlock from '../Text/HanziPinyinBlock/HanziPinyinBlock';
 import ReadAloudButton from '../Audio/ReadAloudButton/ReadAloudButton';
 
 // styles
@@ -11,7 +11,7 @@ import { StyleSheet } from "react-native";
 import { youziDimensions, youziStyles } from '../../../styles/youziStyles';
 
 // test data
-import { dummyChinesePrompt } from '../../../../assets/data/dummy_data';
+// import { dummyChinesePrompt } from '../../../../assets/data/dummy_data';
 // import promptData from '../../../../assets/data/test_set_829.json';
 import ExpandButton from '../Buttons/ExpandButton';
 import HanziPinyinArray from '../Text/HanziPinyinBlock/HanziPinyinArray';
@@ -49,8 +49,9 @@ export default function PromptCard({
   hasImage = true,
   hasEnglish = true }) {
   const {
-    vibeID,
-    promptID
+    // vibeID,
+    // subVibeID,
+    promptObject
   } = useContext(AppContext);
 
   const [expanded, setExpanded] = useState(false);
@@ -71,33 +72,34 @@ export default function PromptCard({
   //   setContentHeight(height);
   // };
 
+  // console.log('promptObject', promptObject);
 
   return (
     <View style={[
       youziStyles.promptCard,
       styles.responsePromptCard
     ]}>
+
+      {/* image */}
       {hasImage ? <View style={styles.promptImageView}>
-        {/* <Text>AI Image here</Text> */}
         <AIGenImage />
-        {/* <Image
-          style={styles.promptImage}
-          src={getImage(promptID)}
-          alt="AI Generated Image"
-        ></Image> */}
       </View> : null}
+
+      {/* chinese prompt */}
       <View style={youziStyles.hanziPinyinBlocksView}>
-        {hasAudio ? <ReadAloudButton text={dummyChinesePrompt} /> : null}
+        {hasAudio ? <ReadAloudButton text={promptObject['convo_starter_1']} /> : null}
         {/* {Array.from(dummyChinesePrompt).map((hanzi, index) => {
           return <HanziPinyinBlock key={index} hanziCharacter={hanzi} />
         })} */}
-        <HanziPinyinArray hanziArray={dummyChinesePrompt} />
+        <HanziPinyinArray hanziArray={promptObject['convo_starter_1']} />
       </View>
+
+      {/* english prompt */}
       <Animated.View style={[styles.toggleableView, { height: heightAnim }]}>
         {expanded ?
           <View
             style={[styles.englishTextView, youziStyles.englishTextView]}>
-            <Text style={youziStyles.englishPromptText}>{getEnglishText(promptID)}</Text>
+            <Text style={youziStyles.englishPromptText}>{promptObject['english_translate_1']}</Text>
           </View> : null
         }
       </Animated.View>

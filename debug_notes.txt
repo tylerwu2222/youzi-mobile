@@ -76,3 +76,9 @@ testing moving font out of app json
       ]
 
 4/24/24
+
+5/1/24
+trying openAI api again, maybe need to store audio files in an google storage (S3) bucket?
+
+or react-native-fileSize
+Note file type is m4a

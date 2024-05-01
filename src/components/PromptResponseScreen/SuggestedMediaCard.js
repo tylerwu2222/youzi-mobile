@@ -1,8 +1,10 @@
 import { View, Text, Linking, StyleSheet } from 'react-native'
-import React, { useState } from 'react'
+import React, { useState, useContext, useEffect } from 'react'
+
+import { AppContext } from '../../../App';
 
 import YoutubeVideoPlayer from './YoutubeVideoPlayer';
-
+import { getFirstVideo } from '../../scripts/youtubeVideoFetch';
 import { dummyMedia } from '../../../assets/data/dummy_data'
 
 import { youziDimensions, youziColors } from '../../styles/youziStyles';
@@ -27,26 +29,43 @@ const styles = StyleSheet.create({
 
 export default function SuggestedMediaCard() {
     // maybe filtering for short vid would also work
-    const [firstVideoID, setfirstVideoID] = useState('TDqhmhfnOvI'); // testing vertical vid --> works
+    const [firstVideoID, setfirstVideoID] = useState(null); // testing vertical vid --> works
+    const [mediaQuery, setMediaQuery] = useState('rick roll'); // testing vertical vid --> works
+    const [queryResults, setQueryResults] = useState('https://www.youtube.com/results?' + mediaQuery); // testing vertical vid --> works
     // const [firstVideoID, setfirstVideoID] = useState('KE0NEFKhEG8'); // horizontal vid
     const [firstPlaylistID, setfirstPlaylistID] = useState(null);
 
-    // get first video using YouTube API
-    const getFirstVideo = () => {
-        // search using keyword --> get first video 
+    const {
+        promptObject
+    } = useContext(AppContext);
 
-        // if playlist, get first video of playlist (then link playlist)
-    };
+    // get media query keyword from media_1 string
+    useEffect(() => {
+        const prepVideoFields = async () => {
+            const regex = /"([^"]*)"/;
+            const match = promptObject['media_1'].match(regex);
+            const firstMatch = match ? match[1] : null;
+            setMediaQuery(firstMatch)
+            // console.log('mediaQuery', mediaQuery);
+            setQueryResults('https://www.youtube.com/results?search_query=' + firstMatch)
+            const firstVideoID = await getFirstVideo(searchQuery = firstMatch, videoDuration = 'short');
+            // console.log('FIRST VID ID', firstVideoID)
+            setfirstVideoID(firstVideoID);
+            // console.log('first video', firstVideo);
+        }
+        prepVideoFields();
+
+    }, []);
 
     return (
         <View style={styles.suggestedMediaView}>
-            <YoutubeVideoPlayer youtubeVideoID={firstVideoID} />
+            {firstVideoID ? <YoutubeVideoPlayer youtubeVideoID={firstVideoID} /> : <></>}
             <Text>
                 Media Recommendation:
                 <Text
                     style={styles.suggestedMediaViewText}
-                    onPress={() => Linking.openURL('https://www.youtube.com/results?search_query=' + dummyMedia)}
-                > {dummyMedia}</Text>
+                    onPress={() => Linking.openURL(queryResults)}
+                > {mediaQuery}</Text>
             </Text>
         </View>
     )

@@ -45,9 +45,6 @@ export default function SubVibeSelectButton({ vibeId = 0, subVibeId = 0, label =
   const navigation = useNavigation();
   const navigateToVibe = (label) => {
     console.log('navigating to', label);
-    // setVibeID(vibeId);
-    // setSubVibeID(subVibeId);
-    // navigation.navigate('prompt-select-page', { vibe: label });
     navigation.navigate('prompt-select-page');
   }
 

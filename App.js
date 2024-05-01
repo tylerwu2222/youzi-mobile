@@ -11,6 +11,9 @@ import { AudioPlayerProvider } from './src/scripts/AudioPlayerContext.js';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 // import database from '@react-native-firebase/database'; // For Realtime Database
 
+// data
+import { vibes } from './assets/data/vibes.js';
+
 // screens
 import LoadingScreen from './src/screens/LoadingScreen.js';
 
@@ -36,6 +39,7 @@ import { createContext, useState } from 'react';
 // import { StatusBar } from 'expo-status-bar';
 // import { useFonts } from 'expo-font';
 import * as Font from 'expo-font';
+import { dummyChinesePrompt, dummyEnglishPrompt } from './assets/data/dummy_data.js';
 
 
 // screen navigation
@@ -79,10 +83,16 @@ export default function App() {
   const [showPinyin, setShowPinyin] = useState(null);
   const [allowNSFWPrompts, setAllowNSFWPrompts] = useState(null);
 
-  const [vibeID, setVibeID] = useState(1);
-  const [subVibeID, setSubVibeID] = useState(1);
+  const [vibeID, setVibeID] = useState(null);
+  const [subVibeID, setSubVibeID] = useState(null);
+  // const [vibeObject, setVibeObject] = useState({});
+  // const [subVibeObject, setSubVibeObject] = useState({});
   const [promptID, setPromptID] = useState(0);
-  const [promptObject, setPromptObject] = useState({});
+  const [promptObject, setPromptObject] = useState({
+    'convo_starter_1': dummyChinesePrompt,
+    'english_translation_1': dummyEnglishPrompt
+  });
+
   // const [audioResponse, setAudioResponse] = useState('');
   const [textResponse, setTextResponse] = useState('');
 

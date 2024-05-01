@@ -6,6 +6,7 @@ import { Audio } from 'expo-av';
 // scripts
 import { getPromptAudioByID } from '../../../scripts/audioGetter';
 import { transcribeAudio } from '../../../scripts/openai';
+import { readFileAsBase64 } from '../../../scripts/audioFileManipulation';
 
 // components
 import IconButton from '../../Modules/Buttons/IconButton';
@@ -118,15 +119,12 @@ export default function RecordButton() {
     // 2a) get transcription from recording
     const handleTranscribe = async (uri) => {
       try {
-        // const audioFile = await getPromptAudioByID(promptNumber);
-        // const audioFile = await DocumentPicker.getDocumentAsync({
-        //     type: 'audio/*',
-        // });
-        // console.log('PA audio file', audioFile);
         console.log('uri', uri);
+        // convert uri to audio file
+        const base64File = await readFileAsBase64(uri);
         // const fileSize = await getFileSize(audioFile);
         // console.log('file size', fileSize);
-        const transcribedText = await transcribeAudio(uri, 'zh');
+        const transcribedText = await transcribeAudio(base64File, 'zh');
         console.log('PA transcribed text', transcribedText)
         setTranscription(transcribedText);
       } catch (error) {
@@ -134,8 +132,12 @@ export default function RecordButton() {
         // setTranscription('Transcription failed');
       }
     };
+
     if (uri) {
       handleTranscribe(uri);
+    }
+    else {
+      console.log('uri not defined:', uri);
     }
 
     // 2b) Get existing recordings, then create and append the new recording

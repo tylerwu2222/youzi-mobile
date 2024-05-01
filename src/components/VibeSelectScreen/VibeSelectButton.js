@@ -5,13 +5,13 @@ import { View, Text, Image, TouchableOpacity, Pressable, StyleSheet, Animated } 
 import SubVibeSelectButton from './SubVibeSelectButton';
 
 // navigation
-// import { useNavigation } from '@react-navigation/native';
+import { useNavigation } from '@react-navigation/native';
 
 // styles
 import { youziDimensions, youziColors } from '../../styles/youziStyles';
 
 export default function VibeSelectButton({
-  id = 0,
+  vibeId = 0,
   code = "code",
   label = "label",
   backgroundIcon = "image",
@@ -21,18 +21,22 @@ export default function VibeSelectButton({
   const [selected, setSelected] = useState(false);
   const [subVibesVisible, setSubVibesVisible] = useState(false);
 
-  // const navigation = useNavigation();
-  // const navigateToVibe = (label) => {
-  //   console.log('navigating to', label);
-  //   // setVibeID()
-  //   // navigation.navigate('prompt-select-page', { vibe: label });
-  //   navigation.navigate('prompt-select-page');
-  // }
+  const {
+    setVibeID,
+    setSubVibeID
+  } = useContext(AppContext);
+
+  const navigation = useNavigation();
+  const navigateToVibe = (label) => {
+    console.log('navigating to', label);
+    navigation.navigate('prompt-select-page');
+  }
 
   // initalize relative position of slide out animation as 0
-  const slideAnim = useRef(new Animated.Value(0)).current;
+  // const slideAnim = useRef(new Animated.Value(0)).current;
   const opacityAnim = useRef(new Animated.Value(0)).current;
   const heightAnim = useRef(new Animated.Value(0)).current;
+
   const toggleSubVibes = () => {
     // console.log('toggling sub vibes');
     setSubVibesVisible(!subVibesVisible);
@@ -116,13 +120,21 @@ export default function VibeSelectButton({
 
   return (
     <>
+      {/* vibe button */}
       <Pressable
-        // <TouchableOpacity
         style={styles.vibeButton}
+        // toggle subvibes if short press
         onPress={() => {
           toggleSubVibes();
-          // setVibeID(id);
-          // navigateToVibe(label);
+        }}
+        // generate random subvibe if longPress
+        onLongPress={() => {
+          setVibeID(vibeId);
+          // setSubVibeID(null);
+          setSubVibeID(Math.floor(Math.random() * subvibes.length));
+          navigateToVibe(label);
+          // console.log('v', vibeId);
+          
         }}
         onPressIn={() => {
           setSelected(true);
@@ -142,14 +154,20 @@ export default function VibeSelectButton({
             style={styles.vibeButtonText}
           >{label}</Text>
         </View>
-        {/* </TouchableOpacity > */}
       </Pressable >
+
+      {/* subvibe buttons */}
       {subVibesVisible ?
         <Animated.View style={styles.subVibeView}>
           {subvibes.map((subvibe, index) => {
             return (
               <Animated.View style={styles.toggleableView}>
-                <SubVibeSelectButton key={index} vibeId={id} subVibeId={index} label={subvibe.label} />
+                <SubVibeSelectButton
+                  key={index}
+                  vibeId={vibeId}
+                  subVibeId={index}
+                  label={subvibe.label}
+                />
               </Animated.View>
             )
             // return <SubVibeSelectButton key={index} vibeId={id} subVibeId={index} label={label} />

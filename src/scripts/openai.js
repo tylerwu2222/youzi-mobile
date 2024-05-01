@@ -1,48 +1,51 @@
-import axios from 'axios';
+// import axios from 'axios';
+import OpenAI from 'openai';
+
 import { OPENAI_KEY } from './API_keys';
 
-const MAX_RETRIES = 2; // Maximum number of retries
-const INITIAL_DELAY = 1000; // Initial delay in milliseconds
+const openai = new OpenAI({ apiKey: OPENAI_KEY });
 
 export const transcribeAudio = async (audioFile, language) => {
-    const formData = new FormData();
-    formData.append('file', audioFile);
-    formData.append('model', 'whisper-1');
-    formData.append('language', language);
+    // testing openAI completion --> works!
+    // const completion = await openai.chat.completions.create({
+    //     messages: [{ role: "system", content: "You are a helpful assistant." }],
+    //     model: "gpt-3.5-turbo",
+    // });
 
-    console.log('TA formData', formData);
+    // console.log('testing openAI', completion.choices[0]);
 
-    const config = {
-        headers: {
-            'Content-Type': 'multipart/form-data',
-            'Authorization': `Bearer ${OPENAI_KEY}`,
-        },
-    };
+    // console.log('openai audiofile', audioFile)
+    // const transcription = await openai.audio.transcriptions.create({
+    //     // file: fs.createReadStream(audioFile),
+    //     file: audioFile,
+    //     model: "whisper-1",
+    //     language: language
+    // });
 
-    let retries = 0;
-    let delay = INITIAL_DELAY;
-    const makeRequest = async () => {
-        try {
-            const response = await axios.post(
-                'https://api.openai.com/v1/audio/transcriptions',
-                formData,
-                config
-            );
-            console.log('OPENAI response', response.data);
-            return response.data.text;
-        } catch (error) {
-            if (error.response && error.response.status === 429 && retries < MAX_RETRIES) {
-                retries++;
-                delay *= 2; // Exponential backoff
-                console.log(`Rate limit exceeded. Retrying in ${delay} ms...`);
-                await new Promise(resolve => setTimeout(resolve, delay));
-                return makeRequest();
-            } else {
-                console.error('Error transcribing audio:', error);
-                throw error;
-            }
-        }
-    };
+    // console.log('transcription', transcription);
+    // console.log('transcription.text', transcription.text);
 
-    return makeRequest();
+    // try {
+    //     const response = await FileSystem.uploadAsync(
+    //         this.openAIEndpoint,
+    //         audioFile,
+    //         {
+    //             // Options specifying how to upload the file.
+    //             httpMethod: 'POST',
+    //             uploadType: FileSystem.FileSystemUploadType.MULTIPART,
+    //             fieldName: 'file', // Name of the field for the uploaded file
+    //             mimeType: 'audio/m4a', // MIME type of the uploading file
+    //             parameters: {
+    //                 model: 'whisper-1', // For example, if you're using OpenAI's model parameter
+    //                 language: language
+    //             },
+    //         }
+    //     );
+
+    //     console.log(JSON.stringify(response, null, 4));
+    // }
+    // catch {
+    //     console.log('errorrrrrr')
+    // }
+
 };
