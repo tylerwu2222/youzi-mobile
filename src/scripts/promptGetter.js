@@ -37,7 +37,7 @@ export const getRandomPrompt = (
   filteredData = data.filter(row => {
     return row['VIBE'] == vibeCode;
   })
-  console.log('fd1', filteredData.length);
+  // console.log('fd1', filteredData.length);
   // then subvibe (if provided)
   if (subVibeCode) {
     filteredData = filteredData.filter(row => {

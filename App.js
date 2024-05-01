@@ -11,6 +11,9 @@ import { AudioPlayerProvider } from './src/scripts/AudioPlayerContext.js';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 // import database from '@react-native-firebase/database'; // For Realtime Database
 
+// press events
+import { EventProvider } from 'react-native-outside-press';
+
 // data
 import { vibes } from './assets/data/vibes.js';
 
@@ -83,6 +86,7 @@ export default function App() {
   const [showPinyin, setShowPinyin] = useState(null);
   const [allowNSFWPrompts, setAllowNSFWPrompts] = useState(null);
 
+  // prompt variables
   const [vibeID, setVibeID] = useState(null);
   const [subVibeID, setSubVibeID] = useState(null);
   // const [vibeObject, setVibeObject] = useState({});
@@ -93,9 +97,10 @@ export default function App() {
     'english_translation_1': dummyEnglishPrompt
   });
 
+  // text/audio variables
   // const [audioResponse, setAudioResponse] = useState('');
   const [textResponse, setTextResponse] = useState('');
-
+  const [xiaoYouTranscript, setXiaoYouTranscript] = useState('I don\'t know');
   const [isFontLoaded, setIsFontLoaded] = useState(false);
 
   // load fonts
@@ -132,89 +137,93 @@ export default function App() {
   }
 
   return (
-    <AppContext.Provider value={{
-      vibeID,
-      setVibeID,
-      subVibeID,
-      setSubVibeID,
-      promptID,
-      setPromptID,
-      promptObject,
-      setPromptObject,
-      textResponse,
-      setTextResponse,
-      isTraditional,
-      setIsTraditional,
-      showPinyin,
-      setShowPinyin,
-      allowNSFWPrompts,
-      setAllowNSFWPrompts
-    }}>
-      <AudioPlayerProvider>
-        <NavigationContainer>
-          <Stack.Navigator
-            screenOptions={{
-              headerShown: false,
-              animation: 'slide_from_right'
-            }}
-            initialRouteName={onboarded ? 'home-page' : 'onboarding-interests-page'}
-          >
-            <Stack.Screen
-              name='onboarding-interests-page'
-              component={OnboardingInterestsScreen}
-              options={{ title: 'Onboarding Interests' }}
-            />
-            <Stack.Screen
-              name='home-page'
-              component={HomeScreen}
-              options={{
-                title: 'Home',
-                presentation: 'modal',
+    <EventProvider>
+      <AppContext.Provider value={{
+        vibeID,
+        setVibeID,
+        subVibeID,
+        setSubVibeID,
+        promptID,
+        setPromptID,
+        promptObject,
+        setPromptObject,
+        textResponse,
+        setTextResponse,
+        xiaoYouTranscript,
+        setXiaoYouTranscript,
+        isTraditional,
+        setIsTraditional,
+        showPinyin,
+        setShowPinyin,
+        allowNSFWPrompts,
+        setAllowNSFWPrompts
+      }}>
+        <AudioPlayerProvider>
+          <NavigationContainer>
+            <Stack.Navigator
+              screenOptions={{
+                headerShown: false,
                 animation: 'slide_from_right'
               }}
-            />
-            <Stack.Screen
-              name='onboarding-profile-page'
-              component={OnboardingProfileScreen}
-              options={{ title: 'Onboarding Profile' }}
-            />
-            <Stack.Screen
-              name='vibe-select-page'
-              component={VibeSelectScreen}
-              options={{ title: 'Vibe Select' }}
-            />
-            <Stack.Screen
-              name='prompt-select-page'
-              component={PromptSelectScreen}
-              options={{ title: 'Prompt Select' }}
-            />
-            <Stack.Screen
-              name='prompt-response-page'
-              component={PromptResponseScreen}
-              options={{ title: 'Prompt Response' }}
-            />
-            <Stack.Screen
-              name='review-mode-page'
-              component={ReviewScreen}
-              options={{ title: 'Review Mode' }}
-            />
-            <Stack.Screen
-              name='review-prompt-page'
-              component={ReviewPromptScreen}
-              options={{ title: 'Review Prompt' }}
-            />
-            <Stack.Screen
-              name='settings-page'
-              component={SettingsScreen}
-              options={{
-                title: 'Settings',
-                presentation: 'modal',
-                animation: 'slide_from_left'
-              }}
-            />
-          </Stack.Navigator>
-        </NavigationContainer>
-      </AudioPlayerProvider>
-    </AppContext.Provider>
+              initialRouteName={onboarded ? 'home-page' : 'onboarding-interests-page'}
+            >
+              <Stack.Screen
+                name='onboarding-interests-page'
+                component={OnboardingInterestsScreen}
+                options={{ title: 'Onboarding Interests' }}
+              />
+              <Stack.Screen
+                name='home-page'
+                component={HomeScreen}
+                options={{
+                  title: 'Home',
+                  presentation: 'modal',
+                  animation: 'slide_from_right'
+                }}
+              />
+              <Stack.Screen
+                name='onboarding-profile-page'
+                component={OnboardingProfileScreen}
+                options={{ title: 'Onboarding Profile' }}
+              />
+              <Stack.Screen
+                name='vibe-select-page'
+                component={VibeSelectScreen}
+                options={{ title: 'Vibe Select' }}
+              />
+              <Stack.Screen
+                name='prompt-select-page'
+                component={PromptSelectScreen}
+                options={{ title: 'Prompt Select' }}
+              />
+              <Stack.Screen
+                name='prompt-response-page'
+                component={PromptResponseScreen}
+                options={{ title: 'Prompt Response' }}
+              />
+              <Stack.Screen
+                name='review-mode-page'
+                component={ReviewScreen}
+                options={{ title: 'Review Mode' }}
+              />
+              <Stack.Screen
+                name='review-prompt-page'
+                component={ReviewPromptScreen}
+                options={{ title: 'Review Prompt' }}
+              />
+              <Stack.Screen
+                name='settings-page'
+                component={SettingsScreen}
+                options={{
+                  title: 'Settings',
+                  presentation: 'modal',
+                  animation: 'slide_from_left'
+                }}
+              />
+            </Stack.Navigator>
+          </NavigationContainer>
+        </AudioPlayerProvider>
+      </AppContext.Provider>
+    </EventProvider>
   );
 }

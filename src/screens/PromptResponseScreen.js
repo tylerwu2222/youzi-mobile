@@ -1,6 +1,6 @@
 import { View, Text, Button, StyleSheet } from 'react-native'
-import React, { useState, useEffect, createContext } from 'react'
-
+import React, { useState, useEffect, useContext, createContext } from 'react'
+import { AppContext } from '../../App';
 // audio
 // import { Audio } from 'expo-av';
 // import Voice from '@react-native-voice/voice';
@@ -41,14 +41,18 @@ const styles = StyleSheet.create({
 export const PromptResponseContext = createContext({});
 
 export default function PromptResponseScreen() {
+  const {
+    xiaoYouTranscript,
+    // setXiaoYouTranscript
+  } = useContext(AppContext);
 
-  const [longPressedVocab, setLongPressedVocab] = useState('我');
+  const [focusedVocab, setFocusedVocab] = useState('');
   const [XYSpeechVisible, setXYSpeechVisible] = useState(false);
 
   return (
     <PromptResponseContext.Provider value={{
-      longPressedVocab,
-      setLongPressedVocab,
+      focusedVocab,
+      setFocusedVocab,
       XYSpeechVisible,
       setXYSpeechVisible
     }}>
@@ -61,9 +65,12 @@ export default function PromptResponseScreen() {
         <HomeButton />
         <SettingsButton />
         {XYSpeechVisible ?
-          <XiaoYouSpeechBubble textContent={
-            'oh that means: ' + longPressedVocab
-          } /> :
+          <XiaoYouSpeechBubble
+            textContent={
+              xiaoYouTranscript
+            }
+            positionBottom={150}
+          /> :
           <></>}
         <XiaoYouMascot />
       </View>

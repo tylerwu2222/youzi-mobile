@@ -1,11 +1,13 @@
 import { View, StyleSheet } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import React, { useState, useEffect } from 'react';
-import * as Speech from 'expo-speech';
+import { readText, pauseReadingText } from '../../../../scripts/textReader';
 
 import { MaterialIcons } from '@expo/vector-icons';
 import IconButton from '../../Buttons/IconButton';
 import { youziColors, youziDimensions } from '../../../../styles/youziStyles';
+
+
 
 export default function ReadAloudButton({ text = 'read this aloud' }) {
     const [isReading, setIsReading] = useState(false);
@@ -23,22 +25,7 @@ export default function ReadAloudButton({ text = 'read this aloud' }) {
         }
     });
 
-    // play audio text
-    const readText = () => {
-        console.log('audio text', text);
-        setIsReading(true);
-        // try resuming existing speech
-        // Speech.resume();
-        // or starting new
-        Speech.speak(text, { language: "zh" });
-    };
 
-    const pauseReadingText = () => {
-        console.log('audio stopped');
-        Speech.stop();
-        // Speech.pause();
-        setIsReading(false);
-    };
 
     const navigation = useNavigation();
 
@@ -56,11 +43,15 @@ export default function ReadAloudButton({ text = 'read this aloud' }) {
             <IconButton
                 iconComponent={<MaterialIcons name="volume-up" size={24} color="black" />}
                 onPress={() => {
+                    // if already reading, pause/stop
                     if (isReading) {
                         pauseReadingText();
+                        setIsReading(false);
                     }
+                    // if not reading, start
                     else {
                         readText();
+                        setIsReading(true);
                     }
                 }}
                 // onPressIn={setPressed(true)}

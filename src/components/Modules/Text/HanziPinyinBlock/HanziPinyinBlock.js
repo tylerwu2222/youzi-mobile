@@ -14,6 +14,8 @@ export default function HanziPinyinBlock({
   hanziCharacter,
   customPinyinSize = null,
   customHanziSize = null,
+  pressable = true,
+  pinyinOn = false,
   enableLongPress = true }) {
   const { showPinyin } = useContext(AppContext);
   const [singlePinyin, setSinglePinyin] = useState(showPinyin);
@@ -32,7 +34,7 @@ export default function HanziPinyinBlock({
     },
     pinyinText: {
       fontSize: pinyinSize,
-      opacity: showPinyin || singlePinyin ? 1 : 0,
+      opacity: showPinyin || singlePinyin || pinyinOn ? 1 : 0,
       pointerEvents: showPinyin || singlePinyin ? 'auto' : 'none',
       // display: showPinyin || singlePinyin ? 'default' : 'none'
     }
@@ -51,7 +53,7 @@ export default function HanziPinyinBlock({
   return (
     <View style={styles.HZPYBlock}>
       <Text style={styles.pinyinText}>{getPinYinText(hanziCharacter)}</Text>
-      <Pressable
+      {pressable ? <Pressable
         onPress={() => { toggleSinglePinyin() }}
         // onPress={() => { readSinglePinyin() }}
         onLongPress={enableLongPress ?
@@ -62,7 +64,11 @@ export default function HanziPinyinBlock({
       // onLongPress={() => { toggleSinglePinyin() }}
       >
         <ChineseText chineseText={hanziCharacter} />
-      </Pressable>
+      </Pressable> :
+        <Pressable
+        >
+          <ChineseText chineseText={hanziCharacter} />
+        </Pressable>}
     </View>
   )
 }

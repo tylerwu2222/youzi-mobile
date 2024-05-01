@@ -17,6 +17,7 @@ import { youziColors, youziStyles } from '../../styles/youziStyles'
 import { dummyChineseVocab } from '../../../assets/data/dummy_data';
 import { promptDataColumnNames } from '../../../assets/data/prompt_meta_data';
 import VocabBlock from '../Modules/VocabBlock/VocabBlock';
+import { pauseReadingText, readText } from '../../scripts/textReader';
 
 
 const styles = StyleSheet.create({
@@ -39,14 +40,18 @@ const styles = StyleSheet.create({
 
 export default function PromptVocabCard() {
   const [vocabArrayOfObjects, setVocabArrayOfObjects] = useState(null);
+  const [isReading, setIsReading] = useState(false);
 
   const {
-    promptObject
+    promptObject,
+    xiaoYouTranscript,
+    setXiaoYouTranscript
   } = useContext(AppContext);
 
   const {
     // longPressedVocab,
-    setLongPressedVocab,
+    focusedVocab,
+    setFocusedVocab,
     // XYSpeechVisible,
     setXYSpeechVisible } = useContext(PromptResponseContext);
 
@@ -55,7 +60,7 @@ export default function PromptVocabCard() {
     vocabObject['hanzi'] = vocab.split(' (')[0];
     vocabObject['pinin'] = vocab.split(' (')[1].split(')')[0];
     vocabObject['translation'] = vocab.split(' - ')[1]
-    console.log('VO', vocabObject);
+    // console.log('VO', vocabObject);
     return vocabObject;
   };
 
@@ -69,62 +74,47 @@ export default function PromptVocabCard() {
     prepVocab();
   }, []);
 
-  // // display as 2 columns
-  // const halfLength = Math.ceil(dummyChineseVocab.length / 2);
-  // const column1 = dummyChineseVocab.slice(0, halfLength);
-  // const column2 = dummyChineseVocab.slice(halfLength);
+
+  useEffect(() => {
+    // update transcript when focused vocab changes
+    setXiaoYouTranscript('that means: ' + focusedVocab);
+  }, [focusedVocab]);
 
   return (
     <View style={[youziStyles.promptCard, styles.responseVocabCard]}>
       {/* <Text>PromptVocabCard</Text> */}
       {/* <View style={styles.responseColumn}> */}
       {vocabArrayOfObjects ? vocabArrayOfObjects.map((vocabObject, index) => {
-        console.log('VO2', vocabObject);
+        // console.log('VO2', vocabObject);
         return (
           <VocabBlock
             key={'1.' + index}
             hanzi={vocabObject['hanzi']}
             draggable={true}
-            onlongPressFn={() => {
-              // set speechbubble visible
+            onPressFn={() => {
+              // set speech bubble visible
               setXYSpeechVisible(true);
               // set vocab
-              setLongPressedVocab(vocabObject['translation']);
-              // setLongPressedVocab(defineChinese(vocab));
+              setFocusedVocab(vocabObject['translation']);
+              // read vocab
+              if (!isReading) {
+                pauseReadingText(); // first stop ongoing
+                readText(xiaoYouTranscript + vocabObject['translation'], 'en');
+                setIsReading(true);
+              }
             }
             }
-            onLongPressOutFn={() => {
+            onPressOutFn={() => {
               setXYSpeechVisible(false)
-              setLongPressedVocab('')
+              setFocusedVocab('')
+              setIsReading(false);
             }
             }
+          // translation={vocabObject['translation']}
           />
         )
       }) :
         <></>}
-      {/* </View> */}
-      {/* <View style={styles.responseColumn}>
-        {column2.map((vocab, index) => (
-          <VocabBlock
-            key={'2.' + index}
-            hanzi={vocab}
-            draggable={true}
-            onlongPressFn={
-              () => {
-                // set speechbubble visible
-                setXYSpeechVisible(true);
-                // set vocab
-                setLongPressedVocab(defineChinese(vocab));
-              }
-            }
-            onLongPressOutFn={() => {
-              setXYSpeechVisible(false)
-              setLongPressedVocab('')
-            }
-            }
-          />
-        ))}
-      </View> */}
     </View>
   )
 }
