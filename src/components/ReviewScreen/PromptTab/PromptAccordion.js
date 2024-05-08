@@ -3,7 +3,9 @@ import React, { useState, useEffect, createContext } from 'react'
 
 // components
 import AudioPlayback from '../../Modules/Audio/AudioPlayback/AudioPlayback';
-import HanziPinyinBlock from '../../Modules/Text/HanziPinyinBlock/HanziPinyinBlock';
+import ReadAloudButton from '../../Modules/Audio/ReadAloudButton/ReadAloudButton';
+import HanziPinyinArray from '../../Modules/Text/HanziPinyinBlock/HanziPinyinArray';
+import EditableChineseText from './EditableChineseText';
 
 // storage
 import AsyncStorage from '@react-native-async-storage/async-storage';
@@ -15,15 +17,10 @@ import { dummyChinesePrompt } from '../../../../assets/data/dummy_data';
 
 // styles
 import { youziColors, youziStyles } from '../../../styles/youziStyles';
-import ReadAloudButton from '../../Modules/Audio/ReadAloudButton/ReadAloudButton';
-import HanziPinyinArray from '../../Modules/Text/HanziPinyinBlock/HanziPinyinArray';
-import EditableChineseText from './EditableChineseText';
-import TextButton from '../../Modules/Buttons/TextButton';
-// import { getPromptAudioByID } from '../../../scripts/audioGetter';
 
 export const PromptAccordionContext = createContext({});
 
-export default function PromptAccordion({ prompt, recording }) {
+export default function PromptAccordion({ recording }) {
     const [currentRecordingTranscript, setCurrentRecordingTranscript] = useState(recording.transcription);
     const [editButtonsVisibile, setEditButtonsVisibile] = useState(false);
 
@@ -92,22 +89,24 @@ export default function PromptAccordion({ prompt, recording }) {
             <View
                 style={styles.accordionTextView}
             >
+                {/* prompt from recording data */}
                 <View style={styles.accordionHeaderView}>
                     <Text style={[styles.accordionLabel, youziStyles.cardHeaderText]}>Prompt:</Text>
-                    <ReadAloudButton text={dummyChinesePrompt} />
+                    {recording.prompt ? <ReadAloudButton text={recording.prompt} /> : <></>}
                 </View>
-                <HanziPinyinArray hanziArray={prompt} />
-                {/* </View >
-            <View style={styles.accordionTextView}> */}
+                {recording.prompt ? <HanziPinyinArray hanziArray={recording.prompt} /> : <></>}
+
+                {/* prompt response */}
                 <View style={styles.accordionHeaderView}>
                     <Text style={[styles.accordionLabel, youziStyles.cardHeaderText]}>Response:</Text>
                     <ReadAloudButton text={recording.transcription} />
-                    <AudioPlayback promptNumber={recording.id} />
+                    <AudioPlayback promptID={recording.id} />
                 </View>
                 <PromptAccordionContext.Provider value={{
                     currentRecordingTranscript,
                     setCurrentRecordingTranscript
                 }}>
+                    {/* editable chinese text */}
                     <ScrollView nestedScrollEnabled={true}>
                         <EditableChineseText />
                         {/* save button? */}

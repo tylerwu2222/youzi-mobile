@@ -30,7 +30,7 @@ import PromptResponseScreen from './src/screens/PromptResponseScreen.js';
 import PromptSelectScreen from './src/screens/PromptSelectScreen.js';
 
 import ReviewScreen from './src/screens/ReviewScreen.js';
-import ReviewPromptScreen from './src/screens/ReviewPromptScreen.js';
+// import ReviewPromptScreen from './src/screens/ReviewPromptScreen.js';
 
 import SettingsScreen from './src/screens/SettingsScreen.js';
 
@@ -206,11 +206,11 @@ export default function App() {
                 component={ReviewScreen}
                 options={{ title: 'Review Mode' }}
               />
-              <Stack.Screen
+              {/* <Stack.Screen
                 name='review-prompt-page'
                 component={ReviewPromptScreen}
                 options={{ title: 'Review Prompt' }}
-              />
+              /> */}
               <Stack.Screen
                 name='settings-page'
                 component={SettingsScreen}

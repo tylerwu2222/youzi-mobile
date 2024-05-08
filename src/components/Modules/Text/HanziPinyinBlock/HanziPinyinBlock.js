@@ -1,14 +1,18 @@
-import { View, Text, Pressable } from 'react-native'
 import React, { useState, useContext } from 'react';
 import { AppContext } from '../../../../../App';
 
+// components
+import { View, Text, Pressable } from 'react-native'
+import ChineseText from '../ChineseText/ChineseText';
 
+// scripts
 import { getPinYinText } from '../../../../scripts/promptGetter';
+
+// modules
 import * as Speech from 'expo-speech';
 
 // styles
 import { StyleSheet } from "react-native";
-import ChineseText from '../ChineseText/ChineseText';
 
 export default function HanziPinyinBlock({
   hanziCharacter,

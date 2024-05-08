@@ -1,21 +1,21 @@
-import { View, Text, Image, Animated } from 'react-native'
 import React, { useState, useRef, useContext } from 'react';
-
 import { AppContext } from '../../../../App';
-import { getImage, getHanZiText, getPinYinText, getEnglishText } from '../../../scripts/promptGetter';
+
+// import { getImage, getHanZiText, getPinYinText, getEnglishText } from '../../../scripts/promptGetter';
+
+// components
+import { View, Text, Image, Animated } from 'react-native'
 // import HanziPinyinBlock from '../Text/HanziPinyinBlock/HanziPinyinBlock';
 import ReadAloudButton from '../Audio/ReadAloudButton/ReadAloudButton';
+import HanziPinyinArray from '../Text/HanziPinyinBlock/HanziPinyinArray';
+import AIGenImage from '../Visuals/AIGenImage/AIGenImage';
 
 // styles
 import { StyleSheet } from "react-native";
 import { youziDimensions, youziStyles } from '../../../styles/youziStyles';
 
-// test data
-// import { dummyChinesePrompt } from '../../../../assets/data/dummy_data';
-// import promptData from '../../../../assets/data/test_set_829.json';
+// data
 import ExpandButton from '../Buttons/ExpandButton';
-import HanziPinyinArray from '../Text/HanziPinyinBlock/HanziPinyinArray';
-import AIGenImage from '../Visuals/AIGenImage/AIGenImage';
 
 const styles = StyleSheet.create({
   responsePromptCard: {

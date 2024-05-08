@@ -1,8 +1,10 @@
-import { View, Text, StyleSheet } from 'react-native';
 import React, { useContext, useEffect } from 'react';
+
+// context
 import { AppContext } from '../../App';
 
 // components
+import { View, Text, StyleSheet } from 'react-native';
 import PromptCarousel from '../components/PromptSelectScreen/PromptCarousel';
 import HomeButton from '../components/NavigationButtons/HomeButton/HomeButton';
 import SettingsButton from '../components/NavigationButtons/SettingsButton/SettingsButton';
@@ -12,9 +14,7 @@ import { vibes } from '../../assets/data/vibes';
 import { getRandomPrompt } from '../scripts/promptGetter';
 
 // styles
-import { youziStyles } from '../styles/youziStyles';
-import { youziColors } from '../styles/youziStyles';
-import { youziDimensions } from '../styles/youziStyles';
+import { youziStyles, youziDimensions } from '../styles/youziStyles';
 
 
 const styles = StyleSheet.create({

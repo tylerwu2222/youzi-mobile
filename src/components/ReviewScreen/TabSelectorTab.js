@@ -1,6 +1,9 @@
-import { Pressable, Text, StyleSheet } from 'react-native'
 import React, { useState } from 'react'
 
+// components
+import { Pressable, Text, StyleSheet } from 'react-native'
+
+// styles
 import { youziStyles, youziDimensions } from '../../styles/youziStyles';
 
 
@@ -9,12 +12,13 @@ export default function TabSelectorTab({ page, index, onPressFn = () => { } }) {
 
     const styles = StyleSheet.create({
         tab: {
-            width: '33.33%',
+            // width: '33.33%',
+            width: '50%',
             height: youziDimensions.vh * 1 / 20
         },
         tabText: {
             textAlign: 'center',
-            opacity: tabPressed ? 0.6: 1
+            opacity: tabPressed ? 0.6 : 1
         }
     });
 

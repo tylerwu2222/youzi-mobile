@@ -1,8 +1,10 @@
-import { Text, StyleSheet } from 'react-native'
 import React, { useContext } from 'react'
-
-// 
 import { AppContext } from '../../../../../App';
+
+// components
+import { Text, StyleSheet } from 'react-native'
+
+// modules
 import { tify, sify } from 'chinese-conv';
 
 

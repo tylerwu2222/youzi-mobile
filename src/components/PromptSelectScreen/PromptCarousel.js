@@ -1,9 +1,10 @@
-import { View, Text } from 'react-native'
-import React from 'react'
+import React from 'react';
 
-import PromptCard from '../Modules/PromptCard/PromptCard'
-import CarouselNavigationButton from './CarouselNavigationButton'
-import StartPromptButton from './StartPromptButton'
+// components
+import { View, Text } from 'react-native';
+import PromptCard from '../Modules/PromptCard/PromptCard';
+import CarouselNavigationButton from './CarouselNavigationButton';
+import StartPromptButton from './StartPromptButton';
 
 // styles
 import { StyleSheet } from "react-native";

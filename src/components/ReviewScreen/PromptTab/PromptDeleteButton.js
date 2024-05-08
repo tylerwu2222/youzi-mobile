@@ -1,12 +1,16 @@
-import { Text, Pressable, StyleSheet } from 'react-native'
 import React, { useState, useEffect, useContext } from 'react'
 
+// context
 import { PromptTabContext } from './PromptTab';
 
-// storage
-import AsyncStorage from '@react-native-async-storage/async-storage';
+// components
+import { Text, Pressable, StyleSheet } from 'react-native'
 
-// import { youziColors, youziStyles } from '../../../styles/youziStyles';
+// storage
+// import AsyncStorage from '@react-native-async-storage/async-storage';
+
+// styles
+import { youziColors, youziStyles } from '../../../styles/youziStyles';
 
 export default function PromptDeleteButton({ promptNumber }) {
     const {

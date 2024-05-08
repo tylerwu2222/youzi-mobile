@@ -1,13 +1,13 @@
-import { View, Text, StyleSheet, ScrollView, ActivityIndicator } from 'react-native'
 import React, { useEffect, useState, createContext } from 'react'
 
-// data
-// import { dummyChinesePrompts } from '../../../../assets/data/dummy_data';
-import { dummyChinesePrompt } from '../../../../assets/data/dummy_data';
+// navigation
+import { useNavigation } from '@react-navigation/native';
 
 // components
+import { View, Text, StyleSheet, ScrollView, ActivityIndicator } from 'react-native'
 import PromptReviewItem from './PromptReviewItem.js';
 import SearchBar from '../../Modules/TextInput/SearchBar.js';
+import TextButton from '../../Modules/Buttons/TextButton.js';
 
 // storage
 import AsyncStorage from '@react-native-async-storage/async-storage';
@@ -42,16 +42,15 @@ export default function PromptTab() {
   const [promptOptionVisibility, setPromptOptionVisibility] = useState(false);
 
   // filter prompts based on search keyword
-
   const searchPrompts = (text) => {
     // console.log('searching:', text);
     if (existingRecordings) {
       const matchedRecordings = existingRecordings.filter((r, i) => {
         // console.log(r);
         // check if prompt title includes search keyword
-        if (r.hasOwnProperty('title')) {
+        if (r.hasOwnProperty('title') && r.hasOwnProperty('date')) {
           // console.log('title', r.title);
-          return r.title.includes(text);
+          return r.title.includes(text) || r.date.includes(text);
         }
         else {
           // console.log('no property');
@@ -61,6 +60,12 @@ export default function PromptTab() {
       // console.log('matched recordings', matchedRecordings);
       setFilteredRecordings(matchedRecordings);
     }
+  };
+
+  // navigate to vibe select (when no prompts)
+  const navigation = useNavigation();
+  const navigateToVibeSelect = () => {
+    navigation.navigate('vibe-select-page')
   };
 
   // --> get recordings from AS on load
@@ -90,7 +95,6 @@ export default function PromptTab() {
     // console.log('filt records', filteredRecordings);
   }, [existingRecordings]);
 
-
   useEffect(() => {
     // if promptOptions toggled to true, 
     if (promptOptionVisibility) {
@@ -111,15 +115,26 @@ export default function PromptTab() {
         <SearchBar onChange={searchPrompts} />
       </View>
       <ScrollView style={styles.promptView}>
+        {/* recordings */}
         <View style={styles.recordingsView}>
           {filteredRecordings ? filteredRecordings.map((recording, index) => {
             // ideally show audio transcript (start of recording) with prompt
             return <PromptReviewItem key={index} recording={recording} />
           }) :
-            <ActivityIndicator size="large" color="#0000ff" />
+            <></>
+            // <ActivityIndicator size="large" color="#0000ff" />
           }
         </View>
+        {/* do a prompt if 0 recordings */}
+        {existingRecordings && existingRecordings.length == 0 ?
+          <View style={styles.recordingsView}>
+            <TextButton
+              text={'record a prompt!'}
+              onPressFn={navigateToVibeSelect}
+            />
+          </View> :
+          <></>}
       </ScrollView>
-    </PromptTabContext.Provider>
+    </PromptTabContext.Provider >
   )
 }

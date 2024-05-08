@@ -1,31 +1,29 @@
-import { View, Text, Pressable, StyleSheet } from 'react-native'
 import React, { useState, useEffect, useContext } from 'react'
 
+// context
 import { PromptTabContext } from './PromptTab';
 
-// storage
-// import AsyncStorage from '@react-native-async-storage/async-storage';
-
-import { useNavigation } from '@react-navigation/native';
-
 // components
+import { View, Text, Pressable, StyleSheet } from 'react-native'
 import PromptDeleteButton from './PromptDeleteButton';
-import ChineseText from '../../Modules/Text/ChineseText/ChineseText';
-import PromptAccordion from './PromptAccordion';
+import IconButton from '../../Modules/Buttons/IconButton';
+import AIGenImage from '../../Modules/Visuals/AIGenImage/AIGenImage';
+// import ChineseText from '../../Modules/Text/ChineseText/ChineseText';
+// import PromptAccordion from './PromptAccordion';
 
+// assets
 import { Entypo } from '@expo/vector-icons';
 
 // styles
 import { youziColors, youziDimensions, youziStyles } from '../../../styles/youziStyles';
-import IconButton from '../../Modules/Buttons/IconButton';
-import AIGenImage from '../../Modules/Visuals/AIGenImage/AIGenImage';
-
 
 export default function PromptReviewButton({ recording, onPressFn = () => { }, expanded = false }) {
     const {
         promptOptionVisibility,
         setPromptOptionVisibility
     } = useContext(PromptTabContext);
+    const [recordingFittedTitle, setRecordingFittedTitle] = useState(recording.title);
+    const [HSKDifficulty, setHSKDifficulty] = useState(recording.difficulty);
 
     const styles = StyleSheet.create({
         promptView: {
@@ -74,7 +72,18 @@ export default function PromptReviewButton({ recording, onPressFn = () => { }, e
         }
     });
 
-    console.log('recording', recording);
+    // console.log('recording', recording);
+
+    // pre-styling recording data
+    useEffect(() => {
+        // shorten title if too long
+        if (recording.title.length > 50) {
+            setRecordingFittedTitle(recording.title.slice(0, 51) + '...');
+        }
+        // map hsk difficulty
+        setHSKDifficulty(recording.difficulty + 1);
+    }, []);
+
     // const [accordionVisible, setAccordionVisible] = useState(false);
     // const navigation = useNavigation();
 
@@ -116,8 +125,8 @@ export default function PromptReviewButton({ recording, onPressFn = () => { }, e
                 </View>
                 {/* flex-item 2: prompt title */}
                 <View style={styles.promptTextView}>
-                    <Text style={youziStyles.cardHeaderText}>{recording.title}</Text>
-                    <Text style={[youziStyles.cardHeaderText, styles.promptTextSubTitle]}>{recording.difficulty} &#x2022; {recording.date}</Text>
+                    <Text style={youziStyles.cardHeaderText}>{recordingFittedTitle}</Text>
+                    <Text style={[youziStyles.cardHeaderText, styles.promptTextSubTitle]}>HSK {HSKDifficulty} &#x2022; {recording.date}</Text>
                 </View>
                 {/* flex-item 3: toggle icon */}
                 <View style={styles.promptToggleView}>

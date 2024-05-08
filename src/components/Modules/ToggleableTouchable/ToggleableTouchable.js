@@ -1,6 +1,9 @@
-import { View, Text, TouchableHighlight, TouchableOpacity, StyleSheet, Pressable } from 'react-native'
 import React from 'react'
 
+// components
+import { View, Text, TouchableHighlight, TouchableOpacity, StyleSheet, Pressable } from 'react-native'
+
+// styles
 import { youziColors, youziDimensions, youziStyles } from '../../../styles/youziStyles';
 
 const styles = StyleSheet.create({
@@ -24,7 +27,7 @@ const styles = StyleSheet.create({
 });
 
 
-export default function ToggleableTouchable({ text, handlePress = () => {}, type = 'pressable' }) {
+export default function ToggleableTouchable({ text, handlePress = () => { }, type = 'pressable' }) {
   if (type == 'highlight') {
     return (
       <TouchableHighlight

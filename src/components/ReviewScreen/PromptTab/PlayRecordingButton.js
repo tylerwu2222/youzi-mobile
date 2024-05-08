@@ -1,24 +1,26 @@
-import { View, Text } from 'react-native'
 import React, { useState, useRef, useContext } from 'react'
 
+// context
+import { AudioPlayerContext } from '../../../scripts/AudioPlayerContext';
+
 // components
-import IconButton from '../Modules/Buttons/IconButton'
+import { View, Text } from 'react-native';
+import IconButton from '../../Modules/Buttons/IconButton'
+
+// assets
 import { AntDesign } from '@expo/vector-icons';
 
-// context
-import { AudioPlayerContext } from '../../scripts/AudioPlayerContext';
-
 // storage
-import AsyncStorage from '@react-native-async-storage/async-storage';
+// import AsyncStorage from '@react-native-async-storage/async-storage';
 
 // scripts
-import { getPromptAudioByID } from '../../scripts/audioGetter';
+import { getPromptAudioByID } from '../../../scripts/asyncStorageHandler';
 
 // styles
-import { youziColors } from '../../styles/youziStyles';
+import { youziColors } from '../../../styles/youziStyles';
 
 
-export default function PlayRecordingButton({ promptNumber }) {
+export default function PlayRecordingButton({ promptID }) {
     const { loadAudio, playAudio } = useContext(AudioPlayerContext);
     const [buttonIcon, setButtonIcon] = useState('play');
     // const [recordingURI, setRecordingURI] = useState('');
@@ -41,7 +43,7 @@ export default function PlayRecordingButton({ promptNumber }) {
         console.log('button Icon', buttonIcon);
         // if button is play, play response, then set icon to pause
         if (buttonIcon == 'play') {
-            playPromptResponse(promptNumber);
+            playPromptResponse(promptID);
             setButtonIcon('pausecircle');
         }
         // else, pause response, then set icon to play
@@ -55,7 +57,8 @@ export default function PlayRecordingButton({ promptNumber }) {
     return (
         <View>
             <IconButton
-                iconComponent={<AntDesign name={buttonIcon} size={40} color={youziColors.buttonBackgroundAccent} />}
+                // iconComponent={<AntDesign name={buttonIcon} size={40} color={youziColors.buttonBackgroundAccent} />}
+                iconComponent={<AntDesign name={buttonIcon} size={40} color={youziColors.blackText} />}
                 onPress={() => {
                     // playPromptResponse(promptNumber);
                     toggleButton();

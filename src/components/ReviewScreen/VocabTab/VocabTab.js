@@ -1,9 +1,15 @@
-import { View, Text, ScrollView, StyleSheet } from 'react-native'
 import React, { useState, createContext } from 'react'
 
+// components
+import { View, Text, ScrollView, StyleSheet } from 'react-native'
 import VocabContentSection from './VocabContentSection';
 import VocabModal from '../../Modules/VocabModal/VocabModal';
+import { fetchVocabObject } from '../../../scripts/asyncStorageHandler';
 
+// scripts
+import { getCompletedVocab, getCompletedSlang, getCompletedFavoriteVocab } from '../../../scripts/asyncStorageHandler';
+
+// styles
 import { youziDimensions, youziStyles } from '../../../styles/youziStyles';
 
 const styles = StyleSheet.create({
@@ -21,10 +27,15 @@ const styles = StyleSheet.create({
 export const VocabTabContext = createContext({});
 
 export default function VocabTab() {
-    const VocabSections = ['difficult', 'medium', 'easy'];
+    // const VocabSections = ['difficult', 'medium', 'easy'];
+
+    const [vocabSections, setVocabSections] = useState(null);
     const [selectedVocab, setSelectedVocab] = useState('vocab');
     const [modalVisible, setModalVisible] = useState(false);
 
+    useEffect(() => {
+        setVocabSections(fetchVocabObject());
+    }, []);
 
     return (
         <VocabTabContext.Provider
@@ -36,13 +47,23 @@ export default function VocabTab() {
             }}>
             <ScrollView style={styles.vocabView}>
                 {modalVisible ? <VocabModal /> : <></>}
-                {VocabSections.map((section, i) => {
+                {vocabSections && Object.keys(vocabSections).map((section, i) => {
+                    console.log('VS', vocabSections);
+                    console.log('mapped VS title', section, i);
+                    console.log('mapped VS content', vocabSections[section]);
+                    return <View key={i} style={styles.vocabSectionView}>
+                        <Text style={youziStyles.subHeaderText}>{section}</Text>
+                        <VocabContentSection vocab={vocabSections[section]} />
+                    </View>
+                })
+                }
+                {/* {VocabSections.map((section, i) => {
                     return <View key={i} style={styles.vocabSectionView}>
                         <Text style={youziStyles.subHeaderText}>{section}</Text>
                         <VocabContentSection sectionTitle={section} />
                     </View>
                 })
-                }
+                } */}
             </ScrollView>
         </VocabTabContext.Provider>
     )

@@ -1,7 +1,9 @@
-import { View, Text } from 'react-native'
 import React, { useState, createContext } from 'react'
+
+
 import { useNavigation } from '@react-navigation/native';
 
+import { View, Text } from 'react-native'
 import TextButton from '../components/Modules/Buttons/TextButton';
 import InterestsContainer from '../components/OnboardingInterestsScreen/InterestsContainer';
 

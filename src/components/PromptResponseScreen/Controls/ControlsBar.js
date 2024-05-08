@@ -1,6 +1,7 @@
-import { View, Text } from 'react-native'
 import React from 'react'
 
+// components
+import { View, Text } from 'react-native'
 import RecordButton from './RecordButton'
 import HighlightButton from './HighlightButton'
 

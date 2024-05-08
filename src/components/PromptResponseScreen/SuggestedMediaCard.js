@@ -1,15 +1,18 @@
-import { View, Text, Linking, StyleSheet } from 'react-native'
-import React, { useState, useContext, useEffect } from 'react'
+import React, { useState, useContext, useEffect } from 'react';
 
 import { AppContext } from '../../../App';
 
+// components
+import { View, Text, Linking, StyleSheet } from 'react-native';
 import YoutubeVideoPlayer from './YoutubeVideoPlayer';
+
+// scripts
 import { getFirstVideo } from '../../scripts/youtubeVideoFetch';
-import { dummyMedia } from '../../../assets/data/dummy_data'
 
+// import { dummyMedia } from '../../../assets/data/dummy_data'
+
+// styles
 import { youziDimensions, youziColors } from '../../styles/youziStyles';
-
-
 
 const styles = StyleSheet.create({
     suggestedMediaView: {

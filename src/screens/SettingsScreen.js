@@ -1,19 +1,20 @@
-import { View, Text } from 'react-native'
 import React, { useContext, useEffect } from 'react'
 
+// context
 import { AppContext } from '../../App';
 
 // storage
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 // components
+import { View, Text } from 'react-native'
 import ToggleableSwitch from '../components/Modules/ToggleableSwitch/ToggleableSwitch';
 import ExitButton from '../components/NavigationButtons/ExitButton/ExitButton';
 import ProfileImage from '../components/Modules/Visuals/ProfileImage/ProfileImage';
+import SafeTextInput from '../components/Modules/TextInput/SafeTextInput/SafeTextInput';
 
 // styles
 import { youziStyles } from '../styles/youziStyles'
-import SafeTextInput from '../components/Modules/TextInput/SafeTextInput/SafeTextInput';
 
 
 export default function SettingsScreen() {

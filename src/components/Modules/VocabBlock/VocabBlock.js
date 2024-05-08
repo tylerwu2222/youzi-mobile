@@ -1,13 +1,13 @@
-import { View, Pressable, Text, Animated, PanResponder } from 'react-native';
 import React, { useState, useRef } from 'react';
 
-// press handler
-import OutsidePressHandler from 'react-native-outside-press';
-
 // components
-import ChineseText from '../Text/ChineseText/ChineseText';
+import { View, Pressable, Text, Animated, PanResponder } from 'react-native';
+// import ChineseText from '../Text/ChineseText/ChineseText';
 import EnglishTranslationText from '../Text/EnglishTranslationText/EnglishTranslationText';
 import HanziPinyinArray from '../Text/HanziPinyinBlock/HanziPinyinArray';
+import OutsidePressHandler from 'react-native-outside-press';
+
+import FavoriteIndicator from '../Buttons/FavoriteIndicator';
 
 // styles
 import { StyleSheet } from "react-native";
@@ -15,20 +15,26 @@ import { youziColors } from '../../../styles/youziStyles';
 
 export default function VocabBlock({
   hanzi,
-  draggable = false,
+  pressable = false,
   translation = null,
   onPressFn = () => { },
-  // onlongPressFn = () => { },
-  onPressOutFn = () => { }
-  // ...props 
+  onLongPressFn = () => { },
+  onPressOutFn = () => { },
+  // ...props
 }) {
 
   const [isHeld, setIsHeld] = useState(false);
+
+  const [favorited, setFavorited] = useState(false);
+
   // animated values
   const translateValue = useRef(new Animated.Value(0)).current;
   const shadowOpacityValue = useRef(new Animated.Value(0)).current;
 
-  // draggable logic (for dragging to XiaoYou)
+
+  // console.log('additional VB props', props);
+
+  // pressable logic (for dragging to XiaoYou)
   // const pan = useRef(new Animated.ValueXY()).current;
   // const panResponder = useRef(
   //   PanResponder.create({
@@ -61,7 +67,6 @@ export default function VocabBlock({
   const handlePress = () => {
     setIsHeld(true);
     console.log('vocab card pressed', hanzi);
-
     // Animate hover to move up vertically
     Animated.spring(translateValue, {
       toValue: -15,
@@ -78,6 +83,27 @@ export default function VocabBlock({
 
     onPressFn();
   };
+
+  const handleLongPress = () => {
+    setIsHeld(true);
+    console.log('vocab card long pressed', hanzi);
+    // Animate hover to move up vertically
+    Animated.spring(translateValue, {
+      toValue: -15,
+      friction: 3,
+      useNativeDriver: true,
+    }).start();
+
+    // Animate shadow opacity
+    Animated.timing(shadowOpacityValue, {
+      toValue: 0.3,
+      duration: 300,
+      useNativeDriver: true,
+    }).start();
+
+    onLongPressFn();
+  };
+
 
   const handlePressOut = () => {
     setIsHeld(false);
@@ -99,14 +125,16 @@ export default function VocabBlock({
     onPressOutFn();
   };
 
+
   return (
     <Animated.View
       style={
         [
-          // { transform: [{ translateX: pan.x }, { translateY: pan.y }] }, // pan draggable logic --> not working
+          // { transform: [{ translateX: pan.x }, { translateY: pan.y }] }, // pan pressable logic --> not working
           { transform: [{ translateY: translateValue }] }, // hold --> working
           { shadowOpacity: shadowOpacityValue }]
       }
+    // {...props}
     // {...panResponder.panHandlers}
     >
       <OutsidePressHandler
@@ -116,14 +144,15 @@ export default function VocabBlock({
         }}>
         <Pressable
           style={styles.vocabBlock}
-          // onPressOut={draggable ? handlePressOut : null}
-          onPress={draggable ? handlePress : null}
-          // onLongPress={draggable ? handleLongPress : null}
+          // onPressOut={pressable ? handlePressOut : null}
+          onPress={pressable ? handlePress : null}
+          onLongPress={pressable ? handleLongPress : null}
           activeOpacity={0.8}
-        // {...props}
+
         >
           <Text >
-            <HanziPinyinArray hanziArray={hanzi}
+            <HanziPinyinArray
+              hanziArray={hanzi}
               customHanziSize={textSize}
               customPinyinSize={textSize}
               pinyinOn={true}
@@ -131,15 +160,18 @@ export default function VocabBlock({
               enableLongPress={false} // disable long press (read aloud) to allow XiaoYou drag
             />
           </Text>
-          {translation ?
+          {/* english translation */}
+          {/* {translation ?
             <Text style={styles.vocabText}>
               <EnglishTranslationText hanzi={hanzi} />
-            </Text> :
-            <Text style={styles.vocabText}>
-              <EnglishTranslationText hanzi={hanzi} />
-            </Text>}
+            </Text> : */}
+          <Text style={styles.vocabText}>
+            <EnglishTranslationText hanzi={hanzi} />
+          </Text>
+          {/* } */}
           {/* <Text style={styles.vocabText}><ChineseText chineseText={hanzi} /> → <EnglishTranslationText hanzi={hanzi} /></Text> */}
         </Pressable>
+        {favorited ? <FavoriteIndicator /> : <></>}
       </OutsidePressHandler>
     </Animated.View >
   )

@@ -1,12 +1,13 @@
-import { View, StyleSheet, Animated } from 'react-native'
 import React, { useRef, useState } from 'react'
 
 // data
-import { dummyChinesePrompt } from '../../../../assets/data/dummy_data';
+// import { dummyChinesePrompt } from '../../../../assets/data/dummy_data';
 
-// modules
+// components
+import { View, StyleSheet, Animated } from 'react-native';
 import PromptReviewButton from './PromptReviewButton';
 import PromptAccordion from './PromptAccordion';
+
 
 const styles = StyleSheet.create({
     promptReviewItemView: {
@@ -41,6 +42,7 @@ export default function PromptReviewItem({ recording }) {
 
     return (
         <View style={styles.promptReviewItemView}>
+            {/* prompt review card-button */}
             <PromptReviewButton
                 recording={recording}
                 onPressFn={() => {
@@ -49,10 +51,10 @@ export default function PromptReviewItem({ recording }) {
                 }
                 expanded={expanded}
             />
+            {/* expandable prompt review */}
             <Animated.View style={[styles.toggleableView, { height: heightAnim }]}>
                 {/* {expanded ? */}
                 <PromptAccordion
-                    prompt={dummyChinesePrompt}
                     recording={recording}
                 />
                 {/* : null} */}

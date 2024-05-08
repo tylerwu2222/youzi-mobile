@@ -1,23 +1,31 @@
-import { View, Text } from 'react-native'
-import React, { useContext, useEffect, useState } from 'react'
+
+import React, { useContext, useEffect, useState } from 'react';
+
 import { PromptResponseContext } from '../../screens/PromptResponseScreen';
 import { AppContext } from '../../../App';
 
-// functions
-// import { XiaoYouSpeaks } from '../Modules/Visuals/XiaoYou/XiaoYouMascot';
-import { defineChinese } from '../../scripts/dictionary';
-
 // components
+import { View, Text } from 'react-native';
+import VocabBlock from '../Modules/VocabBlock/VocabBlock';
+
+// scripts
+// import { XiaoYouSpeaks } from '../Modules/Visuals/XiaoYou/XiaoYouMascot';
+// import { defineChinese } from '../../scripts/dictionary';
+import { pauseReadingText, readText } from '../../scripts/textReader';
+import { joinVocabColumns, getSlangColumn } from '../../scripts/victorJSONHandler';
+import { addFavoritedVocab, removeFavoritedVocab, addSlang, removeSlang } from '../../scripts/asyncStorageHandler';
+
+// assets
+import FavoriteIndicator from '../Modules/Buttons/FavoriteIndicator';
 
 // styles
 import { StyleSheet } from "react-native";
 import { youziColors, youziStyles } from '../../styles/youziStyles'
 
+
 // test data
-import { dummyChineseVocab } from '../../../assets/data/dummy_data';
-import { promptDataColumnNames } from '../../../assets/data/prompt_meta_data';
-import VocabBlock from '../Modules/VocabBlock/VocabBlock';
-import { pauseReadingText, readText } from '../../scripts/textReader';
+// import { dummyChineseVocab } from '../../../assets/data/dummy_data';
+// import { promptDataColumnNames } from '../../../assets/data/prompt_meta_data';
 
 
 const styles = StyleSheet.create({
@@ -36,10 +44,14 @@ const styles = StyleSheet.create({
   //   flex: 1,
   //   paddingBottom: 20
   // },
+  slangVocabCard: {
+    backgroundColor: youziColors.cardBackgroundOrange
+  }
 })
 
 export default function PromptVocabCard() {
   const [vocabArrayOfObjects, setVocabArrayOfObjects] = useState(null);
+  const [slangObject, setSlangObject] = useState(null);
   const [isReading, setIsReading] = useState(false);
 
   const {
@@ -48,73 +60,112 @@ export default function PromptVocabCard() {
     setXiaoYouTranscript
   } = useContext(AppContext);
 
+  // console.log('PO', promptObject);
+
   const {
     // longPressedVocab,
-    focusedVocab,
+    // focusedVocab,
     setFocusedVocab,
     // XYSpeechVisible,
     setXYSpeechVisible } = useContext(PromptResponseContext);
 
-  const splitVocabString = (vocab) => {
-    const vocabObject = {};
-    vocabObject['hanzi'] = vocab.split(' (')[0];
-    vocabObject['pinin'] = vocab.split(' (')[1].split(')')[0];
-    vocabObject['translation'] = vocab.split(' - ')[1]
-    // console.log('VO', vocabObject);
-    return vocabObject;
-  };
-
+  // console.log('PO in PVC', promptObject);
+  // join vocab from columns to list
   useEffect(() => {
-    const prepVocab = () => {
-      const vocabFields = promptDataColumnNames.slice(11, 15);
-      setVocabArrayOfObjects(vocabFields.map(col => {
-        return splitVocabString(promptObject[col]);
-      }));
-    }
-    prepVocab();
+    // console.log('PO in effect', promptObject);
+    setVocabArrayOfObjects(joinVocabColumns(promptObject));
+    setSlangObject(getSlangColumn(promptObject));
+  }, [promptObject]);
+
+
+  // set XYM to read vocab
+  useEffect(() => {
+    setXiaoYouTranscript('that means: ');
   }, []);
-
-
-  useEffect(() => {
-    // update transcript when focused vocab changes
-    setXiaoYouTranscript('that means: ' + focusedVocab);
-  }, [focusedVocab]);
 
   return (
     <View style={[youziStyles.promptCard, styles.responseVocabCard]}>
-      {/* <Text>PromptVocabCard</Text> */}
-      {/* <View style={styles.responseColumn}> */}
-      {vocabArrayOfObjects ? vocabArrayOfObjects.map((vocabObject, index) => {
-        // console.log('VO2', vocabObject);
-        return (
-          <VocabBlock
-            key={'1.' + index}
-            hanzi={vocabObject['hanzi']}
-            draggable={true}
-            onPressFn={() => {
-              // set speech bubble visible
-              setXYSpeechVisible(true);
-              // set vocab
-              setFocusedVocab(vocabObject['translation']);
-              // read vocab
-              if (!isReading) {
-                pauseReadingText(); // first stop ongoing
-                readText(xiaoYouTranscript + vocabObject['translation'], 'en');
-                setIsReading(true);
+      {/* normal vocab */}
+      {vocabArrayOfObjects && promptObject ?
+        vocabArrayOfObjects.map((vocabObject, index) => {
+          // console.log('VO2', vocabObject);
+          return (<>
+            <VocabBlock
+              key={'1.' + index
               }
-            }
-            }
-            onPressOutFn={() => {
-              setXYSpeechVisible(false)
-              setFocusedVocab('')
-              setIsReading(false);
-            }
-            }
-          // translation={vocabObject['translation']}
-          />
-        )
-      }) :
+              hanzi={vocabObject['hanzi']}
+              pressable={true}
+              // XY dialogue visible + reading
+              onPressFn={() => {
+                // set speech bubble visible
+                setXYSpeechVisible(true);
+                // set vocab
+                setFocusedVocab(vocabObject);
+                // read vocab
+                if (!isReading) {
+                  pauseReadingText(); // first stop ongoing speech
+                  readText(vocabObject['hanzi'], 'zh'); // 1) read chinese
+                  readText(xiaoYouTranscript + vocabObject['translation'], 'en'); // 2) read translation
+                  setIsReading(true);
+                }
+              }
+              }
+              // toggle whether vocab is favorited
+              onLongPress={() => {
+                // when favorited changes, add/remove from AS
+                // if (favorited) {
+                  console.log('VOCAB LONG PRESSED')
+                addFavoritedVocab(vocabObject['hanzi']);
+                // }
+              }}
+              // hide XY dialogue & pause reading
+              onPressOutFn={() => {
+                setXYSpeechVisible(false)
+                setFocusedVocab('')
+                setIsReading(false);
+              }
+              }
+            />
+          </>
+          )
+        }) :
         <></>}
+      {/* slang vocab */}
+      {slangObject ? <VocabBlock
+        key={'1.3'}
+        hanzi={slangObject['hanzi']}
+        pressable={true}
+        onPressFn={() => {
+          // set speech bubble visible
+          setXYSpeechVisible(true);
+          // set vocab
+          setFocusedVocab(slangObject);
+          // read vocab
+          if (!isReading) {
+            pauseReadingText(); // first stop ongoing speech
+            readText(slangObject['hanzi'], 'zh'); // 1) read chinese
+            readText(xiaoYouTranscript + slangObject['translation'], 'en'); // 2) read translation
+            setIsReading(true);
+          }
+        }
+        }
+        onPressOutFn={() => {
+          setXYSpeechVisible(false)
+          setFocusedVocab('')
+          setIsReading(false);
+        }
+        }
+        onlongPressFn={() => {
+          // when favorited changes, add/remove from AS
+          if (favorited) {
+            addSlang(vocabObject['hanzi']);
+          }
+          else {
+            removeSlang(vocabObject['hanzi']);
+          }
+        }}
+      // style={[styles.responseVocabCard, styles.slangVocabCard]}
+      /> : <></>}
     </View>
   )
 }

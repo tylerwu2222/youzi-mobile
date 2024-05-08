@@ -1,25 +1,28 @@
-import { View, Text, StyleSheet } from 'react-native';
-import { Slider } from '@miblanchard/react-native-slider';
-import React from 'react'
+import React from 'react';
 
-import PlayRecordingButton from '../../../ReviewPromptScreen/PlayRecordingButton'
+// components
+import { View, StyleSheet } from 'react-native';
+import { Slider } from '@miblanchard/react-native-slider';
+import PlayRecordingButton from '../../../ReviewScreen/PromptTab/PlayRecordingButton'
 
 const styles = StyleSheet.create({
   audioPlaybackContainer: {
-    flexDirection: 'column',
+    flexDirection: 'row',
+    gap: 10,
     alignItems: 'center',
-    marginBottom: 20
+    justifyContent: 'center',
+    // marginBottom: 20
   }
 });
 
 
-export default function AudioPlayback({ promptNumber }) {
+export default function AudioPlayback({ promptID }) {
   return (
     <View style={styles.audioPlaybackContainer}>
-      <Text>AudioPlayback</Text>
+      {/* <Text>AudioPlayback</Text> */}
       {/* <View></View> */}
+      <PlayRecordingButton promptID={promptID} />
       <Slider />
-      {/* <PlayRecordingButton promptNumber={promptNumber} /> */}
     </View>
   )
 }

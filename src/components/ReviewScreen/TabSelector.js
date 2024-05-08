@@ -1,10 +1,16 @@
-import { View, Text, Pressable } from 'react-native'
-import React, { useContext } from 'react'
+import React, { useContext } from 'react';
 
+// context
+import { ReviewContext } from '../../screens/ReviewScreen';
+
+// components
+import { View, Text, Pressable } from 'react-native';
+import TabSelectorTab from './TabSelectorTab';
+
+// styles
 import { StyleSheet } from 'react-native';
 import { youziColors, youziDimensions, youziStyles } from '../../styles/youziStyles';
-import { ReviewContext } from '../../screens/ReviewScreen';
-import TabSelectorTab from './TabSelectorTab';
+
 
 const styles = StyleSheet.create({
     tabSelector: {
@@ -29,8 +35,8 @@ export default function TabSelector() {
 
     return (
         <View style={styles.tabSelector}>
-            {review_tabs.map((page, i) => {
-                // console.log('page', page, 'i',i)
+            {review_tabs.slice(0, 2).map((page, i) => {
+                // {review_tabs.map((page, i) => {
                 return <TabSelectorTab index={i} page={page} onPressFn={handleTabSwitch} />
             }
             )}

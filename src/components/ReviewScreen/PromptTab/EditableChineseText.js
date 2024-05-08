@@ -1,10 +1,12 @@
-import { useState, useEffect, useContext } from 'react'
+import React, { useState, useEffect, useContext } from 'react';
+
 import { PromptAccordionContext } from './PromptAccordion';
 
+// components
 import { TextInput, StyleSheet } from 'react-native'
-import React from 'react'
-import { youziColors } from '../../../styles/youziStyles';
 
+// styles
+import { youziColors } from '../../../styles/youziStyles';
 
 export default function EditableChineseText() {
     const [isPressed, setIsPressed] = useState(false);

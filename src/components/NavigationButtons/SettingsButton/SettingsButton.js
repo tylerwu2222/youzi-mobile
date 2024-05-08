@@ -1,16 +1,18 @@
-import { View, Text } from 'react-native'
 import React from 'react'
 
+// components
+// import { View, Text } from 'react-native'
+import IconButton from '../../Modules/Buttons/IconButton';
+
+// navigation
 import { useNavigation } from '@react-navigation/native';
 
-// icons
-// import { AntDesign } from '@expo/vector-icons';
+// assets
 import { Ionicons } from '@expo/vector-icons';
 
 // styles
 import { StyleSheet } from "react-native";
 import { youziColors, youziStyles, youziDimensions } from '../../../styles/youziStyles';
-import IconButton from '../../Modules/Buttons/IconButton';
 
 const styles = StyleSheet.create({
     settingsButton: {

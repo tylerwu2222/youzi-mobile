@@ -82,3 +82,10 @@ trying openAI api again, maybe need to store audio files in an google storage (S
 
 or react-native-fileSize
 Note file type is m4a
+
+5/2/24
+to do:
+- fix slang vocab error
+- set up favoriting vocab
+- set up review vocab section to display (favorited, vocab, slang)
+- style slang vocab

@@ -1,6 +1,9 @@
 import React, { useState, useContext, useRef } from 'react'
+
+// context
 import { AppContext } from '../../../App';
 
+// components
 import { View, Text, Image, TouchableOpacity, Pressable, StyleSheet, Animated } from 'react-native'
 import SubVibeSelectButton from './SubVibeSelectButton';
 
@@ -134,7 +137,7 @@ export default function VibeSelectButton({
           setSubVibeID(Math.floor(Math.random() * subvibes.length));
           navigateToVibe(label);
           // console.log('v', vibeId);
-          
+
         }}
         onPressIn={() => {
           setSelected(true);

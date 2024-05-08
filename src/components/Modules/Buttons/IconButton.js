@@ -1,10 +1,13 @@
-import { View, Image, Text, Pressable } from 'react-native'
 import React, { useState, cloneElement } from 'react'
 
+// components
+import { View, Image, Text, Pressable } from 'react-native'
+
+// assets
 import SettingsIcon from '@mui/icons-material/Settings';
 
+// styles
 import { youziColors } from '../../../styles/youziStyles'
-
 import { StyleSheet } from 'react-native';
 
 
@@ -39,7 +42,6 @@ export default function IconButton({
       }}
       {...props}
     >
-      {/* <Text>asd</Text> */}
       {cloneElement(iconComponent)}
     </Pressable>
   )

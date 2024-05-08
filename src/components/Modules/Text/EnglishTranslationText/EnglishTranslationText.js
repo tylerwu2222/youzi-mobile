@@ -1,6 +1,9 @@
-import { Text } from 'react-native';
 import React, { useState } from 'react';
 
+// components
+import { Text } from 'react-native';
+
+// modules
 import translate from "translate";
 
 export default function EnglishTranslationText({ hanzi }) {
@@ -9,11 +12,8 @@ export default function EnglishTranslationText({ hanzi }) {
     const translateChinese = async (hanzi) => {
         const text = await translate(hanzi, { from: "zh", to: "en" });
         setTranslatedText(text);
-        // console.log('translated text', text);
         return text;
-        // return hanzi;
     };
-
     translateChinese(hanzi);
 
     return (

@@ -4,17 +4,13 @@ import React, { useState, useEffect } from 'react';
 import { TouchableOpacity, StyleSheet } from 'react-native';
 import { ActivityIndicator, FlatList, Text, View, Image } from 'react-native';
 import HomeModeButton from '../components/HomeScreen/HomeModeButton';
+import SettingsButton from '../components/NavigationButtons/SettingsButton/SettingsButton';
 
-// import { SettingsIcon } from '@mui/icons-material';
-import { addUser } from '../scripts/users/addUser';
+// import { addUser } from '../scripts/users/addUser';
 
 // styles
-import { } from "react-native";
 import { youziColors, youziStyles } from '../styles/youziStyles';
-// import { youziColors } from '../styles/youziStyles';
-import { youziDimensions } from '../styles/youziStyles';
-import IconButton from '../components/Modules/Buttons/IconButton';
-import SettingsButton from '../components/NavigationButtons/SettingsButton/SettingsButton';
+
 
 const styles = StyleSheet.create({
 });
@@ -23,13 +19,13 @@ export default function HomeScreen() {
   return (
     <View style={youziStyles.centeredView}>
       {/* <Text>Youzi.HomeScreen</Text> */}
-      <TouchableOpacity
+      {/* <TouchableOpacity
         onPress={() => {
           addUser();
         }}
       >
         <Text>addUser</Text>
-      </TouchableOpacity >
+      </TouchableOpacity > */}
       <HomeModeButton
         text={'Conversation'}
         mode={'prompt'}
@@ -40,14 +36,7 @@ export default function HomeScreen() {
         mode={'review'}
         backgroundImage={'mascotGlasses'}
       />
-      {/* <HomeModeButton text={'Review mode (Premium)'} mode={'review'} disabled={true} /> */}
-      {/* create seperate icon button later */}
       <SettingsButton />
-      {/* <IconButton
-        iconComponent={<AntDesign name="setting" size={40} color={youziColors.buttonBackgroundAccent} />}
-        onPress={() => { navigateToSettings() }}
-        style={styles.settingsButton} // can pass styles b/c ...props
-      /> */}
     </View>
   )
 }

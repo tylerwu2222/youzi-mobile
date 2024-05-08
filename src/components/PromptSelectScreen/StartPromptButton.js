@@ -1,9 +1,12 @@
-import { View, Text, Pressable } from 'react-native'
-import React from 'react'
+import React from 'react';
 
+// components
+import { View, Text, Pressable } from 'react-native';
+
+// navigation
 import { useNavigation } from '@react-navigation/native';
 
-
+// styles
 import { StyleSheet } from "react-native";
 import { youziColors } from '../../styles/youziStyles';
 

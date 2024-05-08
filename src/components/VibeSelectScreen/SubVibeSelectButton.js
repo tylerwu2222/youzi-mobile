@@ -1,6 +1,9 @@
 import React, { useState, useContext } from 'react'
+
+// context
 import { AppContext } from '../../../App';
 
+// components
 import { View, Text, Image, TouchableOpacity, Pressable, StyleSheet } from 'react-native'
 
 

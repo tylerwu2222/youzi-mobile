@@ -6,7 +6,12 @@ export const readText = (text, language = 'zh') => {
     console.log('audio text', text);
     // try resuming existing speech
     // Speech.resume();
-    Speech.speak(text, { language: language });
+    if (text) {
+        Speech.speak(text, { language: language });
+    }
+    else {
+        console.log('audio text undefined');
+    }
 };
 
 export const pauseReadingText = () => {

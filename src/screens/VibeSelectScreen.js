@@ -1,12 +1,10 @@
-
-import React, { useContext } from 'react'
+import React from 'react'
 
 
 // components
 import { View, Text, ScrollView, StyleSheet } from 'react-native'
 import VibeSelectButton from '../components/VibeSelectScreen/VibeSelectButton';
 import SubVibeSelectButton from '../components/VibeSelectScreen/SubVibeSelectButton';
-
 import HomeButton from '../components/NavigationButtons/HomeButton/HomeButton';
 import SettingsButton from '../components/NavigationButtons/SettingsButton/SettingsButton';
 
@@ -14,9 +12,7 @@ import SettingsButton from '../components/NavigationButtons/SettingsButton/Setti
 import { vibes } from '../../assets/data/vibes';
 
 // styles
-import { youziStyles } from '../styles/youziStyles';
-import { youziColors } from '../styles/youziStyles';
-import { youziDimensions } from '../styles/youziStyles';
+import { youziStyles, youziDimensions } from '../styles/youziStyles';
 
 
 const styles = StyleSheet.create({

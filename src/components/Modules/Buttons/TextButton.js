@@ -1,13 +1,14 @@
-import { View, Text, Pressable, StyleSheet } from 'react-native'
 import React from 'react'
 
-import { youziColors, youziStyles } from '../../../styles/youziStyles'
+// components
+import { View, Text, Pressable, StyleSheet } from 'react-native'
 
-
+// styles
+import { youziColors, youziStyles } from '../../../styles/youziStyles';
 
 export default function TextButton({
   text = 'text',
-  onPressFn = () => { console.log('degault fn') },
+  onPressFn = () => { console.log('default fn') },
   backgroundColor = youziColors.buttonBackgroundPink,
   fontSize = youziStyles.subHeaderText.fontSize,
   marginV = 5,

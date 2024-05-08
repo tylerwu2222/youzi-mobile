@@ -1,6 +1,7 @@
-import { View, Text } from 'react-native'
 import React from 'react'
 
+// components
+import { View, Text } from 'react-native'
 import HanziPinyinBlock from './HanziPinyinBlock';
 
 export default function HanziPinyinArray({
@@ -11,8 +12,13 @@ export default function HanziPinyinArray({
     pinyinOn = false,
     enableLongPress = true }) {
     const applyLetterSpacing = (string, count = 1) => {
-        // console.log('HZPY string', string);
-        return string.split('').join('\u200A'.repeat(count));
+        if (string) {
+            // console.log('HZPY string', string);
+            return string.split('').join('\u200A'.repeat(count));
+        }
+        else {
+            return [''];
+        }
     }
 
     return (

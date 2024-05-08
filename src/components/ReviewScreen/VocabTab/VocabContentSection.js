@@ -1,11 +1,17 @@
-import { View, Text, StyleSheet } from 'react-native';
-import React, { useState, useContext } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
+
+// context
 import { VocabTabContext } from './VocabTab';
 
 import ToggleableTouchable from '../../Modules/ToggleableTouchable/ToggleableTouchable'
 
+// components
+import { View, Text, StyleSheet, ActivityIndicator } from 'react-native';
 import { dummyChineseVocab } from '../../../../assets/data/dummy_data'
 import ChineseText from '../../Modules/Text/ChineseText/ChineseText';
+
+// scripts
+import { getCompletedVocab } from '../../../scripts/asyncStorageHandler';
 
 const styles = StyleSheet.create({
     vocabContentView: {
@@ -17,9 +23,11 @@ const styles = StyleSheet.create({
     }
 });
 
+// const vocabSections = ['favorites', 'vocab', 'slang'];
 
+export default function VocabContentSection({ vocab }) {
 
-export default function VocabContentSection({ sectionTitle }) {
+    console.log('vocab content section v array', vocab);
     const {
         // selectedVocab,
         setSelectedVocab,
@@ -40,12 +48,15 @@ export default function VocabContentSection({ sectionTitle }) {
         return newArray;
     }
 
-    // get vocab data from user (backend) based on sectionTitle
-    const shortListVocab = dummyChineseVocab;
-    const fullListVocab = dummyChineseVocab.concat(shuffleArray(dummyChineseVocab), shuffleArray(dummyChineseVocab), shuffleArray(dummyChineseVocab))
-    const [displayedVocab, setDisplayedVocab] = useState(shortListVocab);
+    // const fullListVocab = dummyChineseVocab.concat(shuffleArray(dummyChineseVocab), shuffleArray(dummyChineseVocab), shuffleArray(dummyChineseVocab))
+    const [displayedVocab, setDisplayedVocab] = useState(vocab);
     const [vocabExpanded, setVocabExpanded] = useState(false);
 
+    // update displayed if vocab list longer than 20, add fullListVocab...
+    // OR MAKE SCROLLABLE
+    useEffect(() => {
+        setDisplayedVocab(vocab);
+    }, []);
 
     // toggle vocab modal visibility
     const displayModal = (vocab) => {
@@ -60,21 +71,26 @@ export default function VocabContentSection({ sectionTitle }) {
         setDisplayedVocab(fullListVocab);
     }
 
+    // map vocab from all existing recordings into two lists (vocab & slang)
+
     return (
         <View style={styles.vocabContentView}>
-            {displayedVocab.map((v, i) => {
+            {/* {vocabSections.map((section, index) => {
+                return <Text>{section}</Text>
+            })} */}
+            {displayedVocab ? displayedVocab.map((v, i) => {
                 return <ToggleableTouchable
                     key={i}
                     handlePress={() => { displayModal(v) }}
                     text={<ChineseText chineseText={v} />}
                 // text={v} 
                 />
-            })}
-            {!vocabExpanded &&
+            }) : <ActivityIndicator />}
+            {/* {!vocabExpanded &&
                 <ToggleableTouchable
                     text={'...'}
                     handlePress={() => { expandVocab() }}
-                />}
+                />} */}
         </View>
     )
 }

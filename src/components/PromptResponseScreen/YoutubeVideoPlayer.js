@@ -1,8 +1,9 @@
-import { View, Button, StyleSheet } from 'react-native'
+import React, { useState, useCallback } from 'react'
 
+// components
+import { View, Button, StyleSheet } from 'react-native'
 import YoutubePlayer from "react-native-youtube-iframe";
 
-import React, { useState, useCallback } from 'react'
 // import { youziColors } from '../../styles/youziStyles';
 
 const YT_player_dimension = 1.72;

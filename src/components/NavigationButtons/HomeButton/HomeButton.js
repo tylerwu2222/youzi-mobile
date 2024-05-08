@@ -1,14 +1,17 @@
 import React from 'react'
 
+// components
+import IconButton from '../../Modules/Buttons/IconButton';
+
+// navigation
 import { useNavigation } from '@react-navigation/native';
 
-// icons
+// assets
 import { Entypo } from '@expo/vector-icons';
 
 // styles
 import { StyleSheet } from "react-native";
 import { youziColors, youziStyles, youziDimensions } from '../../../styles/youziStyles';
-import IconButton from '../../Modules/Buttons/IconButton';
 
 const styles = StyleSheet.create({
     homeButton: {

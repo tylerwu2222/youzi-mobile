@@ -1,6 +1,9 @@
-import { View, Text, Image, StyleSheet } from 'react-native'
 import React from 'react'
 
+// components
+import { View, Text, Image, StyleSheet } from 'react-native'
+
+// styles
 import { youziColors, youziDimensions } from '../../../../styles/youziStyles';
 
 const styles = StyleSheet.create({

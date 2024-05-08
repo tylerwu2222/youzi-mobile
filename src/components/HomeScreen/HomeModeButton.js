@@ -6,6 +6,7 @@ import { View, Text, Image, TouchableOpacity } from 'react-native'
 // navigating to pages from home
 import { useNavigation } from '@react-navigation/native';
 
+// assets
 import { IMAGE_URIS } from '../../../assets/data/image_data';
 
 // styles

@@ -1,6 +1,9 @@
-import { View, TextInput, StyleSheet } from 'react-native'
 import React, { useEffect, useState } from 'react'
 
+// components
+import { View, TextInput, StyleSheet } from 'react-native'
+
+// styles
 import { youziColors, youziDimensions } from '../../../styles/youziStyles';
 
 const styles = StyleSheet.create({

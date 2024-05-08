@@ -1,7 +1,9 @@
-import { View, Text, Image, StyleSheet } from 'react-native';
-
 import React from 'react';
 
+// components
+import { View, Text, Image, StyleSheet } from 'react-native';
+
+// styles
 import { youziColors, youziDimensions } from '../../../../styles/youziStyles';
 
 // 
@@ -47,19 +49,21 @@ export function XiaoYouSpeechBubble({
       right: positionRight,
       bottom: positionBottom,
       width: 'fit-content',
+      maxWidth: size,
+      flexDirection: 'row',
+      // flexWrap: 'wrap',
       padding: 20,
       borderRadius: 10,
       backgroundColor: youziColors.cardBackgroundOrange
     },
     xiaoYouSpeechBubbleText: {
-
+      flexWrap: 'wrap',
     },
   })
   return (
     visible ?
-      <View style={styles.xiaoYouSpeechBubbleView
-      } >
-        <Text>{textContent}</Text>
+      <View style={styles.xiaoYouSpeechBubbleView} >
+        <Text style={styles.xiaoYouSpeechBubbleText}>{textContent}</Text>
       </View > : <></>
   )
 }

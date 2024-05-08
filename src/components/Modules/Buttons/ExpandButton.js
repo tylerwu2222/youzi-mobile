@@ -1,9 +1,14 @@
-import { View, StyleSheet } from 'react-native'
+
 import React, { useState } from 'react'
 
-import { MaterialIcons } from '@expo/vector-icons';
+// components
+import { View, StyleSheet } from 'react-native'
 import IconButton from './IconButton';
 
+// assets
+import { MaterialIcons } from '@expo/vector-icons';
+
+// styles
 import { youziColors, youziDimensions } from '../../../styles/youziStyles';
 
 const styles = StyleSheet.create({

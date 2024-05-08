@@ -1,24 +1,31 @@
-import { View, Text, Animated, Easing } from 'react-native';
-import Svg, { Circle } from 'react-native-svg';
-import React, { useState, useEffect } from 'react'
-import { Audio } from 'expo-av';
+import React, { useState, useEffect, useContext } from 'react'
+import { AppContext } from '../../../../App';
 
 // scripts
-import { getPromptAudioByID } from '../../../scripts/audioGetter';
-import { transcribeAudio } from '../../../scripts/openai';
-import { readFileAsBase64 } from '../../../scripts/audioFileManipulation';
+import { addCompletedVocab, addPromptResponse, addSlang } from '../../../scripts/asyncStorageHandler';
+import { getSlangColumn, joinVocabColumns } from '../../../scripts/victorJSONHandler';
+// import { getPromptAudioByID } from '../../../scripts/audioGetter';
+// import { transcribeAudio } from '../../../scripts/openai';
+// import { readFileAsBase64 } from '../../../scripts/archived/audioFileManipulation';
 
 // components
+import { View, Text, Animated, Easing } from 'react-native';
+// import Svg, { Circle } from 'react-native-svg';
 import IconButton from '../../Modules/Buttons/IconButton';
+
+// assets
 import { MaterialIcons } from '@expo/vector-icons';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 
+// modules
+import { Audio } from 'expo-av';
+
 // storage
-import AsyncStorage from '@react-native-async-storage/async-storage';
+// import AsyncStorage from '@react-native-async-storage/async-storage';
 
 // styles
 import { StyleSheet } from "react-native";
-import { youziColors } from '../../../styles/youziStyles';
+// import { youziColors } from '../../../styles/youziStyles';
 
 
 const styles = StyleSheet.create({
@@ -29,57 +36,37 @@ const styles = StyleSheet.create({
 })
 
 const TIME_LIMIT = 30;
-const todayDate = new Date().toLocaleDateString();
 
 export default function RecordButton() {
   // expo-audio
-  const [transcription, setTranscription] = useState('练习中文');
+  // const [transcription, setTranscription] = useState('练习中文');
   const [recording, setRecording] = useState(null);
   const [permissionResponse, requestPermission] = Audio.usePermissions();
 
-  // update transcript when recording made
-  // useEffect(() => {
-  //   const handleTranscribe = async () => {
-  //     try {
-  //       // const audioFile = await getPromptAudioByID(promptNumber);
-  //       // const audioFile = await DocumentPicker.getDocumentAsync({
-  //       //     type: 'audio/*',
-  //       // });
-  //       // console.log('PA audio file', audioFile);
-  //       // const fileSize = await getFileSize(audioFile);
-  //       // console.log('file size', fileSize);
-  //       const transcribedText = await transcribeAudio(audioFile, 'zh');
-  //       console.log('PA transcribed text', transcribedText)
-  //       setTranscription(transcribedText);
-  //     } catch (error) {
-  //       console.error('Error transcribing audio:', error);
-  //     }
-  //   };
-  //   if (recording) {
-  //     handleTranscribe();
-  //   }
-  // }, [recording]);
+  const {
+    promptObject
+  } = useContext(AppContext);
 
   // testing setting and getting recording from firebase
   // test fn works!
-  useEffect(() => {
-    // Replace with custom cloudFunctionURL
-    const cloudFunctionUrl = 'https://helloworld-ubksznr5oq-uc.a.run.app';
-    // const cloudFunctionUrl = 'https://your-project-id.cloudfunctions.net/myFunction';
+  // useEffect(() => {
+  //   // Replace with custom cloudFunctionURL
+  //   const cloudFunctionUrl = 'https://helloworld-ubksznr5oq-uc.a.run.app';
+  //   // const cloudFunctionUrl = 'https://your-project-id.cloudfunctions.net/myFunction';
 
-    const fetchData = async () => {
-      try {
-        const response = await fetch(cloudFunctionUrl);
-        const data = await response.json();
-        // console.log('Response:', response);
-        console.log('Response:', data);
-      } catch (error) {
-        console.error('Error:', error);
-      }
-    };
+  //   const fetchData = async () => {
+  //     try {
+  //       const response = await fetch(cloudFunctionUrl);
+  //       const data = await response.json();
+  //       // console.log('Response:', response);
+  //       console.log('Response:', data);
+  //     } catch (error) {
+  //       console.error('Error:', error);
+  //     }
+  //   };
 
-    // fetchData();
-  }, []);
+  //   // fetchData();
+  // }, []);
 
   async function startRecording() {
     try {
@@ -103,7 +90,7 @@ export default function RecordButton() {
   }
 
   async function stopRecording() {
-    // 1) stop recording
+    // 1) stop and unload (store) recording
     console.log('Stopping recording..');
     setRecording(undefined); // reset to undefined
     await recording.stopAndUnloadAsync();
@@ -115,54 +102,16 @@ export default function RecordButton() {
     const uri = await recording.getURI();
     console.log('Recording stopped and stored at', uri);
 
-    // 2) save cache URI in asyncStorage
-    // 2a) get transcription from recording
-    const handleTranscribe = async (uri) => {
-      try {
-        console.log('uri', uri);
-        // convert uri to audio file
-        const base64File = await readFileAsBase64(uri);
-        // const fileSize = await getFileSize(audioFile);
-        // console.log('file size', fileSize);
-        const transcribedText = await transcribeAudio(base64File, 'zh');
-        console.log('PA transcribed text', transcribedText)
-        setTranscription(transcribedText);
-      } catch (error) {
-        console.error('Error transcribing audio:', error);
-        // setTranscription('Transcription failed');
-      }
-    };
+    // 2) add new recording to existing
+    addPromptResponse(promptObject, recording);
 
-    if (uri) {
-      handleTranscribe(uri);
-    }
-    else {
-      console.log('uri not defined:', uri);
-    }
-
-    // 2b) Get existing recordings, then create and append the new recording
-    const existingRecordingsString = await AsyncStorage.getItem('PROMPT_RECORDINGS');
-    let existingRecordings = JSON.parse(existingRecordingsString);
-    existingRecordings = existingRecordings == null ? [] : existingRecordings; // initialize key as empty array if empty
-    console.log('BEFORE existing recordings', existingRecordings.map(r => r.id));
-
-    const newRecording = {
-      id: existingRecordings == null ? 0 : existingRecordings.length, // Incremented id (length = current largest index + 1)
-      title: (existingRecordings == null ? 0 : existingRecordings.length).toString() + ': Prompt title', // replace from backend later
-      uri: recording.getURI(), // store URI of the recording
-      difficulty: 'Beginner',
-      date: todayDate,
-      transcription: transcription
-    };
-    existingRecordings.push(newRecording);
-    const updatedRecordingsJSON = JSON.stringify(existingRecordings);
-
-    // 2c) Update array in AsyncStorage
-    await AsyncStorage.setItem('PROMPT_RECORDINGS', updatedRecordingsJSON);
+    // 2b) add vocab + slang
+    addCompletedVocab(joinVocabColumns(promptObject));
+    addSlang(getSlangColumn(promptObject));
 
     // test getting async
-    const postRecordingsJSON = await AsyncStorage.getItem('PROMPT_RECORDINGS');
-    console.log('AFTER existing recordings', JSON.parse(postRecordingsJSON.map(r => r.id)));
+    // const postRecordingsJSON = await AsyncStorage.getItem('PROMPT_RECORDINGS');
+    // console.log('AFTER existing recordings', JSON.parse(postRecordingsJSON.map(r => r.id)));
     // if user confirms recording save --> send to firebase
 
   }
