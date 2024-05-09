@@ -8,11 +8,11 @@ It does not intend to help a new speaker pick up the language, but rather provid
 
 ## Members
 This is a capstone project created for the Berkeley Master in Information Management and Systems program, and here are the members:
-- Joanne Jun (UX)
-- Victor Kuan (Product Marketing, Backend)
+- [Joanne Jun](https://www.linkedin.com/in/jun-j/){:target="_blank"} (UX)
+- Victor Kuan (Product Marketing, Data Engineer, Prompt Engineer)
 - Jo Lu (Product Manager)
-- Harris Wang (UX, Security)
-- Tyler Wu (Frontend, Data Analyst, Artist)
+- Harris Wang (UX)
+- [Tyler Wu](https://www.linkedin.com/in/tyler-wu/) (Full-stack)
 
 [1]: https://www.tiktok.com/@youzichinese
 [2]: https://www.instagram.com/tinykelv/
