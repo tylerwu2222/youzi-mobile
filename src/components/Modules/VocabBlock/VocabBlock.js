@@ -22,6 +22,7 @@ export default function VocabBlock({
   backgroundColor = null,
   textSize = 18,
   pressable = false,
+  onTapEffects = true,
   onPressFn = () => { },
   longPressable = false,
   onLongPressFn = () => { },
@@ -104,21 +105,23 @@ export default function VocabBlock({
 
   // press handlers
   const handlePress = () => {
-    setIsTapped(true);
-    console.log('vocab card pressed', hanzi);
-    // Animate hover to move up vertically
-    Animated.spring(translateValue, {
-      toValue: -15,
-      friction: 3,
-      useNativeDriver: true,
-    }).start();
+    if (onTapEffects) {
+      setIsTapped(true);
+      console.log('vocab card pressed', hanzi);
+      // Animate hover to move up vertically
+      Animated.spring(translateValue, {
+        toValue: -15,
+        friction: 3,
+        useNativeDriver: true,
+      }).start();
 
-    // Animate shadow opacity
-    Animated.timing(shadowOpacityValue, {
-      toValue: 0.3,
-      duration: 300,
-      useNativeDriver: true,
-    }).start();
+      // Animate shadow opacity
+      Animated.timing(shadowOpacityValue, {
+        toValue: 0.3,
+        duration: 300,
+        useNativeDriver: true,
+      }).start();
+    }
 
     onPressFn();
   };

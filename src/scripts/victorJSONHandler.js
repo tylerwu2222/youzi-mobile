@@ -16,6 +16,11 @@ export const joinVocabColumns = (promptObject) => {
     });
 }
 
+export const getVocabColumnHanzi = (promptObject) => {
+   const vocabData = joinVocabColumns(promptObject);
+   return vocabData.map(d => d.hanzi);
+}
+
 export const getSlangColumn = (promptObject) => {
     // console.log('getting slang col PO', promptObject);
     // console.log('getting slang col', splitVocabString(promptObject[promptDataColumnNames[14]]));

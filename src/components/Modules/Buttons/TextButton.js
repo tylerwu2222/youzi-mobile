@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 
 // components
 import { View, Text, Pressable, StyleSheet } from 'react-native'
@@ -11,6 +11,7 @@ export default function TextButton({
   onPressFn = () => { console.log('default fn') },
   backgroundColor = youziColors.buttonBackgroundPink,
   fontSize = youziStyles.subHeaderText.fontSize,
+  fontColor = youziColors.whiteText,
   marginV = 5,
   marginH = 3,
   paddingV = 5,
@@ -35,7 +36,8 @@ export default function TextButton({
       justifyContent: 'center'
     },
     textButtonText: {
-      fontSize: fontSize
+      fontSize: fontSize,
+      color: fontColor
     }
   });
 
@@ -50,3 +52,26 @@ export default function TextButton({
     </Pressable>
   )
 }
+
+export const DynamicTextButton = ({
+  initialText = 'on',
+  toggledText = 'off',
+  onPressFn = () => { },
+  ...props
+}) => {
+  const [buttonText, setButtonText] = useState(initialText);
+
+  const handlePress = () => {
+    // Toggle the button text between 'On' and 'Off'
+    const newText = buttonText === initialText ? toggledText : initialText;
+    setButtonText(newText);
+    // Call the onPress function with the updated text
+    onPressFn();
+  };
+
+  return <TextButton
+    text={buttonText}
+    onPressFn={handlePress}
+    {...props}
+  />;
+};

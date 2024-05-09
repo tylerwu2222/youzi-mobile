@@ -3,7 +3,7 @@ import { AppContext } from '../../../../App';
 
 // scripts
 import { addCompletedVocab, addPromptResponse, addSlang } from '../../../scripts/asyncStorageHandler';
-import { getSlangColumn, joinVocabColumns } from '../../../scripts/victorJSONHandler';
+import { getSlangColumn, getVocabColumnHanzi, joinVocabColumns } from '../../../scripts/victorJSONHandler';
 // import { getPromptAudioByID } from '../../../scripts/audioGetter';
 // import { transcribeAudio } from '../../../scripts/openai';
 // import { readFileAsBase64 } from '../../../scripts/archived/audioFileManipulation';
@@ -105,8 +105,9 @@ export default function RecordButton() {
     // 2) add new recording to existing
     addPromptResponse(promptObject, recording);
 
-    // 2b) add vocab + slang
-    // addCompletedVocab(joinVocabColumns(promptObject));
+    // 2b) add all vocab
+    console.log('RB vocab', getVocabColumnHanzi(promptObject));
+    addCompletedVocab(getVocabColumnHanzi(promptObject));
 
     // test getting async
     // const postRecordingsJSON = await AsyncStorage.getItem('PROMPT_RECORDINGS');

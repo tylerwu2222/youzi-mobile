@@ -43,7 +43,7 @@ export default function VocabTab() {
     const [modalVisible, setModalVisible] = useState(false);
 
     useEffect(() => {
-        console.log('setting vocab sections');
+        // console.log('setting vocab sections');
         const fetchVocabData = async () => {
             try {
                 const result = await fetchVocabObject();

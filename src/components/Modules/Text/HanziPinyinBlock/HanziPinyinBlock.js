@@ -71,10 +71,10 @@ export default function HanziPinyinBlock({
       >
         <ChineseText chineseText={hanziCharacter} textColor={textColor} />
       </Pressable> :
-        <Pressable
+        <View
         >
           <ChineseText chineseText={hanziCharacter} textColor={textColor} />
-        </Pressable>}
+        </View>}
     </View>
   )
 }

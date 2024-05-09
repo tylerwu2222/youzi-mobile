@@ -3,7 +3,7 @@ import React, { useState, useEffect, createContext } from 'react';
 
 // components
 import VocabContentSection from './VocabContentSection';
-import TextButton from '../../Modules/Buttons/TextButton';
+import TextButton, { DynamicTextButton } from '../../Modules/Buttons/TextButton';
 import EditButton from '../../Modules/Buttons/EditButton';
 
 // scripts
@@ -16,8 +16,10 @@ export const VocabSectionContext = createContext({});
 
 export default function VocabSection({ section, content }) {
 
+    // console.log('VS section', section);
+    // console.log('VS content', content);
     const [deleteControlsVisible, setDeleteControlsVisible] = useState(false);
-    const [isDeleteDisabled, setIsDeleteDisabled] = useState(true);
+    const [isDeleteModeOn, setIsDeleteModeOn] = useState(false);
     const [editableVocabContent, setEditableVocabContent] = useState(content);
     const [deleteVocabArray, setdeleteVocabArray] = useState([]);
 
@@ -58,17 +60,29 @@ export default function VocabSection({ section, content }) {
             />
             {deleteControlsVisible ?
                 <>
-                    <TextButton
-                        text='delete'
-                        width='16%'
-                        disabled={isDeleteDisabled}
-                        backgroundColor={isDeleteDisabled ? youziColors.lightGrey : youziColors.buttonBackgroundPink}
+                    <DynamicTextButton
+                        initialText='delete off'
+                        toggledText='delete on'
+                        width='20%'
+                        // disabled={isDeleteDisabled}
+                        fontColor={isDeleteModeOn ? youziColors.whiteText : youziColors.blackText}
+                        backgroundColor={isDeleteModeOn ? youziColors.buttonBackgroundPink : youziColors.lightGrey}
                         onPressFn={() => {
-
-                            deleteSelectedVocab(sectionAsyncDict[section]);
+                            setIsDeleteModeOn(!isDeleteModeOn);
                         }}
-                        fontSize={13}
+                        fontSize={12}
                     />
+                    {/* <TextButton
+                        text='toggle delete'
+                        width='25%'
+                        // disabled={isDeleteDisabled}
+                        fontColor={isDeleteModeOn ? youziColors.whiteText : youziColors.blackText}
+                        backgroundColor={isDeleteModeOn ? youziColors.buttonBackgroundPink : youziColors.lightGrey}
+                        onPressFn={() => {
+                            setIsDeleteModeOn(!isDeleteModeOn);
+                        }}
+                        fontSize={12}
+                    /> */}
                     <TextButton
                         text='clear all'
                         width='20%'
@@ -78,13 +92,15 @@ export default function VocabSection({ section, content }) {
                             setEditableVocabContent([]);
                             clearAsyncArray(sectionAsyncDict[section]);
                         }}
-                        fontSize={13}
+                        fontSize={12}
                     />
                     <TextButton
                         text='cancel'
                         width='16%'
+                        fontColor={youziColors.blackText}
+                        backgroundColor={youziColors.lightGrey}
                         onPressFn={() => { setDeleteControlsVisible(false) }}
-                        fontSize={13}
+                        fontSize={12}
                     />
                 </> :
                 <>
@@ -92,10 +108,12 @@ export default function VocabSection({ section, content }) {
         </View>
         <VocabSectionContext.Provider
             value={{
-                editableVocabContent
+                editableVocabContent,
+                setEditableVocabContent,
+                isDeleteModeOn
             }}
         >
-            <VocabContentSection vocab={editableVocabContent} />
+            <VocabContentSection section={section} />
         </VocabSectionContext.Provider>
     </View>
 }

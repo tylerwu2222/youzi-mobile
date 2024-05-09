@@ -1,5 +1,5 @@
 import { useEffect, useCallback, createContext, useState } from 'react';
-import { Text, View, StyleSheet } from 'react-native';
+import { Text, View, StyleSheet, LogBox } from 'react-native';
 
 // navigation
 import { NavigationContainer } from '@react-navigation/native';
@@ -38,6 +38,10 @@ import { getOrInitializeAsyncBoolean } from './src/scripts/asyncStorageHandler.j
 // import { StatusBar } from 'expo-status-bar';
 import { useFonts } from 'expo-font';
 import { dummyChinesePrompt, dummyEnglishPrompt } from './assets/data/dummy_data.js';
+
+// FOR DEMOING: ignore warnings
+// LogBox.ignoreLogs(['Warning: ...']); // Ignore log notification by message
+LogBox.ignoreAllLogs();//Ignore all log notifications
 
 
 // screen navigation

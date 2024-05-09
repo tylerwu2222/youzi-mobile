@@ -14,6 +14,7 @@ import VocabBlock from '../../Modules/VocabBlock/VocabBlock';
 import { youziColors } from '../../../styles/youziStyles';
 
 // scripts
+import { removeCompletedVocab, removeFavoritedVocab, removeSlang, setCompleteVocab, setFaveVocab, setSlang } from '../../../scripts/asyncStorageHandler';
 // import { getCompletedVocab } from '../../../scripts/asyncStorageHandler';
 
 const styles = StyleSheet.create({
@@ -28,8 +29,10 @@ const styles = StyleSheet.create({
 
 // const vocabSections = ['favorites', 'vocab', 'slang'];
 
-export default function VocabContentSection() {
-    // console.log('vocab content section v array', vocab);
+export default function VocabContentSection({ section }) {
+
+    // console.log('VCS section', section);
+
     const {
         // selectedVocab,
         setSelectedVocab,
@@ -37,7 +40,11 @@ export default function VocabContentSection() {
         setModalVisible
     } = useContext(VocabTabContext);
 
-    const { editableVocabContent } = useContext(VocabSectionContext);
+    const {
+        editableVocabContent,
+        setEditableVocabContent,
+        isDeleteModeOn
+    } = useContext(VocabSectionContext);
 
     // const fullListVocab = dummyChineseVocab.concat(shuffleArray(dummyChineseVocab), shuffleArray(dummyChineseVocab), shuffleArray(dummyChineseVocab))
     // const [displayedVocab, setDisplayedVocab] = useState(editableVocabContent);
@@ -48,6 +55,33 @@ export default function VocabContentSection() {
     // useEffect(() => {
     //     setDisplayedVocab(vocab);
     // }, []);
+
+    // TO FIX: ultimately flow should be:
+    // 1) any change to editableVocabContent
+    // 2) use effect triggers change for backend (async)
+    const deleteVocabFE = (vocab) => {
+        const updatedEditableVocabContent = editableVocabContent.filter(item => item !== vocab);
+        setEditableVocabContent(updatedEditableVocabContent);
+        return updatedEditableVocabContent;
+    }
+
+    // delete vocab when delete mode is on
+    const deleteVocab = (vocab) => {
+        console.log('removing', vocab, 'from', section);
+        // FE
+        const newVocab = deleteVocabFE(vocab);
+
+        // BE
+        if (section == 'all vocab') {
+            setCompleteVocab(newVocab);
+        }
+        else if (section == 'favorites') {
+            setFaveVocab(newVocab);
+        }
+        else if (section == 'slang') {
+            setSlang(newVocab);
+        }
+    }
 
     // toggle vocab modal visibility
     const displayModal = (vocab) => {
@@ -71,21 +105,28 @@ export default function VocabContentSection() {
             })} */}
             {editableVocabContent ? editableVocabContent.map((v, i) => {
                 return <VocabBlock
-                    key={i}
+                    key={v + String(i)}
                     hanzi={v}
                     pressable={true}
+                    onTapEffects={false}
+                    // pressOutable={true}
                     favoritable={false}
                     backgroundColor={youziColors.buttonBackground}
                     translation={false}
                     textSize={12}
                     // XY dialogue visible + reading
                     onPressFn={() => {
-                        // displayModal(v);
+                        isDeleteModeOn ?
+                            deleteVocab(v) :
+                            displayModal(v)
                     }
                     }
                     marginHorizontal={10}
                     marginVertical={5}
                     padding={0}
+                    borderColor={isDeleteModeOn ? youziColors.buttonBackgroundAccent : 'transparent'}
+                    borderWidth={1}
+                    borderRadius={5}
                 />
             }) : <></>}
             {/* {!vocabExpanded &&

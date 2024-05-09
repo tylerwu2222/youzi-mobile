@@ -59,7 +59,7 @@ export const fetchVocabObject = async () => {
         'all vocab': vocab,
     };
 
-    console.log('vocab sections', vocabSections);
+    // console.log('vocab sections', vocabSections);
     return vocabSections;
 };
 const addUniqueElementToArray = (array, element) => {
@@ -85,14 +85,14 @@ const addUniqueElementsToArray = (array, elements) => {
 const addUniqueElementsToAsyncArray = async (asyncArrayGetter, element, async_name) => {
     const currentArray = await asyncArrayGetter;
     let updatedArray;
-    console.log('type', typeof element);
-    if (element.isArray) {
-        console.log('array element');
+    // console.log('element, type, isArray', element, typeof element,);
+    // if (element.isArray) {
+    if (Array.isArray(element)) {
+        // console.log('array element');
         updatedArray = addUniqueElementsToArray(currentArray, element);
     }
     else if (typeof element === 'string') {
-
-        console.log('string element');
+        // console.log('string element');
         updatedArray = addUniqueElementToArray(currentArray, element);
     }
     const updatedArrayJSON = JSON.stringify(updatedArray);
@@ -132,6 +132,22 @@ export const removeSlang = async (slang) => {
     removeElementFromAsyncArray(getCompletedSlang(), slang, 'COMPLETED_SLANG');
 };
 
+// SET vocab
+const setAsyncArray = async (new_array, async_name) => {
+    await AsyncStorage.setItem(async_name, new_array);
+}
+
+export const setCompleteVocab = async (new_array) => {
+    await setAsyncArray(new_array, 'COMPLETED_VOCAB')
+}
+
+export const setFaveVocab = async (new_array) => {
+    await setAsyncArray(new_array, 'COMPLETED_FAVE_VOCAB')
+}
+
+export const setSlang = async (new_array) => {
+    await setAsyncArray(new_array, 'COMPLETED_SLANG')
+}
 
 // PROMPTS //
 
