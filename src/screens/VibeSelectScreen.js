@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useRef } from 'react'
 
 
 // components
@@ -23,8 +23,16 @@ const styles = StyleSheet.create({
 });
 
 export default function VibeSelectScreen() {
+  const scrollViewRef = useRef(null);
 
-
+  const scrollToCenter = (yCoordinate) => {
+    if (scrollViewRef.current) {
+      scrollViewRef.current.scrollTo({
+        y: yCoordinate,
+        animated: true,
+      });
+    }
+  };
 
   return (
     <View style={youziStyles.centeredView}>
@@ -35,19 +43,21 @@ export default function VibeSelectScreen() {
 
       {/* vibe container */}
       <ScrollView
+        ref={scrollViewRef}
         style={styles.vibeView}
       >
-        {vibes.map(vibe => {
+        {vibes.map((vibe, index) => {
           return (
-            <>
-              <VibeSelectButton
-                key={vibe.id}
-                vibeId={vibe.id}
-                code={vibe.code}
-                label={vibe.label}
-                backgroundIcon={vibe.icon}
-                subvibes={vibe.subVibes} />
-            </>)
+            <VibeSelectButton
+              key={vibe.id}
+              vibeId={vibe.id}
+              code={vibe.code}
+              label={vibe.label}
+              backgroundIcon={vibe.icon}
+              subvibes={vibe.subVibes}
+              // TODO: update scroll to work dynamically
+              onPressFn={() => scrollToCenter(index * 100)}
+            />)
         })}
       </ScrollView>
 

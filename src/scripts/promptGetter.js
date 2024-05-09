@@ -10,6 +10,7 @@ export const getImage = (promptID) => {
   return "promptID";
 };
 
+const leanKeys = [promptDataColumnNames[0], promptDataColumnNames[2]].concat(promptDataColumnNames.slice(4));
 
 // get random prompt that matches parameters
 export const getRandomPrompt = (
@@ -41,9 +42,9 @@ export const getRandomPrompt = (
   // console.log('randRow', randRow);
 
   // filter and restructure relevant data
-  const necessaryKeys = [promptDataColumnNames[0], promptDataColumnNames[2]].concat(promptDataColumnNames.slice(4));
-  // console.log('necessary', necessaryKeys);
-  const randRowReduced = necessaryKeys.reduce((acc, key) => {
+
+  // console.log('necessary', leanKeys);
+  const randRowReduced = leanKeys.reduce((acc, key) => {
     if (randRow.hasOwnProperty(key)) {
       acc[key] = randRow[key];
     }
@@ -52,6 +53,20 @@ export const getRandomPrompt = (
   // console.log('randomly selected prompt', randRowReduced);
   // return randRow;
   return randRowReduced;
+}
+
+export const getPromptByID = (promptID) => {
+  // console.log('prompt id', promptID);
+  const selectedRow = data.filter(row => {
+    return row['ID'] == promptID;
+  })
+
+  // console.log('selectedRow', selectedRow);
+
+  const selectedRowReduced = (({ ...leanKeys }) => ({ ...leanKeys }))(selectedRow)[0];
+
+  // console.log('id selected prompt', selectedRowReduced);
+  return selectedRowReduced;
 }
 
 // takes in prompt ID => returns full chinese hanzi prompt

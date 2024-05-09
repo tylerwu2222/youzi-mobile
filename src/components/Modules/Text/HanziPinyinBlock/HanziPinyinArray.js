@@ -14,11 +14,13 @@ export default function HanziPinyinArray({
     enableLongPress = true }) {
 
     const applyLetterSpacing = (string, count = 1) => {
-        if (string) {
-            // console.log('HZPY string', string);
-            return string.split('').join('\u200A'.repeat(count));
-        }
-        else {
+        try {
+            if (string) {
+                // console.log('HAZ')
+                // console.log('HZPY string', string);
+                return string.split('').join('\u200A'.repeat(count));
+            }
+        } catch {
             return [''];
         }
     }

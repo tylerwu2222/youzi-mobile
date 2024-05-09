@@ -18,7 +18,9 @@ export default function VibeSelectButton({
   code = "code",
   label = "label",
   backgroundIcon = "image",
-  subvibes = [] }) {
+  subvibes = [],
+  onPressFn = () => { }
+}) {
 
   // console.log('SUBVIBES', subvibes);
   const [selected, setSelected] = useState(false);
@@ -129,6 +131,7 @@ export default function VibeSelectButton({
         // toggle subvibes if short press
         onPress={() => {
           toggleSubVibes();
+          onPressFn();
         }}
         // generate random subvibe if longPress
         onLongPress={() => {
@@ -164,9 +167,12 @@ export default function VibeSelectButton({
         <Animated.View style={styles.subVibeView}>
           {subvibes.map((subvibe, index) => {
             return (
-              <Animated.View style={styles.toggleableView}>
+              <Animated.View
+                key={index}
+                style={styles.toggleableView}
+              >
                 <SubVibeSelectButton
-                  key={index}
+
                   vibeId={vibeId}
                   subVibeId={index}
                   label={subvibe.label}

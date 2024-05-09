@@ -1,4 +1,4 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 
 // components
 import { View, Pressable, Text, Animated, PanResponder } from 'react-native';
@@ -12,17 +12,22 @@ import FavoriteIndicator from '../Buttons/FavoriteIndicator';
 // styles
 import { StyleSheet } from "react-native";
 import { youziColors } from '../../../styles/youziStyles';
+import { getCompletedFavoriteVocab, getCompletedSlang } from '../../../scripts/asyncStorageHandler';
 
 export default function VocabBlock({
   hanzi,
-  pressable = false,
   textColor = null,
   translation = true,
   favoritable = false,
+  backgroundColor = null,
+  textSize = 18,
+  pressable = false,
   onPressFn = () => { },
+  longPressable = false,
   onLongPressFn = () => { },
+  pressOutable = false,
   onPressOutFn = () => { },
-  // ...props
+  ...props
 }) {
 
   const [isTapped, setIsTapped] = useState(false);
@@ -33,9 +38,6 @@ export default function VocabBlock({
   // animated values
   const translateValue = useRef(new Animated.Value(0)).current;
   const shadowOpacityValue = useRef(new Animated.Value(0)).current;
-
-
-  // console.log('additional VB props', props);
 
   // pressable logic (for dragging to XiaoYou)
   // const pan = useRef(new Animated.ValueXY()).current;
@@ -49,7 +51,26 @@ export default function VocabBlock({
   //   }),
   // ).current;
 
-  const textSize = 18;
+  // render already favorited vocab as favorited
+  useEffect(() => {
+    const checkVocab = async () => {
+      // get favorited vocab
+      const vocabList = await getCompletedFavoriteVocab();
+      const slangList = await getCompletedSlang();
+      if (vocabList.includes(hanzi) || slangList.includes(hanzi)) {
+        // console.log(hanzi, 'in list');
+        setFavorited(true);
+      }
+      // else {
+      //   console.log(hanzi, 'not in list');
+      // }
+    };
+    if (favoritable) {
+      checkVocab();
+    }
+  }, []);
+
+  // const textSize = 18;
   const styles = StyleSheet.create({
     vocabBlock: {
       margin: 0,
@@ -58,18 +79,18 @@ export default function VocabBlock({
       minWidth: 100,
       maxWidth: 300,
       overflow: 'visible',
-      backgroundColor: youziColors.cardBackgroundYellow,
+      backgroundColor: backgroundColor ? backgroundColor : youziColors.cardBackgroundYellow,
       // backgroundColor: youziColors.cardBackgroundOrange,
       flexDirection: 'column',
       justifyContent: 'center',
       alignItems: "center",
-      borderColor: isHeld ? youziColors.buttonBackgroundPink : isTapped ? youziColors.blackText : 'transparent',
+      borderColor: favorited ? youziColors.buttonBackgroundPink : isTapped ? youziColors.blackText : 'transparent',
       // borderWidth: isHeld ? 1 : isTapped ? 1 : 0,
       borderWidth: 1,
       borderRadius: 5
     },
     vocabText: {
-      fontSize: 18,
+      fontSize: textSize,
       color: textColor ? textColor : 'black'
     },
     FavoritedIndicatorView: {
@@ -79,6 +100,9 @@ export default function VocabBlock({
     }
   });
 
+
+
+  // press handlers
   const handlePress = () => {
     setIsTapped(true);
     console.log('vocab card pressed', hanzi);
@@ -109,7 +133,6 @@ export default function VocabBlock({
     onLongPressFn(favorited);
   };
 
-
   const handlePressOut = () => {
     setIsTapped(false);
     // setIsHeld(false);
@@ -131,7 +154,6 @@ export default function VocabBlock({
     onPressOutFn();
   };
 
-
   return (
     <Animated.View
       style={
@@ -140,19 +162,17 @@ export default function VocabBlock({
           { transform: [{ translateY: translateValue }] }, // hold --> working
           { shadowOpacity: shadowOpacityValue }]
       }
-    // {...props}
+      {...props}
     // {...panResponder.panHandlers}
     >
       <OutsidePressHandler
-        onOutsidePress={() => {
-          // console.log('Pressed outside the box!');
-          handlePressOut();
-        }}>
+        onOutsidePress={pressOutable ? handlePressOut : () => { }}
+      >
         <Pressable
           style={styles.vocabBlock}
           // onPressOut={pressable ? handlePressOut : null}
           onPress={pressable ? handlePress : null}
-          onLongPress={pressable ? handleLongPress : null}
+          onLongPress={longPressable ? handleLongPress : null}
           activeOpacity={0.8}
 
         >
@@ -168,11 +188,12 @@ export default function VocabBlock({
             />
           </Text>
           {/* english translation */}
-          {translation ?
-            <Text style={styles.vocabText}>
-              <EnglishTranslationText hanzi={hanzi} />
-            </Text> :
-            <Text></Text>
+          {translation === '' ?
+            <Text ></Text> :
+            translation ?
+              <Text style={styles.vocabText}>
+                <EnglishTranslationText hanzi={hanzi} />
+              </Text> : <></>
           }
           {favorited ?
             <View style={styles.FavoritedIndicatorView}>
@@ -180,7 +201,6 @@ export default function VocabBlock({
             </View>
             : <></>}
         </Pressable>
-
       </OutsidePressHandler>
     </Animated.View >
   )

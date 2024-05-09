@@ -106,8 +106,7 @@ export default function RecordButton() {
     addPromptResponse(promptObject, recording);
 
     // 2b) add vocab + slang
-    addCompletedVocab(joinVocabColumns(promptObject));
-    addSlang(getSlangColumn(promptObject));
+    // addCompletedVocab(joinVocabColumns(promptObject));
 
     // test getting async
     // const postRecordingsJSON = await AsyncStorage.getItem('PROMPT_RECORDINGS');

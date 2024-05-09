@@ -16,6 +16,7 @@ export const youziColors = {
     "buttonBackgroundPress": "#FF6644",
     "buttonBackgroundAccent": "#F74141",
     "buttonBackgroundPink": "#FD7DA1",
+    "buttonBackgroundPinkPressed": "#bd5c78",
 
     "toggleBackgroundOff": "#FCCB91",
     "toggleBackgroundOn": "#F74141",

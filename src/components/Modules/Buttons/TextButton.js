@@ -16,6 +16,7 @@ export default function TextButton({
   paddingV = 5,
   paddingH = 10,
   borderRadius = 7,
+  disabled = false,
   ...props
 }) {
   const styles = StyleSheet.create({
@@ -30,7 +31,8 @@ export default function TextButton({
       marginTop: marginV,
       marginBottom: marginV,
       borderRadius: borderRadius,
-      alignItems: 'center'
+      alignItems: 'center',
+      justifyContent: 'center'
     },
     textButtonText: {
       fontSize: fontSize
@@ -41,6 +43,7 @@ export default function TextButton({
     <Pressable
       style={styles.textButton}
       onPress={() => { onPressFn() }}
+      disabled={disabled}
       {...props}
     >
       <Text style={styles.textButtonText}>{text}</Text>

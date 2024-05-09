@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
 
 // context
 import { AppContext } from '../../App';
@@ -11,7 +11,7 @@ import SettingsButton from '../components/NavigationButtons/SettingsButton/Setti
 
 // data
 import { vibes } from '../../assets/data/vibes';
-import { getRandomPrompt } from '../scripts/promptGetter';
+import { getPromptByID, getRandomPrompt } from '../scripts/promptGetter';
 
 // styles
 import { youziStyles, youziDimensions } from '../styles/youziStyles';
@@ -37,37 +37,31 @@ export default function PromptSelectScreen() {
     // setVibeID
   } = useContext(AppContext);
 
-  // console.log('vibe at prompt select screen', vibeID);
-
-  // when vibe/subvibe id changes, update objects
-  // useEffect(() => {
-  //   if (vibeID) {
-  //     setSubVibeObject(vibeObject['subVibes'].find(subvibe => subvibe['id'] === subVibeID));
-  //   }
-  // }, [vibeID, subVibeID]);
-
-  // useEffect(() => {
-  //   if (vibeID) {
-  //     setVibeObject(vibes.find(vibe => vibe['id'] === vibeID));
-  //   }
-  // }, [vibeID]);
+  const [subVibeLabel, setSubVibeLabel] = useState('Spill the Tea');
+  const [subVibeCode, setSubVibeCode] = useState(0);
 
   // get label and code for vibe and subvibe
   const vibeObject = vibes.find(vibe => vibe['id'] === vibeID);
   const vibeLabel = vibeObject['label'];
   const vibeCode = vibeObject['code']
 
-  let subVibeObject = null, subVibeLabel = null, subVibeCode = null;
-  if (subVibeID) {
+  let subVibeObject = null;
+  useEffect(() => {
+    // if (subVibeID) {
     subVibeObject = vibeObject['subVibes'].find(subvibe => subvibe['id'] === subVibeID)
-    subVibeLabel = subVibeObject['label'];
-    subVibeCode = subVibeObject['code'];
-  }
+    setSubVibeLabel(subVibeObject['label']);
+    setSubVibeCode(subVibeObject['code']);
+    // }
+  }, [vibeID, subVibeID]);
 
   useEffect(() => {
     // get random prompt for carousel card and set in context
+    const promptID = 97460;
 
     const randomPrompt = getRandomPrompt(vibeCode, subVibeCode);
+
+    // const randomPrompt = getPromptByID(promptID);
+
     setPromptObject(randomPrompt);
     // console.log('PSS RANDOM PROMPT', randomPrompt);
     // }, [vibeID, subVibeID]);
@@ -76,10 +70,11 @@ export default function PromptSelectScreen() {
 
   return (
     <View style={[youziStyles.centeredView, youziStyles.horizontallyCenteredView]}>
-      <Text>Youzi.PromptSelectScreen</Text>
+      {/* <Text>Youzi.PromptSelectScreen</Text> */}
       {/* <Text>Selected vibe ID: {vibeID}</Text> */}
       <View style={youziStyles.headerTextView}>
-        <Text style={youziStyles.headerText}>Today's prompts</Text>
+        <Text style={youziStyles.headerText}>Today's prompt</Text>
+        {/* <Text style={youziStyles.headerText}>Today's prompts</Text> */}
       </View>
       <View style={youziStyles.headerTextView}>
         {/* <Text style={youziStyles.subHeaderText}>{vibeLabel}</Text> */}

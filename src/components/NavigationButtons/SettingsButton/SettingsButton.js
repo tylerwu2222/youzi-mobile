@@ -18,7 +18,7 @@ const styles = StyleSheet.create({
     settingsButton: {
         // backgroundColor: 'black',
         position: 'absolute',
-        top: youziDimensions.vh / 18,
+        top: youziDimensions.vh / 16,
         left: 20
     }
 });
@@ -32,7 +32,7 @@ export default function SettingsButton() {
     return (
         <IconButton
             // iconComponent={<AntDesign name="setting" size={40} color={youziColors.blackText} />}
-            iconComponent={<Ionicons name="settings-sharp" size={30} color={youziColors.blackText} />}
+            iconComponent={<Ionicons name="settings-sharp" size={35} color={youziColors.blackText} />}
             // iconComponent={<AntDesign name="setting" size={40} color={youziColors.buttonBackgroundAccent} />}
             onPress={() => { navigateToSettings() }}
             style={styles.settingsButton} // can pass styles b/c ...props

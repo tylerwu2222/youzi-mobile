@@ -26,6 +26,10 @@ export const getOrInitializeAsyncBoolean = async (async_name, initial_value = fa
     }
 }
 
+// CLEAR aysnc array field
+export const clearAsyncArray = async (async_name) => {
+    await AsyncStorage.setItem(async_name, '[]');
+}
 
 // VOCAB //
 
@@ -34,6 +38,12 @@ export const getCompletedVocab = async () => getOrInitializeAsyncArray('COMPLETE
 export const getCompletedSlang = async () => getOrInitializeAsyncArray('COMPLETED_SLANG');
 export const getCompletedFavoriteVocab = async () => getOrInitializeAsyncArray('COMPLETED_FAVE_VOCAB');
 // GET entire vocab object for mapping //
+// dictionary connecting section name to ASYNC name
+export const sectionAsyncDict = {
+    'all vocab': 'COMPLETED_VOCAB',
+    'slang': 'COMPLETED_SLANG',
+    'favorites': 'COMPLETED_FAVE_VOCAB'
+}
 export const fetchVocabObject = async () => {
     const favoritesPromise = await getCompletedFavoriteVocab();
     const slangPromise = await getCompletedSlang();
@@ -52,9 +62,7 @@ export const fetchVocabObject = async () => {
     console.log('vocab sections', vocabSections);
     return vocabSections;
 };
-
-// ADD vocab/slang //
-const addUniqueElementsToArray = (array, element) => {
+const addUniqueElementToArray = (array, element) => {
     // if element not in array, add element
     if (!array.includes(element)) {
         return array.concat(element);
@@ -63,19 +71,43 @@ const addUniqueElementsToArray = (array, element) => {
         return array;
     }
 };
+// ADD vocab/slang //
+const addUniqueElementsToArray = (array, elements) => {
+    let arrayCopy = [...array];
+    elements.map(e => {
+        if (!array.includes(e)) {
+            arrayCopy.push(e);
+        }
+    })
+    return arrayCopy;
+
+};
 const addUniqueElementsToAsyncArray = async (asyncArrayGetter, element, async_name) => {
     const currentArray = await asyncArrayGetter;
-    const updatedArray = addUniqueElementsToArray(currentArray, element);
+    let updatedArray;
+    console.log('type', typeof element);
+    if (element.isArray) {
+        console.log('array element');
+        updatedArray = addUniqueElementsToArray(currentArray, element);
+    }
+    else if (typeof element === 'string') {
+
+        console.log('string element');
+        updatedArray = addUniqueElementToArray(currentArray, element);
+    }
     const updatedArrayJSON = JSON.stringify(updatedArray);
     await AsyncStorage.setItem(async_name, updatedArrayJSON);
 }
 export const addCompletedVocab = async (completedVocab) => {
+    console.log('adding completed vocab', completedVocab);
     addUniqueElementsToAsyncArray(getCompletedVocab(), completedVocab, 'COMPLETED_VOCAB');
 };
+
 export const addSlang = async (favoritedSlang) => {
     console.log('adding slang', favoritedSlang);
     addUniqueElementsToAsyncArray(getCompletedSlang(), favoritedSlang, 'COMPLETED_SLANG');
 };
+
 export const addFavoritedVocab = async (favoritedVocab) => {
     console.log('adding fave vocab', favoritedVocab);
     addUniqueElementsToAsyncArray(getCompletedFavoriteVocab(), favoritedVocab, 'COMPLETED_FAVE_VOCAB');
@@ -108,11 +140,11 @@ export const removeSlang = async (slang) => {
 const todayDate = new Date().toLocaleDateString();
 const transcription = '练习中文';
 export const addPromptResponse = async (promptObject, recording) => {
-    const existingRecordings = getOrInitializeAsyncArray('PROMPT_RECORDINGS');
+    const existingRecordings = await getOrInitializeAsyncArray('PROMPT_RECORDINGS');
     // const existingRecordingsString = await AsyncStorage.getItem();
     // let existingRecordings = JSON.parse(existingRecordingsString);
     // existingRecordings = existingRecordings == null ? [] : existingRecordings; // initialize key as empty array if empty
-    console.log('BEFORE existing recordings', existingRecordings.map(r => r.id));
+    // console.log('BEFORE existing recordings', existingRecordings.map(r => r.id));
 
     const newRecording = {
         id: promptObject['ID'],
@@ -129,7 +161,7 @@ export const addPromptResponse = async (promptObject, recording) => {
         // transcription: transcription
     };
 
-    console.log('NEW recording', JSON.stringify(newRecording, null, 2));
+    // console.log('NEW recording', JSON.stringify(newRecording, null, 2));
     existingRecordings.push(newRecording);
     const updatedRecordingsJSON = JSON.stringify(existingRecordings);
 
@@ -146,3 +178,10 @@ export const getPromptAudioByID = async (id) => {
     const recording_URI = recording_match.uri;
     return recording_URI;
 };
+
+// SETTINGS //
+export const setAsyncBoolean = async (value, async_name) => {
+    await AsyncStorage.setItem(async_name, JSON.stringify(value));
+    // const storageIsTraditional = await AsyncStorage.getItem('IS_TRAD');
+    // console.log('storage IS_TRAD value:', JSON.parse(storageIsTraditional));
+}

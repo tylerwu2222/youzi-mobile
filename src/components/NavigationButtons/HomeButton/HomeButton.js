@@ -17,7 +17,7 @@ const styles = StyleSheet.create({
     homeButton: {
         // backgroundColor: 'black',
         position: 'absolute',
-        top: youziDimensions.vh / 18,
+        top: youziDimensions.vh / 16,
         right: 20
     }
 });
@@ -31,7 +31,7 @@ export default function HomeButton() {
     return (
         <IconButton
             // iconComponent={<Entypo name="home" size={40} color={youziColors.buttonBackgroundAccent} />}
-            iconComponent={<Entypo name="home" size={30} color={youziColors.blackText} />}
+            iconComponent={<Entypo name="home" size={35} color={youziColors.blackText} />}
             onPress={() => { navigateToHome() }}
             style={styles.homeButton} // can pass styles b/c ...props
         />

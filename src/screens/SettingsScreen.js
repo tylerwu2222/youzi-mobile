@@ -3,8 +3,8 @@ import React, { useContext, useEffect } from 'react'
 // context
 import { AppContext } from '../../App';
 
-// storage
-import AsyncStorage from '@react-native-async-storage/async-storage';
+// scripts
+import { setAsyncBoolean } from '../scripts/asyncStorageHandler';
 
 // components
 import { View, Text } from 'react-native'
@@ -30,27 +30,21 @@ export default function SettingsScreen() {
     // --> update async storage when states change
     useEffect(() => {
         const updateisTraditional = async () => {
-            await AsyncStorage.setItem('IS_TRAD', JSON.stringify(isTraditional));
-            const storageIsTraditional = await AsyncStorage.getItem('IS_TRAD');
-            console.log('storage IS_TRAD value:', JSON.parse(storageIsTraditional));
+            setAsyncBoolean(isTraditional, 'IS_TRAD');
         };
         updateisTraditional();
     }, [isTraditional]);
 
     useEffect(() => {
         const updateNSFW = async () => {
-            await AsyncStorage.setItem('NSFW', JSON.stringify(allowNSFWPrompts));
-            const storageNSFW = await AsyncStorage.getItem('NSFW');
-            console.log('storage NSFW value:', JSON.parse(storageNSFW));
+            setAsyncBoolean(allowNSFWPrompts, 'NSFW');
         };
         updateNSFW();
     }, [allowNSFWPrompts]);
 
     useEffect(() => {
         const updatePinyin = async () => {
-            await AsyncStorage.setItem('SHOW_PINYIN', JSON.stringify(showPinyin));
-            const storageShowPinyin = await AsyncStorage.getItem('SHOW_PINYIN');
-            console.log('storage PINYIN value:', JSON.parse(storageShowPinyin));
+            setAsyncBoolean(showPinyin, 'SHOW_PINYIN');
         };
         updatePinyin();
     }, [showPinyin]);

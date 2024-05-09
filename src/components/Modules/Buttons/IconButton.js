@@ -4,10 +4,10 @@ import React, { useState, cloneElement } from 'react'
 import { View, Image, Text, Pressable } from 'react-native'
 
 // assets
-import SettingsIcon from '@mui/icons-material/Settings';
+// import SettingsIcon from '@mui/icons-material/Settings';
 
 // styles
-import { youziColors } from '../../../styles/youziStyles'
+// import { youziColors } from '../../../styles/youziStyles'
 import { StyleSheet } from 'react-native';
 
 

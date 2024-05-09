@@ -89,12 +89,14 @@ export default function PromptVocabCard() {
       {vocabArrayOfObjects && promptObject ?
         vocabArrayOfObjects.map((vocabObject, index) => {
           // console.log('VO2', vocabObject);
-          return (<>
+          return (
             <VocabBlock
               key={'1.' + index
               }
               hanzi={vocabObject['hanzi']}
               pressable={true}
+              longPressable={true}
+              pressOutable={true}
               favoritable={true}
               // XY dialogue visible + reading
               onPressFn={() => {
@@ -131,7 +133,6 @@ export default function PromptVocabCard() {
               }
               }
             />
-          </>
           )
         }) :
         <></>}
@@ -140,8 +141,10 @@ export default function PromptVocabCard() {
         key={'1.3'}
         hanzi={slangObject['hanzi']}
         pressable={true}
+        longPressable={true}
+        pressOutable={true}
         textColor={youziColors.buttonBackgroundAccent}
-        translation={false}
+        translation={''}
         favoritable={true}
         onPressFn={() => {
           console.log('slangObject on press', slangObject);

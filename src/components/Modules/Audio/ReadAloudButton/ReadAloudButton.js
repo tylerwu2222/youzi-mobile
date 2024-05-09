@@ -17,21 +17,18 @@ import { MaterialIcons } from '@expo/vector-icons';
 import { youziColors, youziDimensions } from '../../../../styles/youziStyles';
 
 
-
 export default function ReadAloudButton({ text = 'read this aloud' }) {
     const [isReading, setIsReading] = useState(false);
-    const [pressed, setPressed] = useState(false);
-
 
     const styles = StyleSheet.create({
         audioButton: {
             color: youziColors.whiteText,
-            backgroundColor: youziColors.buttonBackgroundPink,
+            backgroundColor: isReading ? youziColors.midGrey : youziColors.buttonBackgroundPink,
             // width: youziDimensions.vw / 14,
             width: 40,
             padding: 5,
             borderRadius: 20,
-            opacity: pressed ? 0.6 : 1
+            opacity: isReading ? 0.8 : 1
         }
     });
 
@@ -39,9 +36,9 @@ export default function ReadAloudButton({ text = 'read this aloud' }) {
 
     const navigation = useNavigation();
 
+    // pause text when exiting
     useEffect(() => {
         const beforeRemoveListener = navigation.addListener('beforeRemove', () => {
-            // Call your function here
             pauseReadingText();
         });
 
@@ -56,13 +53,16 @@ export default function ReadAloudButton({ text = 'read this aloud' }) {
                 onPress={() => {
                     // if already reading, pause/stop
                     if (isReading) {
-                        pauseReadingText();
                         setIsReading(false);
+                        pauseReadingText();
                     }
                     // if not reading, start
                     else {
-                        readText(text);
                         setIsReading(true);
+                        // on finish, reset button
+                        readText(text = text, language = 'zh', onFinishFn = () => {
+                            setIsReading(false);
+                        });
                     }
                 }}
                 // onPressIn={setPressed(true)}

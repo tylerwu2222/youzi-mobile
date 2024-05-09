@@ -1,22 +1,31 @@
 import React, { useState, useEffect, createContext } from 'react'
 
 // components
-import { View, Text, ScrollView, StyleSheet } from 'react-native'
+import { View, Text, ScrollView, StyleSheet, Pressable } from 'react-native'
 import VocabContentSection from './VocabContentSection';
 import VocabModal from '../../Modules/VocabModal/VocabModal';
 import { fetchVocabObject } from '../../../scripts/asyncStorageHandler';
+import TextButton from '../../Modules/Buttons/TextButton';
 
 // scripts
 import { getCompletedVocab, getCompletedSlang, getCompletedFavoriteVocab } from '../../../scripts/asyncStorageHandler';
 
 // styles
-import { youziDimensions, youziStyles } from '../../../styles/youziStyles';
+import { youziDimensions, youziStyles, youziColors } from '../../../styles/youziStyles';
+import EditButton from '../../Modules/Buttons/EditButton';
+import VocabSection from './VocabSection';
 
 const styles = StyleSheet.create({
     vocabView: {
         // width: '80%',
         padding: youziDimensions.vw / 15,
         // width: youziDimensions.vw / 2
+    },
+    vocabSectionHeaderView: {
+        flexDirection: 'row'
+    },
+    vocabSectionEditPressable: {
+        paddingHorizontal: 5
     },
     vocabSectionView: {
         paddingLeft: 20,
@@ -57,13 +66,7 @@ export default function VocabTab() {
             <ScrollView style={styles.vocabView}>
                 {/* {modalVisible ? <VocabModal /> : <></>} */}
                 {vocabSections && Object.keys(vocabSections).map((section, i) => {
-                    // console.log('VS', vocabSections);
-                    // console.log('mapped VS title', section, i);
-                    // console.log('mapped VS content', vocabSections[section]);
-                    return <View key={i} style={styles.vocabSectionView}>
-                        <Text style={youziStyles.subHeaderText}>{section}</Text>
-                        <VocabContentSection vocab={vocabSections[section]} />
-                    </View>
+                    return <VocabSection key={i} section={section} content={vocabSections[section]} />
                 })
                 }
             </ScrollView>

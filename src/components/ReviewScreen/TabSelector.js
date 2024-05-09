@@ -37,7 +37,7 @@ export default function TabSelector() {
         <View style={styles.tabSelector}>
             {review_tabs.slice(0, 2).map((page, i) => {
                 // {review_tabs.map((page, i) => {
-                return <TabSelectorTab index={i} page={page} onPressFn={handleTabSwitch} />
+                return <TabSelectorTab key={i} page={page} onPressFn={handleTabSwitch} />
             }
             )}
         </View>

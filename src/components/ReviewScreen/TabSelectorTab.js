@@ -7,7 +7,7 @@ import { Pressable, Text, StyleSheet } from 'react-native'
 import { youziStyles, youziDimensions } from '../../styles/youziStyles';
 
 
-export default function TabSelectorTab({ page, index, onPressFn = () => { } }) {
+export default function TabSelectorTab({ page, onPressFn = () => { } }) {
     const [tabPressed, setTabPressed] = useState(false);
 
     const styles = StyleSheet.create({
@@ -24,7 +24,7 @@ export default function TabSelectorTab({ page, index, onPressFn = () => { } }) {
 
     return <Pressable
         style={styles.tab}
-        key={index}
+        // key={index}
         onPress={() => { onPressFn(page) }}
         onPressIn={() => {
             setTabPressed(true);
