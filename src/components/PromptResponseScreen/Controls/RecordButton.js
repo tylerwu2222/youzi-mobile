@@ -35,12 +35,15 @@ const styles = StyleSheet.create({
   }
 })
 
-const TIME_LIMIT = 30;
-
-export default function RecordButton() {
+export default function RecordButton({ maxRecordingLength = 60 }) {
   // expo-audio
   // const [transcription, setTranscription] = useState('练习中文');
   const [recording, setRecording] = useState(null);
+
+  const [timer, setTimer] = useState(maxRecordingLength); // Initial timer value in seconds
+  const [isRunning, setIsRunning] = useState(false);
+  // const [disable, setDisable] = useState(false);
+
   const [permissionResponse, requestPermission] = Audio.usePermissions();
 
   const {
@@ -68,6 +71,44 @@ export default function RecordButton() {
   //   // fetchData();
   // }, []);
 
+  // useEffect(() => {
+  //   if (disable) {
+  //     console.log('time limit reached, stopping recording')
+  //     stopRecording();
+  //   }
+  // }, [disable]);
+
+  const startTimer = () => {
+    setIsRunning(true); // Set isRunning to true to indicate that the timer is running
+  };
+
+  const stopTimer = () => {
+    setIsRunning(false); // Set isRunning to false to stop the timer
+    setTimer(maxRecordingLength); // Reset the timer to its initial value
+  };
+
+  useEffect(() => {
+    let interval;
+
+    // Start the timer interval if isRunning is true
+    if (isRunning) {
+      interval = setInterval(() => {
+        setTimer((prevTimer) => (prevTimer > 0 ? prevTimer - 1 : 0)); // Decrease timer by 1 second, but not below 0
+      }, 1000);
+    }
+
+    // Clear the interval when the component unmounts or isRunning changes
+    return () => clearInterval(interval);
+  }, [isRunning]);
+
+  useEffect(() => {
+    if (timer === 0) {
+      console.log('time limit reached, stopping recording');
+      setIsRunning(false);
+      stopRecording();
+    }
+  }, [timer]);
+
   async function startRecording() {
     try {
       if (permissionResponse.status !== 'granted') {
@@ -80,6 +121,9 @@ export default function RecordButton() {
       });
 
       console.log('Starting recording..');
+      // start timer
+      startTimer();
+
       const { recording } = await Audio.Recording.createAsync(Audio.RecordingOptionsPresets.HIGH_QUALITY
       );
       setRecording(recording);
@@ -89,10 +133,14 @@ export default function RecordButton() {
     }
   }
 
+
   async function stopRecording() {
-    // 1) stop and unload (store) recording
+    // 1) stop recording and timer 
     console.log('Stopping recording..');
+    stopTimer();
     setRecording(undefined); // reset to undefined
+
+    // 2) unload (store) recording
     await recording.stopAndUnloadAsync();
     await Audio.setAudioModeAsync(
       {
@@ -102,18 +150,12 @@ export default function RecordButton() {
     const uri = await recording.getURI();
     console.log('Recording stopped and stored at', uri);
 
-    // 2) add new recording to existing
+    // 2b) add new recording to existing
     addPromptResponse(promptObject, recording);
 
-    // 2b) add all vocab
+    // 2c) add all vocab
     console.log('RB vocab', getVocabColumnHanzi(promptObject));
     addCompletedVocab(getVocabColumnHanzi(promptObject));
-
-    // test getting async
-    // const postRecordingsJSON = await AsyncStorage.getItem('PROMPT_RECORDINGS');
-    // console.log('AFTER existing recordings', JSON.parse(postRecordingsJSON.map(r => r.id)));
-    // if user confirms recording save --> send to firebase
-
   }
 
   // timer that stops recording after N seconds
@@ -128,6 +170,7 @@ export default function RecordButton() {
         style={styles.audioButton} // can pass styles b/c ...props
       // title={recording ? 'Stop Recording' : 'Start Recording'}
       />
+      <Text>Time left: {timer}</Text>
       {/* <Text>PausePlayButton</Text> */}
     </View>
   )

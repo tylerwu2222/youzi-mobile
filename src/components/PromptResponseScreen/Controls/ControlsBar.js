@@ -19,7 +19,8 @@ const styles = StyleSheet.create({
 export default function ControlsBar() {
   return (
     <View style={styles.controlsBarView}>
-      <RecordButton />
+      {/* 30 second timer */}
+      <RecordButton maxRecordingLength={30} />
     </View>
   )
 }

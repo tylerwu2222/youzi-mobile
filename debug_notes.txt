@@ -103,3 +103,9 @@ Fixing fonts:
           ]
         }
       ],
+
+Did a lot of stuff...
+
+FUTURE TO DOs
+- backend
+- speech to text
