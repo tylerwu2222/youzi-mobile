@@ -11,9 +11,8 @@ This is a capstone project created for the Berkeley Master in Information Manage
 - [Joanne Jun](https://www.linkedin.com/in/jun-j/){:target="_blank"} (UX)
 - Victor Kuan (Product Marketing, Data Engineer, Prompt Engineer)
 - Jo Lu (Product Manager)
-- Harris Wang (UX)
+- [Harris Wang] (UX)
 - [Tyler Wu](https://www.linkedin.com/in/tyler-wu/) (Full-stack)
-- <a href="https://www.linkedin.com/in/tyler-wu/" target="_blank">Tyler Wu</a> (Full-stack developer)
 
 [1]: https://www.tiktok.com/@youzichinese
 [2]: https://www.instagram.com/tinykelv/
