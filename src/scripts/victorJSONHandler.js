@@ -9,7 +9,7 @@ const splitVocabString = (vocab) => {
 };
 
 export const joinVocabColumns = (promptObject) => {
-    console.log('joining vocab col PO', promptObject);
+    // console.log('joining vocab col PO', promptObject);
     const vocabFields = promptDataColumnNames.slice(11, 14);
     return vocabFields.map(col => {
         return splitVocabString(promptObject[col]);
@@ -17,7 +17,7 @@ export const joinVocabColumns = (promptObject) => {
 }
 
 export const getSlangColumn = (promptObject) => {
-    console.log('getting slang col PO', promptObject);
-    console.log('getting slang col', splitVocabString(promptObject[promptDataColumnNames[14]]));
+    // console.log('getting slang col PO', promptObject);
+    // console.log('getting slang col', splitVocabString(promptObject[promptDataColumnNames[14]]));
     return splitVocabString(promptObject[promptDataColumnNames[14]]);
 };

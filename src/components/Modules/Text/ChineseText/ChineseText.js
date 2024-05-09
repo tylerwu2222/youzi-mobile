@@ -9,7 +9,11 @@ import { tify, sify } from 'chinese-conv';
 
 
 // nested within HZPY block (so that hanzi character can switch ST)
-export default function ChineseText({ chineseText, customHanziSize = null, ...props }) {
+export default function ChineseText({
+    chineseText,
+    customHanziSize = null,
+    textColor = null,
+    ...props }) {
     const { isTraditional
     } = useContext(AppContext);
 
@@ -17,7 +21,8 @@ export default function ChineseText({ chineseText, customHanziSize = null, ...pr
 
     const styles = StyleSheet.create({
         hanziText: {
-            fontSize: hanziSize
+            fontSize: hanziSize,
+            color: textColor ? textColor : 'black'
         }
     });
 

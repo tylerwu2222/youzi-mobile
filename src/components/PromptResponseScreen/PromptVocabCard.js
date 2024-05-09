@@ -13,7 +13,7 @@ import VocabBlock from '../Modules/VocabBlock/VocabBlock';
 // import { defineChinese } from '../../scripts/dictionary';
 import { pauseReadingText, readText } from '../../scripts/textReader';
 import { joinVocabColumns, getSlangColumn } from '../../scripts/victorJSONHandler';
-import { addFavoritedVocab, removeFavoritedVocab, addSlang, removeSlang } from '../../scripts/asyncStorageHandler';
+import { addFavoritedVocab, removeFavoritedVocab, addSlang, removeSlang, getCompletedFavoriteVocab } from '../../scripts/asyncStorageHandler';
 
 // assets
 import FavoriteIndicator from '../Modules/Buttons/FavoriteIndicator';
@@ -95,6 +95,7 @@ export default function PromptVocabCard() {
               }
               hanzi={vocabObject['hanzi']}
               pressable={true}
+              favoritable={true}
               // XY dialogue visible + reading
               onPressFn={() => {
                 // set speech bubble visible
@@ -111,13 +112,17 @@ export default function PromptVocabCard() {
               }
               }
               // toggle whether vocab is favorited
-              onLongPress={() => {
-                // when favorited changes, add/remove from AS
-                // if (favorited) {
-                  console.log('VOCAB LONG PRESSED')
-                addFavoritedVocab(vocabObject['hanzi']);
-                // }
-              }}
+              onLongPressFn={
+                async (favorited = false) => {
+                  // when favorited changes, add/remove from AS
+                  if (!favorited) {
+                    await addFavoritedVocab(vocabObject['hanzi']);
+                  }
+                  else {
+                    await removeFavoritedVocab(vocabObject['hanzi']);
+                  }
+                }
+              }
               // hide XY dialogue & pause reading
               onPressOutFn={() => {
                 setXYSpeechVisible(false)
@@ -131,11 +136,15 @@ export default function PromptVocabCard() {
         }) :
         <></>}
       {/* slang vocab */}
-      {slangObject ? <VocabBlock
+      {vocabArrayOfObjects && slangObject ? <VocabBlock
         key={'1.3'}
         hanzi={slangObject['hanzi']}
         pressable={true}
+        textColor={youziColors.buttonBackgroundAccent}
+        translation={false}
+        favoritable={true}
         onPressFn={() => {
+          console.log('slangObject on press', slangObject);
           // set speech bubble visible
           setXYSpeechVisible(true);
           // set vocab
@@ -149,22 +158,27 @@ export default function PromptVocabCard() {
           }
         }
         }
+        onLongPressFn={
+          async (favorited = false) => {
+            // console.log('slangO long press', slangObject);
+            // when favorited changes, add/remove from AS
+            if (!favorited) {
+              // console.log('PVC adding slang');
+              await addSlang(slangObject['hanzi']);
+            }
+            else {
+              // console.log('PVC removing slang');
+              await removeSlang(slangObject['hanzi']);
+            }
+          }
+        }
         onPressOutFn={() => {
           setXYSpeechVisible(false)
           setFocusedVocab('')
           setIsReading(false);
         }
         }
-        onlongPressFn={() => {
-          // when favorited changes, add/remove from AS
-          if (favorited) {
-            addSlang(vocabObject['hanzi']);
-          }
-          else {
-            removeSlang(vocabObject['hanzi']);
-          }
-        }}
-      // style={[styles.responseVocabCard, styles.slangVocabCard]}
+
       /> : <></>}
     </View>
   )

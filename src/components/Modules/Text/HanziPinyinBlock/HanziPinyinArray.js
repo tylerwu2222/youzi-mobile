@@ -9,8 +9,10 @@ export default function HanziPinyinArray({
     customPinyinSize = null,
     customHanziSize = null,
     pressable = true,
+    textColor = null,
     pinyinOn = false,
     enableLongPress = true }) {
+
     const applyLetterSpacing = (string, count = 1) => {
         if (string) {
             // console.log('HZPY string', string);
@@ -30,6 +32,7 @@ export default function HanziPinyinArray({
                     customPinyinSize={customPinyinSize}
                     customHanziSize={customHanziSize}
                     pressable={pressable}
+                    textColor={textColor}
                     pinyinOn={pinyinOn}
                     enableLongPress={enableLongPress} />
             })}

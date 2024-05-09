@@ -24,7 +24,6 @@ const styles = StyleSheet.create({
 });
 
 export default function ToggleableSwitch({ label = '', toggledValue, setToggledValue }) {
-    // const [isEnabled, setIsEnabled] = useState(false);
 
     return (
         <View style={styles.toggleSwitchView}>
@@ -41,9 +40,7 @@ export default function ToggleableSwitch({ label = '', toggledValue, setToggledV
                     toggledValue ?
                         youziColors.buttonBackground :
                         youziColors.buttonBackgroundAccent}
-                // ios_backgroundColor="#3e3e3e"
                 onValueChange={() => {
-                    // setIsEnabled(!isEnabled);
                     setToggledValue(!toggledValue);
                 }}
                 value={toggledValue}

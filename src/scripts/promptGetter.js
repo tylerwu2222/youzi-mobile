@@ -1,7 +1,5 @@
-import pinyin from "pinyin";
-
 // data
-import { dummyChinesePrompt, dummyEnglishPrompt } from "../../assets/data/dummy_data";
+// import { dummyChinesePrompt, dummyEnglishPrompt } from "../../assets/data/dummy_data";
 import data from '../../assets/data/test_set_829.json';
 import { promptDataColumnNames } from "../../assets/data/prompt_meta_data";
 
@@ -12,15 +10,6 @@ export const getImage = (promptID) => {
   return "promptID";
 };
 
-// takes in single hanzi character -> returns pinyin
-export const getPinYinText = (hanzi) => {
-  const pinyinArray = pinyin(hanzi);
-  // NEED TO REPLACE PUNCTUATION WITH BLANK...
-  const pinyinString = pinyinArray.map(subArray => subArray.join(' ')).join(' ');
-  // console.log('PINYINNNNNN A', pinyinArray);
-  // console.log('PINYINNNNNN S', pinyinString);
-  return pinyinString;
-};
 
 // get random prompt that matches parameters
 export const getRandomPrompt = (
@@ -66,16 +55,16 @@ export const getRandomPrompt = (
 }
 
 // takes in prompt ID => returns full chinese hanzi prompt
-export const getHanZiText = (promptID) => {
+// export const getHanZiText = (promptID) => {
 
-  // get chinese text from prompt
-  return dummyChinesePrompt;
-  // return promptID
-};
+//   // get chinese text from prompt
+//   return dummyChinesePrompt;
+//   // return promptID
+// };
 
 // takes in prompt ID => returns english translation
-export const getEnglishText = (promptID) => {
-  // get chinese text from prompt
-  return dummyEnglishPrompt;
-  // return promptID
-};
+// export const getEnglishText = (promptID) => {
+//   // get chinese text from prompt
+//   return dummyEnglishPrompt;
+//   // return promptID
+// };

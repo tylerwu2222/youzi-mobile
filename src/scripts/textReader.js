@@ -3,7 +3,7 @@ import * as Speech from 'expo-speech';
 
 // read text aloud
 export const readText = (text, language = 'zh') => {
-    console.log('audio text', text);
+    // console.log('audio text', text);
     // try resuming existing speech
     // Speech.resume();
     if (text) {
@@ -15,7 +15,7 @@ export const readText = (text, language = 'zh') => {
 };
 
 export const pauseReadingText = () => {
-    console.log('audio stopped');
+    // console.log('audio stopped');
     Speech.stop();
     // Speech.pause();
 };

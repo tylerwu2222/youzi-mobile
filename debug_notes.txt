@@ -89,3 +89,17 @@ to do:
 - set up favoriting vocab
 - set up review vocab section to display (favorited, vocab, slang)
 - style slang vocab
+
+5/8/24 [LAST DAY]
+
+Fixing fonts:
+[
+        "expo-font",
+        {
+          "fonts": [
+            "./assets/fonts/Itim-Regular.ttf",
+            "./assets/fonts/Roboto-Regular.ttf",
+            "./assets/fonts/ZillaSlab-Regular.ttf"
+          ]
+        }
+      ],

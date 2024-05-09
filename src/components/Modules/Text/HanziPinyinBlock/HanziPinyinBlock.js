@@ -6,7 +6,7 @@ import { View, Text, Pressable } from 'react-native'
 import ChineseText from '../ChineseText/ChineseText';
 
 // scripts
-import { getPinYinText } from '../../../../scripts/promptGetter';
+import { getPinYinText } from '../../../../scripts/textScripts';
 
 // modules
 import * as Speech from 'expo-speech';
@@ -19,6 +19,7 @@ export default function HanziPinyinBlock({
   customPinyinSize = null,
   customHanziSize = null,
   pressable = true,
+  textColor = null,
   pinyinOn = false,
   enableLongPress = true }) {
   const { showPinyin } = useContext(AppContext);
@@ -38,6 +39,7 @@ export default function HanziPinyinBlock({
     },
     pinyinText: {
       fontSize: pinyinSize,
+      color: textColor ? textColor : 'black',
       opacity: showPinyin || singlePinyin || pinyinOn ? 1 : 0,
       pointerEvents: showPinyin || singlePinyin ? 'auto' : 'none',
       // display: showPinyin || singlePinyin ? 'default' : 'none'
@@ -64,14 +66,14 @@ export default function HanziPinyinBlock({
           () => { readSinglePinyin() } :
           () => { }
         }
-        delayLongPress={250}
+      // delayLongPress={250}
       // onLongPress={() => { toggleSinglePinyin() }}
       >
-        <ChineseText chineseText={hanziCharacter} />
+        <ChineseText chineseText={hanziCharacter} textColor={textColor} />
       </Pressable> :
         <Pressable
         >
-          <ChineseText chineseText={hanziCharacter} />
+          <ChineseText chineseText={hanziCharacter} textColor={textColor} />
         </Pressable>}
     </View>
   )

@@ -32,7 +32,7 @@ export default function SettingsScreen() {
         const updateisTraditional = async () => {
             await AsyncStorage.setItem('IS_TRAD', JSON.stringify(isTraditional));
             const storageIsTraditional = await AsyncStorage.getItem('IS_TRAD');
-            // console.log('storage IS_TRAD value:', JSON.parse(storageIsTraditional));
+            console.log('storage IS_TRAD value:', JSON.parse(storageIsTraditional));
         };
         updateisTraditional();
     }, [isTraditional]);
@@ -41,7 +41,7 @@ export default function SettingsScreen() {
         const updateNSFW = async () => {
             await AsyncStorage.setItem('NSFW', JSON.stringify(allowNSFWPrompts));
             const storageNSFW = await AsyncStorage.getItem('NSFW');
-            // console.log('storage NSFW value:', JSON.parse(storageNSFW));
+            console.log('storage NSFW value:', JSON.parse(storageNSFW));
         };
         updateNSFW();
     }, [allowNSFWPrompts]);
@@ -50,18 +50,17 @@ export default function SettingsScreen() {
         const updatePinyin = async () => {
             await AsyncStorage.setItem('SHOW_PINYIN', JSON.stringify(showPinyin));
             const storageShowPinyin = await AsyncStorage.getItem('SHOW_PINYIN');
-            // console.log('storage NSFW value:', JSON.parse(storageNSFW));
+            console.log('storage PINYIN value:', JSON.parse(storageShowPinyin));
         };
         updatePinyin();
     }, [showPinyin]);
 
     return (
         <View style={youziStyles.centeredView}>
-            <Text>SettingsScreen</Text>
-
+            {/* <Text>SettingsScreen</Text> */}
             <ExitButton />
             <ProfileImage editable={true} />
-            <SafeTextInput/>
+            <SafeTextInput />
             <ToggleableSwitch
                 label={'Simplified/Traditional'}
                 toggledValue={isTraditional}

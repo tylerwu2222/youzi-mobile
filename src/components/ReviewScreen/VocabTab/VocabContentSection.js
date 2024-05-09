@@ -7,11 +7,11 @@ import ToggleableTouchable from '../../Modules/ToggleableTouchable/ToggleableTou
 
 // components
 import { View, Text, StyleSheet, ActivityIndicator } from 'react-native';
-import { dummyChineseVocab } from '../../../../assets/data/dummy_data'
+// import { dummyChineseVocab } from '../../../../assets/data/dummy_data'
 import ChineseText from '../../Modules/Text/ChineseText/ChineseText';
 
 // scripts
-import { getCompletedVocab } from '../../../scripts/asyncStorageHandler';
+// import { getCompletedVocab } from '../../../scripts/asyncStorageHandler';
 
 const styles = StyleSheet.create({
     vocabContentView: {
@@ -26,8 +26,7 @@ const styles = StyleSheet.create({
 // const vocabSections = ['favorites', 'vocab', 'slang'];
 
 export default function VocabContentSection({ vocab }) {
-
-    console.log('vocab content section v array', vocab);
+    // console.log('vocab content section v array', vocab);
     const {
         // selectedVocab,
         setSelectedVocab,
@@ -85,7 +84,7 @@ export default function VocabContentSection({ vocab }) {
                     text={<ChineseText chineseText={v} />}
                 // text={v} 
                 />
-            }) : <ActivityIndicator />}
+            }) : <></>}
             {/* {!vocabExpanded &&
                 <ToggleableTouchable
                     text={'...'}

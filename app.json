@@ -34,9 +34,7 @@
       "favicon": "./assets/favicon.png"
     },
     "plugins": [
-      "@react-native-firebase/app",
-      "@react-native-firebase/auth",
-      "@react-native-firebase/crashlytics",
+      
       [
         "@react-native-voice/voice",
         {
