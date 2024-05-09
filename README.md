@@ -13,6 +13,7 @@ This is a capstone project created for the Berkeley Master in Information Manage
 - Jo Lu (Product Manager)
 - Harris Wang (UX)
 - [Tyler Wu](https://www.linkedin.com/in/tyler-wu/) (Full-stack)
+- <a href="[http://example.com/](https://www.linkedin.com/in/tyler-wu/)" target="_blank">Tyler Wu</a> (Full-stack developer)
 
 [1]: https://www.tiktok.com/@youzichinese
 [2]: https://www.instagram.com/tinykelv/
